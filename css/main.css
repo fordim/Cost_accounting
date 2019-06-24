@@ -13,10 +13,9 @@ body{
 header{
     font-family:comic Sans Ms;
     color:darkblue;
-    height: 400px;
 }
 
-.cabinet{
+.cabinetPage{
     display:block;
     position:absolute;
     z-index:5;
@@ -26,7 +25,7 @@ header{
     height:50px;
 }
 
-.cabinet:hover {
+.cabinetPage:hover {
     opacity: 0.5;
 }
 

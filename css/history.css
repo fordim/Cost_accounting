@@ -1,0 +1,98 @@
+body{
+    background-image:url(../img/background.png);
+}
+
+.wrapper {
+    width: 800px;
+    margin: 0 auto;
+    border: 1px solid black;
+    background-color: white;
+}
+
+.returnBack{
+    display:block;
+    position:absolute;
+    z-index:5;
+    background-image: url(../img/back.png);
+    width:50px;
+    height:50px;
+}
+
+.returnBack:hover {
+    opacity: 0.5;
+}
+
+.headerImage{
+    background-image:url(../img/historyImg.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    width:337px;
+    height:78px;
+    margin:0px auto;
+}
+
+main{
+    font-family:comic Sans Ms;
+    width:750px;
+    margin:10px auto;
+}
+
+.mainText{
+    margin:0;
+    text-align: center;
+    color:darkblue;
+}
+
+.inputBlock{
+    margin:10px auto;
+    width: 200px;
+}
+
+.inputDate{
+    font-family:comic Sans Ms;
+    width:200px;
+    text-align:center;
+    font-size:16px;
+}
+
+tr > td{
+    text-align:center;
+}
+
+tr > .commentLine{
+    text-align:left;
+}
+
+.mainTable{
+    width:750px;
+}
+
+.dataСolumn{
+    width:100px;
+}
+
+.sumСolumn{
+    width:100px;
+}
+
+.commentСolumn{
+    width:400px;
+}
+
+.categoryСolumn{
+    width:150px;
+}
+
+footer {
+    height: 25px;
+    border-top: 1px solid black;
+    background-color:darkgrey;
+    font-family: Arial;
+    font-size:14px;
+    text-align: center;
+}
+
+footer > p{
+    margin:0;
+    padding-top:4px;
+}
