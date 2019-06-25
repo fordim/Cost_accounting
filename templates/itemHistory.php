@@ -1,5 +1,6 @@
 <header>
-    <a class="returnBack" href="../cabinet.php"></a>
+    <a class="returnBack" href="index.php?page=cabinet"></a>
+    <a class="logout" href="index.php"></a>
     <div class="headerImage"></div>
 </header>
 <main>
@@ -17,11 +18,7 @@
         <tr><td>20.06.2019</td><td>400</td><td class="commentLine">Строительные материалы</td><td>Разное</td></tr>
         <tr><td>22.06.2019</td><td>300</td><td class="commentLine">Строительные материалы</td><td>Разное</td></tr>
         <tr><td>23.06.2019</td><td>500</td><td class="commentLine">Строительные материалы</td><td>Разное</td></tr>
-        <tr><td>24.06.2019</td><td>500</td><td class="commentLine">Строительные материалы</td><td>Разное</td></tr>
-        <tr><td>25.06.2019</td><td>600</td><td class="commentLine">Строительные материалы</td><td>Разное</td></tr>
-        <tr><td>26.06.2019</td><td>300</td><td class="commentLine">Строительные материалы</td><td>Разное</td></tr>
-        <tr><td>27.06.2019</td><td>200</td><td class="commentLine">Строительные материалы</td><td>Разное</td></tr>
-        <tr><td>28.06.2019</td><td>100</td><td class="commentLine">Строительные материалы</td><td>Разное</td></tr>
+        <tr><td>24.06.2019</td><td>600</td><td class="commentLine">Строительные материалы</td><td>Разное</td></tr>
     </table>
 </main>
 <footer>

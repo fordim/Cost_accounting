@@ -1,5 +1,6 @@
 <header>
-    <a class="cabinetPage" href="../cabinet.php"></a>
+    <a class="cabinetPage" href="index.php?page=cabinet"></a>
+    <a class="logout" href="index.php"></a>
     <div class="headerImage">
     </div>
     <div class="headerText">
@@ -9,10 +10,10 @@
 </header>
 <main>
     <div class="mainButton">
-        <a href="../signIn.php">Войти в Личный кабинет</a>
+        <a href="index.php?page=signIn">Войти в Личный кабинет</a>
     </div>
     <div class="mainButton">
-        <a href="../signUp.php">Регистрация</a>
+        <a href="index.php?page=signUp">Регистрация</a>
     </div>
 </main>
 <footer>

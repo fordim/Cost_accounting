@@ -6,14 +6,14 @@
     </div>
 </header>
 <main>
-    <form class="inputFields" action="../action.php" method="POST">
+    <form class="inputFields" name="formSignUp" action="index.php?page=acceptForm" method="POST">
         <p>Ваше Имя:</p>
         <input class="inputText" id="nameInput" name="name" type="text" size="50" maxlength="20" required placeholder="Name">
         <p>Электронная почта:</p>
         <input class="inputText" type="email" name="email" size="50" maxlength="50" required placeholder="E-Mail">
         <p>Пароль:</p>
         <input class="inputText" type="password" name="password" size="50" maxlength="30" required placeholder="Password">
-        <button class="subButton" id="subButton" name="send" type="submit">Зарегистрироватся</button>
+        <input class="subButton" id="subButton" name="sendFormSignUp" type="submit" value="Зарегистрироватся">
     </form>
 </main>
 <footer>
