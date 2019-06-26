@@ -1,6 +1,6 @@
 <header>
     <a class="returnBack" href="index.php?page=cabinet"></a>
-    <a class="logout" href="index.php"></a>
+    <a class="logout" href="templates/logout.php"></a>
     <div class="headerImage"></div>
 </header>
 <main>

@@ -1,7 +1,7 @@
 <header>
     <a class="returnBack" href="index.php"></a>
     <a class="historyPage" href="index.php?page=history"></a>
-    <a class="logout" href="index.php"></a>
+    <a class="logout" href="templates/logout.php"></a>
     <div class="headerImage"></div>
     <div class="headerText">
         <h1>Внесение расходов</h1>

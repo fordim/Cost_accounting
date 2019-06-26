@@ -6,7 +6,7 @@
     </div>
 </header>
 <main>
-    <form class="inputFields" name="formSignIn" action="index.php?page=acceptForm" method="POST">
+    <form class="inputFields" name="formSignIn" action="index.php?page=checkLogin" method="POST">
         <p>Электронная почта:</p>
         <input class="inputText" name="email" type="email" size="50" maxlength="50" required placeholder="E-Mail">
         <p>Пароль:</p>

@@ -1,0 +1,41 @@
+body{
+    background-image:url(../img/background.png);
+}
+
+header{
+    font-family:comic Sans Ms;
+    color:darkblue;
+}
+
+.headerText{
+    text-align: center;
+    font-family:comic Sans Ms;
+    color:darkblue;
+}
+
+.headerText > h2{
+    margin:0;
+}
+
+.mainButton{
+    display: block;
+    width:200px;
+    height:35px;
+    font-family:comic Sans Ms;
+    margin:25px auto;
+    border: 1px solid black;
+    border-radius: 5px;
+    background: linear-gradient(rgb(211,211,211), rgb(220, 225, 226));
+    font-size:26px;
+    text-align:center;
+}
+
+.mainButton:hover {
+    background: linear-gradient(rgb(128,128,128), rgb(128, 128, 128));
+    color: darkgrey;
+}
+
+.mainButton > a{
+    text-decoration: none;
+    color: midnightblue;
+}

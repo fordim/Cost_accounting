@@ -1,6 +1,5 @@
 <header>
-    <a class="cabinetPage" href="index.php?page=cabinet"></a>
-    <a class="logout" href="index.php"></a>
+    <a class="logout" href="templates/logout.php"></a>
     <div class="headerImage">
     </div>
     <div class="headerText">
