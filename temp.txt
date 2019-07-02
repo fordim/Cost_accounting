@@ -6,3 +6,7 @@ Password пользователя: $2y$10$8cGDnK4bvKq0X65fC/m1duQtA6NuMBf5az3mvz
 Name пользователя: TestParentJun
 Email пользователя: testdfkids2166@guerrillamail.com
 Password пользователя: $2y$10$7q62RLI1KhqBGE6hY/wB1ung3AJ7YZ7/lWVjA1QNiUVdljtg.LxyK
+
+Name пользователя: TestAdult
+Email пользователя: df1kids2159@guerrillamail.com
+Password пользователя: $2y$10$V5r/drKvGMf8nNtkZgVl3ebXmrBWtb3tRefEdXdYbJUJjJ6lE8vTS
