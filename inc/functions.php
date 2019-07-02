@@ -1,9 +1,10 @@
 <?php
-//Это модель
-//Нет Обращения к $_ (глобальные $_GET, $_POST)
-//Нет HTML code
-//Нет echo, die, print
 
+//Не должно быть
+// Обращения к $_ (глобальные $_GET, $_POST)
+//HTML code
+// echo, die, print
+//Это модель
 function renderTemplate(string $name, array $data = []): string
 {
     $name = 'templates/' . $name;
@@ -19,22 +20,15 @@ function renderTemplate(string $name, array $data = []): string
 }
 
 function processFormSignUp(string $name, string $email, string $password){
-    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-    print("<br>Name: " . $name);
-    print("<br>Email: " . $email);
-    print("<br>Password: " . $password);
-    print("<br>PasswordHash: " . $passwordHash);
+
 }
 
 function processFormSignIn(string $email, string $password){
-    print("<br>Email: " . $email);
-    print("<br>Password: " . $password);
+
 }
 
 function processFormAddExpense(float $sum, string $comment, int $categoryId){
-    print("<br>Sum: " . $sum);
-    print("<br>Comment: " . $comment);
-    print("<br>Category: " . $categoryId);
+
 }
 
 function getUserExpenses(int $userId){ //все расходы пользователя
@@ -44,24 +38,6 @@ function getUserExpenses(int $userId){ //все расходы пользова�
             'sum' => '400',
             'comment' => 'Строительные материалы',
             'category' => 'Разное',
-        ],
-        [
-            'createdAt' => new DateTime('2019-06-22'),
-            'sum' => '300',
-            'comment' => 'Строительные материалы',
-            'category' => 'Разное',
-        ],
-        [
-            'createdAt' => new DateTime('2019-06-23'),
-            'sum' => '500',
-            'comment' => 'Строительные материалы',
-            'category' => 'Разное',
-        ],
-        [
-            'createdAt' => new DateTime('2019-06-24'),
-            'sum' => '600',
-            'comment' => 'Строительные материалы',
-            'category' => 'Разное',
-        ],
+        ]
     ];
 }
