@@ -2,13 +2,13 @@
 SELECT id, email, name FROM users;
 
 #Получить все данный по пользователю с таблицы users
-SELECT * FROM users WHERE id = 1;
+SELECT id, email, name, password_hash, created_at, updated_at, deleted_at FROM users WHERE id = 1;
 
 #Получить все категории с таблице categories;
 SELECT id, name FROM categories;
 
 #Получить определенную категорию с таблицы categories
-SELECT * FROM categories WHERE id = 1;
+SELECT id, name FROM categories WHERE id = 1;
 
 #Записывае данные по одному пользоваетлю в таблицу users
 INSERT INTO users (email, name, password_hash)
@@ -25,15 +25,15 @@ VALUES (1, 1, 500.48, 'Test comment, Test');
 #Ищем пользользователя по email и заменяем ему email в БД
 UPDATE users
 SET email = 'testnew@mail.ru'
-WHERE  email = 'test@mail.ru';
+WHERE email = 'test@mail.ru';
 
 #Запрос на изменение названии категории
 UPDATE categories
 SET name = 'New name'
-WHERE name = 'Строительные материалы';
+WHERE id = 1;
 
 #Получить всю иторию (Join user and categories)
-SELECT u.name, c.name, h.ammount, h.created_at, h.updated_at, h.deleted_at
+SELECT u.name, c.name, h.amount, h.created_at, h.updated_at, h.deleted_at
 FROM history AS h
 JOIN users AS u ON h.user_id = u.id
 JOIN categories AS c ON h.category_id = c.id
