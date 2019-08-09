@@ -53,28 +53,32 @@ function processFormAddExpense(float $sum, string $comment, int $categoryId){
 function getUserExpenses(int $userId){ //все расходы пользователя
     return [
         [
-            'createdAt' => new DateTime('2019-06-20'),
-            'sum' => '400',
+            'created_at' => new DateTime('2019-06-20'),
+            'amount' => '400',
             'comment' => 'Строительные материалы',
             'category' => 'Разное',
         ],
         [
-            'createdAt' => new DateTime('2019-06-22'),
-            'sum' => '300',
+            'created_at' => new DateTime('2019-06-22'),
+            'amount' => '300',
+            'comment' => 'Строительные материалы!!!!!!',
+            'category' => 'Разное',
+        ],
+        [
+            'created_at' => new DateTime('2019-06-23'),
+            'amount' => '500',
             'comment' => 'Строительные материалы',
             'category' => 'Разное',
         ],
         [
-            'createdAt' => new DateTime('2019-06-23'),
-            'sum' => '500',
-            'comment' => 'Строительные материалы',
-            'category' => 'Разное',
-        ],
-        [
-            'createdAt' => new DateTime('2019-06-24'),
-            'sum' => '600',
+            'created_at' => new DateTime('2019-06-24'),
+            'amount' => '600',
             'comment' => 'Строительные материалы',
             'category' => 'Разное',
         ],
     ];
+}
+
+function formatDateTime(DateTime $dateTime): string {
+    return $dateTime->format('Y-m-d');
 }

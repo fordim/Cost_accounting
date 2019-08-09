@@ -15,10 +15,14 @@
             <th class="commentСolumn">Комментарий</th>
             <th class="categoryСolumn">Категория</th>
         </tr>
-        <tr><td>20.06.2019</td><td>400</td><td class="commentLine">Строительные материалы</td><td>Разное</td></tr>
-        <tr><td>22.06.2019</td><td>300</td><td class="commentLine">Строительные материалы</td><td>Разное</td></tr>
-        <tr><td>23.06.2019</td><td>500</td><td class="commentLine">Строительные материалы</td><td>Разное</td></tr>
-        <tr><td>24.06.2019</td><td>600</td><td class="commentLine">Строительные материалы</td><td>Разное</td></tr>
+        <?php foreach ($expenses as $expense): ?>
+            <tr>
+                <td><?= formatDateTime($expense['created_at']); ?></td>
+                <td><?= $expense['amount']; ?></td>
+                <td class="commentLine"><?= $expense['comment']; ?></td>
+                <td><?= $expense['category']; ?></td>
+            </tr>
+        <?php endforeach; ?>
     </table>
 </main>
 <footer>

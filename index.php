@@ -5,6 +5,12 @@
 //Нет HTML
 //Нет циклов и foreach
 
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+
+
 require_once('inc/functions.php');
 
 if (isset($_POST)) {
@@ -87,7 +93,12 @@ if (!isset($_SESSION['username'])) {
                     'title' => 'History',
                     'cssStyle' => 'css/history.css',
                     'jsStyle' => 'js/history.js',
-                    'content' => renderTemplate('itemHistory.php'),
+                    'content' => renderTemplate(
+                        'itemHistory.php',
+                        [
+                            'expenses' => getUserExpenses(1)
+                        ]
+                    ),
                     'scriptForDate' =>
                         '<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
                         <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
