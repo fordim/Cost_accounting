@@ -5,7 +5,7 @@ use accounting;
 
 CREATE TABLE users
 (
-    id INT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,
     name VARCHAR(50) NOT NULL,
     password_hash CHAR(60) NOT NULL,
@@ -16,13 +16,13 @@ CREATE TABLE users
 
 CREATE TABLE categories
 (
-    id INT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) UNIQUE NOT NULL
 );
 
 CREATE TABLE history
 (
-    id INT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     category_id INT NOT NULL,
     amount FLOAT NOT NULL,
