@@ -15,6 +15,5 @@
 <div class="wrapper">
     <?= $content; ?>
 </div>
-    <?= $scriptForDate; ?>
 </body>
 </html>

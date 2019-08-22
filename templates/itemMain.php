@@ -9,10 +9,10 @@
 </header>
 <main>
     <div class="mainButton">
-        <a href="index.php?page=signIn">Войти в Личный кабинет</a>
+        <a href="?page=signIn">Войти в Личный кабинет</a>
     </div>
     <div class="mainButton">
-        <a href="index.php?page=signUp">Регистрация</a>
+        <a href="?page=signUp">Регистрация</a>
     </div>
 </main>
 <footer>

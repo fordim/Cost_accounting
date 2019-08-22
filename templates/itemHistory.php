@@ -1,5 +1,5 @@
 <header>
-    <a class="returnBack" href="index.php?page=cabinet"></a>
+    <a class="returnBack" href="?page=cabinet"></a>
     <a class="logout" href="templates/logout.php"></a>
     <div class="headerImage"></div>
 </header>
@@ -28,3 +28,8 @@
 <footer>
     <p>Made by Fordim</p>
 </footer>
+<div class="script">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+</div>

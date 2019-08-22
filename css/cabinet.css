@@ -108,7 +108,7 @@ select{
 
 .subButton:hover {
     background: linear-gradient(rgb(128,128,128), rgb(128, 128, 128));
-    color: darkgrey;
+    cursor: pointer;
 }
 
 footer {

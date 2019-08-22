@@ -5,22 +5,17 @@
 //Нет HTML
 //Нет циклов и foreach
 
-
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-
-
 require_once('inc/functions.php');
 
-if (isset($_POST)) {
-    if ($_POST['sendFormSignUp']){
-        processFormSignUp($_POST['name'], $_POST['email'], $_POST['password']);
-    } elseif ($_POST['senFormSignIn']){
-        processFormSignIn($_POST['email'], $_POST['password']);
-    } elseif ($_POST['sendFormCabinet']) {
-        processFormAddExpense($_POST['sum'], $_POST['comment'], $_POST['categoryId']);
-    }
+if ($_POST['sendFormSignUp'] ?? ''){
+    processFormSignUp($_POST['name'], $_POST['email'], $_POST['password']);
+} elseif ($_POST['senFormSignIn'] ?? ''){
+    processFormSignIn($_POST['email'], $_POST['password']);
+} elseif ($_POST['sendFormCabinet'] ?? '') {
+    processFormAddExpense($_POST['sum'], $_POST['comment'], $_POST['categoryId']);
 }
 
 $currentPage = $_GET['page'] ?? 'main';
@@ -39,13 +34,15 @@ switch ($currentPage) {
             [
                 'title' => 'checkLogin',
                 'cssStyle' => 'css/checkLogIn.css',
+                'content' => '',
             ]
         ));
     case 'acceptForm':
-        echo $_SESSION['username'];
         die (renderTemplate('layout.php',
             [
                 'title' => 'acceptForm',
+                'cssStyle' => 'css/checkLogIn.css',
+                'content' => '',
             ]
         ));
 }
@@ -68,7 +65,7 @@ if (!isset($_SESSION['username'])) {
                     'title' => 'Sign Up',
                     'cssStyle' => 'css/signUp.css',
                     'jsStyle' => 'js/signUp.js',
-                    'content' => renderTemplate('itemSignUp.php')
+                    'content' => renderTemplate('itemSignUp.php'),
                 ]
             ));
         default:
@@ -99,10 +96,6 @@ if (!isset($_SESSION['username'])) {
                             'expenses' => getUserExpenses(1)
                         ]
                     ),
-                    'scriptForDate' =>
-                        '<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-                        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-                        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>'
                 ]
             ));
         default:
