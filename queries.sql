@@ -56,6 +56,7 @@ WHERE id = 1;
 
 #Получить всю иторию (Join user and categories)
 SELECT u.name, c.name, h.amount, h.comment, h.created_at, h.updated_at, h.deleted_at
+
 FROM history AS h
 JOIN users AS u ON h.user_id = u.id
 JOIN categories AS c ON h.category_id = c.id
