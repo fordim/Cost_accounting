@@ -15,7 +15,6 @@
             <th class="commentСolumn">Комментарий</th>
             <th class="categoryСolumn">Категория</th>
         </tr>
-<!--        --><?//=var_dump($expenses) ?>
         <?php foreach ($expenses as $expense): ?>
             <tr>
                 <td><?= $expense['created_at']; ?></td>

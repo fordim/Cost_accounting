@@ -103,7 +103,12 @@ if (!isset($_SESSION['username'])) {
                     'title' => 'Cabinet',
                     'cssStyle' => 'css/cabinet.css',
                     'jsStyle' => 'js/cabinet.js',
-                    'content' => renderTemplate('itemCabinet.php'),
+                    'content' => renderTemplate(
+                        'itemCabinet.php',
+                        [
+                            'categories' => getAllCategories($link)
+                        ]
+                    ),
                 ]
             ));
         case 'history':

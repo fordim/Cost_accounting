@@ -16,11 +16,9 @@
         <p>Категория:</p>
         <p><select name="categoryId" required>
                 <option disabled>Выберите категорию</option>
-                <option value="1">Продукты питания</option>
-                <option value="2">Товары для дома</option>
-                <option value="3">Отдых</option>
-                <option value="4">Развлечения</option>
-                <option value="5">Строительные материалы</option>
+                <?php foreach ($categories as $category): ?>
+                <option value="<?= $category['id']; ?>"><?= $category['name']; ?></option>
+                <?php endforeach; ?>
             </select></p>
         <p><input class="subButton" name="sendFormCabinet" type="submit" value="Отправить"></p>
     </form>

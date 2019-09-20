@@ -66,7 +66,6 @@ function findUserId($link, $email){
 function processFormAddExpense($link, float $sum, string $comment, int $categoryId, $email){
     $sum = requestVerification($link, $sum);
     $comment = requestVerification($link, $comment);
-    $categoryId = requestVerification($link, $categoryId);
     $userId = findUserId($link, $email);
 
     $sql =   "INSERT INTO history(user_id, category_id, amount, comment)
@@ -81,7 +80,6 @@ function fetchData($link, string $sql): array {
 }
 
 function getUserExpenses($link, string $email): array { //все расходы пользователя
-
     $sql =    "SELECT h.created_at, h.amount,  h.comment, c.name as category
                 FROM history AS h
                 JOIN users AS u ON h.user_id = u.id
@@ -94,5 +92,10 @@ function getUserExpenses($link, string $email): array { //все расходы 
 
 function formatDateTime(DateTime $dateTime): string {
     return $dateTime->format('Y-m-d');
+}
+
+function getAllCategories($link): array {
+    $sql = "SELECT id, name FROM categories";
+    return fetchData($link, $sql);
 }
 
