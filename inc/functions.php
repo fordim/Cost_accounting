@@ -20,15 +20,6 @@ function renderTemplate(string $name, array $data = []): string
     return $result;
 }
 
-function processFormSignUp($link, string $name, string $email, string $passwordUser){
-    $passwordHash = password_hash($passwordUser, PASSWORD_DEFAULT);
-
-    $query =   "INSERT INTO users (email, name, password_hash)
-                VALUES ('$email', '$name', '$passwordHash')";
-
-    $result = mysqli_query($link, $query) or die("Ошибка, не удалось заренистрировать пользователя </br>" . mysqli_error($link));
-}
-
 function processFormSignIn(string $email, string $password){
     $adminLogin = 'test@mail.ru';
     $adminPassword = 'test123';
@@ -40,16 +31,35 @@ function processFormSignIn(string $email, string $password){
     }
 }
 
+function insertData($link, string $sql){
+    $result = mysqli_query($link, $sql) or die ("Ошибка, при попытке сделать запись в БД </br>" . mysqli_error($link));
+}
+
+function requestVerification($link, $a){
+    return htmlentities(mysqli_real_escape_string($link, $a));
+}
+
+function processFormSignUp($link, string $name, string $email, string $passwordUser){
+    $name = requestVerification($link, $name);
+    $email = requestVerification($link, $email);
+    $passwordUser = requestVerification($link, $passwordUser);
+    $passwordHash = password_hash($passwordUser, PASSWORD_DEFAULT);
+
+    $sql =   "INSERT INTO users (email, name, password_hash)
+                VALUES ('$email', '$name', '$passwordHash')";
+
+    insertData($link, $sql);
+}
+
 function processFormAddExpense($link, float $sum, string $comment, int $categoryId){
+    $sum = requestVerification($link, $sum);
+    $comment = requestVerification($link, $comment);
+    $categoryId = requestVerification($link, $categoryId);
 
-        $sum = htmlentities(mysqli_real_escape_string($link, $sum));
-        $comment = htmlentities(mysqli_real_escape_string($link, $comment));
-        $categoryId = htmlentities(mysqli_real_escape_string($link, $categoryId));
+    $sql =   "INSERT INTO history(user_id, category_id, amount, comment)
+                VALUES (6, $categoryId, $sum, '$comment')";
 
-        $query =   "INSERT INTO history(user_id, category_id, amount, comment)
-                    VALUES (6, $categoryId, $sum, '$comment')";
-
-        $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
+    insertData($link, $sql);
 }
 
 function fetchData($link, string $sql): array {
@@ -59,14 +69,14 @@ function fetchData($link, string $sql): array {
 
 function getUserExpenses($link, int $userId): array { //все расходы пользователя
 
-    $query =    "SELECT h.created_at, h.amount,  h.comment, c.name as category
+    $sql =    "SELECT h.created_at, h.amount,  h.comment, c.name as category
                 FROM history AS h
                 JOIN users AS u ON h.user_id = u.id
                 JOIN categories AS c ON h.category_id = c.id
                 WHERE h.user_id = $userId
                 ORDER BY h.created_at";
 
-    return fetchData($link, $query);
+    return fetchData($link, $sql);
 }
 
 function formatDateTime(DateTime $dateTime): string {
