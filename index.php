@@ -49,8 +49,6 @@ switch ($currentPage) {
         ));
 }
 
-session_start(); // в инит вынести (и убрать везде)
-
 if (!isset($_SESSION['username'])) {
     switch ($currentPage){
         case 'signIn':

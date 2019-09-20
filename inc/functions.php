@@ -31,7 +31,6 @@ function processFormSignUp($link, string $name, string $email, string $passwordU
 }
 
 function processFormSignIn(string $email, string $password){
-    session_start(); // убрать
     $adminLogin = 'test@mail.ru';
     $adminPassword = 'test123';
     $adminName = 'Admin';
