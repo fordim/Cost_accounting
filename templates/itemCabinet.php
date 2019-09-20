@@ -20,7 +20,7 @@
                 <option value="2">Товары для дома</option>
                 <option value="3">Отдых</option>
                 <option value="4">Развлечения</option>
-                <option value="4">Строительные материалы</option>
+                <option value="5">Строительные материалы</option>
             </select></p>
         <p><input class="subButton" name="sendFormCabinet" type="submit" value="Отправить"></p>
     </form>

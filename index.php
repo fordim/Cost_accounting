@@ -6,16 +6,18 @@
 //Нет циклов и foreach
 
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', 1); // в инит вынести
 
 require_once('inc/functions.php');
+require_once 'init.php'; // подключаем скрипт
 
 if ($_POST['sendFormSignUp'] ?? ''){
-    processFormSignUp($_POST['name'], $_POST['email'], $_POST['password']);
+    processFormSignUp($link, $_POST['name'], $_POST['email'], $_POST['password']);
+    die ('Вы успешно зарегистрировались');
 } elseif ($_POST['senFormSignIn'] ?? ''){
     processFormSignIn($_POST['email'], $_POST['password']);
 } elseif ($_POST['sendFormCabinet'] ?? '') {
-    processFormAddExpense($_POST['sum'], $_POST['comment'], $_POST['categoryId']);
+    processFormAddExpense($link, $_POST['sum'], $_POST['comment'], $_POST['categoryId']);
 }
 
 $currentPage = $_GET['page'] ?? 'main';
@@ -47,7 +49,7 @@ switch ($currentPage) {
         ));
 }
 
-session_start();
+session_start(); // в инит вынести (и убрать везде)
 
 if (!isset($_SESSION['username'])) {
     switch ($currentPage){
@@ -93,7 +95,7 @@ if (!isset($_SESSION['username'])) {
                     'content' => renderTemplate(
                         'itemHistory.php',
                         [
-                            'expenses' => getUserExpenses(1)
+                            'expenses' => getUserExpenses($link, 6)
                         ]
                     ),
                 ]

@@ -15,9 +15,10 @@
             <th class="commentСolumn">Комментарий</th>
             <th class="categoryСolumn">Категория</th>
         </tr>
+<!--        --><?//=var_dump($expenses) ?>
         <?php foreach ($expenses as $expense): ?>
             <tr>
-                <td><?= formatDateTime($expense['created_at']); ?></td>
+                <td><?= $expense['created_at']; ?></td>
                 <td><?= $expense['amount']; ?></td>
                 <td class="commentLine"><?= $expense['comment']; ?></td>
                 <td><?= $expense['category']; ?></td>

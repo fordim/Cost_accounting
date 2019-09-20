@@ -3,6 +3,8 @@
 //Нет Обращения к $_ (глобальные $_GET, $_POST)
 //Нет HTML code
 //Нет echo, die, print
+//Нет session_start(), глобальные $link
+//require_once 'init.php'; - это нельзя
 
 function renderTemplate(string $name, array $data = []): string
 {
@@ -18,28 +20,18 @@ function renderTemplate(string $name, array $data = []): string
     return $result;
 }
 
-function processFormSignUp(string $name, string $email, string $passwordUser){
+function processFormSignUp($link, string $name, string $email, string $passwordUser){
     $passwordHash = password_hash($passwordUser, PASSWORD_DEFAULT);
 
-    require_once 'connection.php';
-
-    $link = mysqli_connect($host, $user, $password, $database)
-    or die("Ошибка " . mysqli_error($link));
 
     $query =   "INSERT INTO users (email, name, password_hash)
                 VALUES ('$email', '$name', '$passwordHash')";
 
     $result = mysqli_query($link, $query) or die("Ошибка, не удалось заренистрировать пользователя </br>" . mysqli_error($link));
-    if($result)
-    {
-        echo "<header class='headerText'><h1>Вы успешно зарегистрировались.</h1><h2>Name: $name</h2><h2>Email: $email</h2><h2>Password: $passwordUser</h2><h2>PasswordHash: $passwordHash</h2></header>";
-        echo "<main class='mainButton'><a href='../index.php'>Ок</a></main>";
-    }
-    mysqli_close($link);
 }
 
 function processFormSignIn(string $email, string $password){
-    session_start();
+    session_start(); // убрать
     $adminLogin = 'test@mail.ru';
     $adminPassword = 'test123';
     $adminName = 'Admin';
@@ -55,16 +47,12 @@ function processFormSignIn(string $email, string $password){
     }
 }
 
-function processFormAddExpense(float $sum, string $comment, int $categoryId){
+function processFormAddExpense($link, float $sum, string $comment, int $categoryId){
 
-    require_once 'connection.php';
 
-        $link = mysqli_connect($host, $user, $password, $database)
-        or die("Ошибка " . mysqli_error($link));
-
-//        $sum = htmlentities(mysqli_real_escape_string($link, $sum));
-//        $comment = htmlentities(mysqli_real_escape_string($link, $comment));
-//        $categoryId = htmlentities(mysqli_real_escape_string($link, $categoryId));
+        $sum = htmlentities(mysqli_real_escape_string($link, $sum));
+        $comment = htmlentities(mysqli_real_escape_string($link, $comment));
+        $categoryId = htmlentities(mysqli_real_escape_string($link, $categoryId));
 
         $query =   "INSERT INTO history(user_id, category_id, amount, comment)
                     VALUES (6, $categoryId, $sum, '$comment')";
@@ -75,45 +63,26 @@ function processFormAddExpense(float $sum, string $comment, int $categoryId){
             echo "<header class='headerText'><h1>Данные успешно добавлены.</h1><h2>Sum: $sum</h2><h2>Comment: $comment</h2><h2>Category: $categoryId</h2></header>";
             echo "<main class='mainButton'><a href='?page=cabinet'>Ок</a></main>";
         }
-        mysqli_close($link);
 }
 
-function getUserExpenses(int $userId){ //все расходы пользователя
+function fetchData($link, string $sql): array {
+    $result = mysqli_query($link, $sql) or die("Ошибка " . mysqli_error($link));
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
 
-    require_once 'connection.php'; // подключаем скрипт
+function getUserExpenses($link, int $userId): array { //все расходы пользователя
 
-    $link = mysqli_connect($host, $user, $password, $database)
-    or die("Ошибка " . mysqli_error($link));
-
-    $query =    "SELECT h.created_at, h.amount,  h.comment, c.name
+    $query =    "SELECT h.created_at, h.amount,  h.comment, c.name as category
                 FROM history AS h
                 JOIN users AS u ON h.user_id = u.id
                 JOIN categories AS c ON h.category_id = c.id
                 WHERE h.user_id = $userId
                 ORDER BY h.created_at";
 
-    $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
-    if($result)
-    {
-        $yourArray = array();
-        $index = 0;
-        while ($row = mysqli_fetch_assoc($result)) {
-            $yourArray[$index] = [
-                [
-                    'created_at' => new DateTime($row["created_at"]),
-                    'amount' => $row["amount"],
-                    'comment' => $row["comment"],
-                    'category' => $row["name"],
-                ]
-            ];
-            $index++;
-        }
-        return $yourArray[0];
-    }
-
-    mysqli_close($link);
+    return fetchData($link, $query);
 }
 
 function formatDateTime(DateTime $dateTime): string {
     return $dateTime->format('Y-m-d');
 }
+
