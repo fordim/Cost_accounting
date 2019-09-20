@@ -23,7 +23,6 @@ function renderTemplate(string $name, array $data = []): string
 function processFormSignUp($link, string $name, string $email, string $passwordUser){
     $passwordHash = password_hash($passwordUser, PASSWORD_DEFAULT);
 
-
     $query =   "INSERT INTO users (email, name, password_hash)
                 VALUES ('$email', '$name', '$passwordHash')";
 
@@ -38,16 +37,10 @@ function processFormSignIn(string $email, string $password){
 
     if ($adminLogin === $email && password_verify($password, $adminPasswordHash)) {
         $_SESSION['username'] = $email;
-        echo "<header class='headerText'><h1>Аутентификация</h1><h2>Welcome, $adminName</h2><h2>Вход успешно выполнен</h2></header>";
-        echo "<main class='mainButton'><a href='../?page=cabinet'>Ок</a></main>";
-    } else {
-        echo "<header class='headerText'><h1>Аутентификация</h1><h2>Ошибка</h2><h2>Указанный пользователь не зарегистрирован</h2></header>";
-        echo "<main class='mainButton'><a href='../?page=signIn'>Ок</a></main>";
     }
 }
 
 function processFormAddExpense($link, float $sum, string $comment, int $categoryId){
-
 
         $sum = htmlentities(mysqli_real_escape_string($link, $sum));
         $comment = htmlentities(mysqli_real_escape_string($link, $comment));
@@ -57,11 +50,6 @@ function processFormAddExpense($link, float $sum, string $comment, int $category
                     VALUES (6, $categoryId, $sum, '$comment')";
 
         $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
-        if($result)
-        {
-            echo "<header class='headerText'><h1>Данные успешно добавлены.</h1><h2>Sum: $sum</h2><h2>Comment: $comment</h2><h2>Category: $categoryId</h2></header>";
-            echo "<main class='mainButton'><a href='?page=cabinet'>Ок</a></main>";
-        }
 }
 
 function fetchData($link, string $sql): array {

@@ -13,11 +13,50 @@ require_once 'init.php'; // подключаем скрипт
 
 if ($_POST['sendFormSignUp'] ?? ''){
     processFormSignUp($link, $_POST['name'], $_POST['email'], $_POST['password']);
-    die ('Вы успешно зарегистрировались');
+    die (renderTemplate('layout.php',
+        [
+            'title' => 'checkSignUp',
+            'cssStyle' => 'css/check.css',
+            'content' => renderTemplate(
+                'checkSignUp.php',
+                [
+                    'userName' => $_POST['name'],
+                    'userEmail' => $_POST['email'],
+                    'userPassword' => $_POST['password']
+                ]
+            ),
+        ]
+    ));
 } elseif ($_POST['senFormSignIn'] ?? ''){
     processFormSignIn($_POST['email'], $_POST['password']);
+    die (renderTemplate('layout.php',
+        [
+            'title' => 'checkSignIn',
+            'cssStyle' => 'css/check.css',
+            'content' => renderTemplate(
+                'checkSignIn.php',
+                [
+                    'userName' => $_POST['email']
+                ]
+            ),
+        ]
+    ));
 } elseif ($_POST['sendFormCabinet'] ?? '') {
     processFormAddExpense($link, $_POST['sum'], $_POST['comment'], $_POST['categoryId']);
+    die (renderTemplate('layout.php',
+        [
+            'title' => 'checkNewCosts',
+            'cssStyle' => 'css/check.css',
+            'content' => renderTemplate(
+                'checkNewCosts.php',
+                [
+                    'userSum' => $_POST['sum'],
+                    'userCategory' => $_POST['categoryId'],
+                    'userComment' => $_POST['comment']
+                ]
+            ),
+        ]
+    ));
 }
 
 $currentPage = $_GET['page'] ?? 'main';
@@ -29,22 +68,6 @@ switch ($currentPage) {
                 'title' => 'Cost accounting',
                 'cssStyle' => "css/main.css",
                 'content' => renderTemplate('itemMain.php'),
-            ]
-        ));
-    case 'checkLogin':
-        die (renderTemplate('layout.php',
-            [
-                'title' => 'checkLogin',
-                'cssStyle' => 'css/checkLogIn.css',
-                'content' => '',
-            ]
-        ));
-    case 'acceptForm':
-        die (renderTemplate('layout.php',
-            [
-                'title' => 'acceptForm',
-                'cssStyle' => 'css/checkLogIn.css',
-                'content' => '',
             ]
         ));
 }
