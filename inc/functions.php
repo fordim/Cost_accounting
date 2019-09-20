@@ -20,14 +20,18 @@ function renderTemplate(string $name, array $data = []): string
     return $result;
 }
 
-function processFormSignIn(string $email, string $password){
-    $adminLogin = 'test@mail.ru';
-    $adminPassword = 'test123';
-    $adminName = 'Admin';
-    $adminPasswordHash = password_hash($adminPassword, PASSWORD_DEFAULT);
+function processFormSignIn($link, string $email, string $password){
+//    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+    $sql = "SELECT * FROM users AS u
+            WHERE u.email = '$email' AND u.password_hash = '$password'";
 
-    if ($adminLogin === $email && password_verify($password, $adminPasswordHash)) {
+    $result = mysqli_query($link, $sql) or die ("Ошибка" . mysqli_error($link));
+    $checkResult = mysqli_num_rows($result);
+
+    if ($checkResult !==0) {
         $_SESSION['username'] = $email;
+    } else {
+        die ("Пользователя не существует в базе или введен не верный логин/пароль. </br>Повторите попытку.");
     }
 }
 
@@ -49,6 +53,7 @@ function processFormSignUp($link, string $name, string $email, string $passwordU
                 VALUES ('$email', '$name', '$passwordHash')";
 
     insertData($link, $sql);
+    $_SESSION['username'] = $email;
 }
 
 function processFormAddExpense($link, float $sum, string $comment, int $categoryId){

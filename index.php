@@ -28,7 +28,7 @@ if ($_POST['sendFormSignUp'] ?? ''){
         ]
     ));
 } elseif ($_POST['senFormSignIn'] ?? ''){
-    processFormSignIn($_POST['email'], $_POST['password']);
+    processFormSignIn($link, $_POST['email'], $_POST['password']);
     die (renderTemplate('layout.php',
         [
             'title' => 'checkSignIn',

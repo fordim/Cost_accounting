@@ -9,6 +9,6 @@
         <p>Пароль - <?= $userPassword; ?></p>
     </div>
     <div class="buttonsSignForm">
-    <a class="mainButton" href="index.php">Перейти в Личный кабинет</a>
+    <a class="mainButton" href="?page=cabinet">Перейти в Личный кабинет</a>
     </div>
 </main>
