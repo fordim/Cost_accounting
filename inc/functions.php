@@ -54,15 +54,23 @@ function processFormSignUp($link, string $name, string $email, string $passwordU
 
     insertData($link, $sql);
     $_SESSION['username'] = $email;
+    die ($_SESSION['username']);
 }
 
-function processFormAddExpense($link, float $sum, string $comment, int $categoryId){
+function findUserId($link, $email){
+    $sql = "SELECT id FROM users WHERE users.email = '$email'";
+    $row = mysqli_fetch_assoc(mysqli_query($link, $sql));
+    return (int)$row['id'];
+}
+
+function processFormAddExpense($link, float $sum, string $comment, int $categoryId, $email){
     $sum = requestVerification($link, $sum);
     $comment = requestVerification($link, $comment);
     $categoryId = requestVerification($link, $categoryId);
+    $userId = findUserId($link, $email);
 
     $sql =   "INSERT INTO history(user_id, category_id, amount, comment)
-                VALUES (6, $categoryId, $sum, '$comment')";
+                VALUES ($userId, $categoryId, $sum, '$comment')";
 
     insertData($link, $sql);
 }
@@ -72,13 +80,13 @@ function fetchData($link, string $sql): array {
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
-function getUserExpenses($link, int $userId): array { //все расходы пользователя
+function getUserExpenses($link, string $email): array { //все расходы пользователя
 
     $sql =    "SELECT h.created_at, h.amount,  h.comment, c.name as category
                 FROM history AS h
                 JOIN users AS u ON h.user_id = u.id
                 JOIN categories AS c ON h.category_id = c.id
-                WHERE h.user_id = $userId
+                WHERE u.email = '$email'
                 ORDER BY h.created_at";
 
     return fetchData($link, $sql);

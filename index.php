@@ -42,7 +42,7 @@ if ($_POST['sendFormSignUp'] ?? ''){
         ]
     ));
 } elseif ($_POST['sendFormCabinet'] ?? '') {
-    processFormAddExpense($link, $_POST['sum'], $_POST['comment'], $_POST['categoryId']);
+    processFormAddExpense($link, $_POST['sum'], $_POST['comment'], $_POST['categoryId'], $_SESSION['username']);
     die (renderTemplate('layout.php',
         [
             'title' => 'checkNewCosts',
@@ -116,7 +116,7 @@ if (!isset($_SESSION['username'])) {
                     'content' => renderTemplate(
                         'itemHistory.php',
                         [
-                            'expenses' => getUserExpenses($link, 6)
+                            'expenses' => getUserExpenses($link, $_SESSION['username'])
                         ]
                     ),
                 ]
