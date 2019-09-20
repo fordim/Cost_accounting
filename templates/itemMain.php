@@ -1,5 +1,5 @@
 <header>
-    <a class="cabinetPage" href="../cabinet.php"></a>
+    <a class="logout" href="templates/logout.php"></a>
     <div class="headerImage">
     </div>
     <div class="headerText">
@@ -9,10 +9,10 @@
 </header>
 <main>
     <div class="mainButton">
-        <a href="../signIn.php">Войти в Личный кабинет</a>
+        <a href="?page=signIn">Войти в Личный кабинет</a>
     </div>
     <div class="mainButton">
-        <a href="../signUp.php">Регистрация</a>
+        <a href="?page=signUp">Регистрация</a>
     </div>
 </main>
 <footer>

@@ -1,5 +1,6 @@
 <header>
-    <a class="returnBack" href="../cabinet.php"></a>
+    <a class="returnBack" href="?page=cabinet"></a>
+    <a class="logout" href="templates/logout.php"></a>
     <div class="headerImage"></div>
 </header>
 <main>
@@ -14,16 +15,22 @@
             <th class="commentСolumn">Комментарий</th>
             <th class="categoryСolumn">Категория</th>
         </tr>
-        <tr><td>20.06.2019</td><td>400</td><td class="commentLine">Строительные материалы</td><td>Разное</td></tr>
-        <tr><td>22.06.2019</td><td>300</td><td class="commentLine">Строительные материалы</td><td>Разное</td></tr>
-        <tr><td>23.06.2019</td><td>500</td><td class="commentLine">Строительные материалы</td><td>Разное</td></tr>
-        <tr><td>24.06.2019</td><td>500</td><td class="commentLine">Строительные материалы</td><td>Разное</td></tr>
-        <tr><td>25.06.2019</td><td>600</td><td class="commentLine">Строительные материалы</td><td>Разное</td></tr>
-        <tr><td>26.06.2019</td><td>300</td><td class="commentLine">Строительные материалы</td><td>Разное</td></tr>
-        <tr><td>27.06.2019</td><td>200</td><td class="commentLine">Строительные материалы</td><td>Разное</td></tr>
-        <tr><td>28.06.2019</td><td>100</td><td class="commentLine">Строительные материалы</td><td>Разное</td></tr>
+<!--        --><?//=var_dump($expenses) ?>
+        <?php foreach ($expenses as $expense): ?>
+            <tr>
+                <td><?= $expense['created_at']; ?></td>
+                <td><?= $expense['amount']; ?></td>
+                <td class="commentLine"><?= $expense['comment']; ?></td>
+                <td><?= $expense['category']; ?></td>
+            </tr>
+        <?php endforeach; ?>
     </table>
 </main>
 <footer>
     <p>Made by Fordim</p>
 </footer>
+<div class="script">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+</div>

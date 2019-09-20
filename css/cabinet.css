@@ -28,10 +28,21 @@ header{
     display:block;
     position:absolute;
     z-index:10;
-    margin-left:525px;
+    margin-left:460px;
     background-image: url(../img/history.png);
     width:75px;
     height:75px;
+}
+
+.logout {
+    display: block;
+    position: absolute;
+    z-index: 10;
+    margin-left: 535px;
+    background-image: url(../img/logout2.jpg);
+    background-repeat: no-repeat;
+    width: 50px;
+    height: 58px;
 }
 
 header > a:hover {
@@ -97,7 +108,7 @@ select{
 
 .subButton:hover {
     background: linear-gradient(rgb(128,128,128), rgb(128, 128, 128));
-    color: darkgrey;
+    cursor: pointer;
 }
 
 footer {
