@@ -9,10 +9,10 @@
             <th class="idСolumn">Id</th>
             <th class="categoryСolumn">Категория</th>
         </tr>
-        <?php foreach ($expenses as $expense): ?>
+        <?php foreach ($categories as $category): ?>
             <tr>
-                <td><?= $expense['created_at']; ?></td>
-                <td><?= $expense['category']; ?></td>
+                <td><?= $category['id']; ?></td>
+                <td><?= $category['name']; ?></td>
             </tr>
         <?php endforeach; ?>
     </table>

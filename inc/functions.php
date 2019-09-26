@@ -106,3 +106,7 @@ function getAllCategories($link): array {
     return fetchData($link, $sql);
 }
 
+function getCategories($link): array {
+    $sql = "SELECT id, name FROM categories ORDER BY id";
+    return fetchData($link,$sql);
+}

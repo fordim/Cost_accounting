@@ -119,7 +119,7 @@ if (!isset($_SESSION['user'])) {
                     'content' => renderTemplate(
                         'itemCategory.php',
                         [
-                            'expenses' => getUserExpenses($link, $_SESSION['user']['id'])
+                            'categories' => getCategories($link)
                         ]
                     ),
                 ]
