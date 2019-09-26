@@ -6,6 +6,10 @@
 <main>
     <h1 class="mainText">История расходов</h1>
     <div class="inputBlock">
+<!--        <form>-->
+<!--        <input type="hidden" id="dateFrom" />-->
+<!--        <input type="hidden" id="dateTo" />-->
+<!--        </form>-->
         <input class="inputDate" type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
     </div>
     <table class="mainTable" border="2px">

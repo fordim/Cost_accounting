@@ -21,22 +21,27 @@ function renderTemplate(string $name, array $data = []): string
 }
 
 function processFormSignIn($link, string $email, string $password){
-//    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-    $sql = "SELECT * FROM users AS u
-            WHERE u.email = '$email' AND u.password_hash = '$password'";
+    $email = requestVerification($link, $email);
+    $sql = "SELECT * FROM users AS u WHERE u.email = '$email'";
 
-    $result = mysqli_query($link, $sql) or die ("Ошибка" . mysqli_error($link));
-    $checkResult = mysqli_num_rows($result);
-
-    if ($checkResult !==0) {
-        $_SESSION['username'] = $email;
-    } else {
-        die ("Пользователя не существует в базе или введен не верный логин/пароль. </br>Повторите попытку.");
+    $users = fetchData($link, $sql);
+    if (count($users) === 1){
+        $user = $users[0];
+        $password_hash = $user['password_hash'];
+        if (password_verify($password, $password_hash)){
+            $_SESSION['user'] = [
+                'id' => (int)$user['id'],
+                'email' => $user['email']
+            ];
+            return;
+        }
     }
+    die ("Пользователя не существует в базе или введен не верный логин/пароль. </br>Повторите попытку.");
 }
 
-function insertData($link, string $sql){
+function insertData($link, string $sql): int {
     $result = mysqli_query($link, $sql) or die ("Ошибка, при попытке сделать запись в БД </br>" . mysqli_error($link));
+    return mysqli_insert_id($link);
 }
 
 function requestVerification($link, $a){
@@ -53,20 +58,22 @@ function processFormSignUp($link, string $name, string $email, string $passwordU
                 VALUES ('$email', '$name', '$passwordHash')";
 
     insertData($link, $sql);
-    $_SESSION['username'] = $email;
-    die ($_SESSION['username']);
+    $user = findUserByEmail($link, $email);
+    $_SESSION['user'] = [
+        'id' => (int)$user['id'],
+        'email' => $user['email']
+    ];
 }
 
-function findUserId($link, $email){
+function findUserByEmail($link, $email){
     $sql = "SELECT id FROM users WHERE users.email = '$email'";
-    $row = mysqli_fetch_assoc(mysqli_query($link, $sql));
-    return (int)$row['id'];
+    $users = fetchData($link, $sql);
+    return count($users) === 1 ? (int)$users[0]['id'] : null;
 }
 
-function processFormAddExpense($link, float $sum, string $comment, int $categoryId, $email){
+function processFormAddExpense($link, float $sum, string $comment, int $categoryId, $userId){
     $sum = requestVerification($link, $sum);
     $comment = requestVerification($link, $comment);
-    $userId = findUserId($link, $email);
 
     $sql =   "INSERT INTO history(user_id, category_id, amount, comment)
                 VALUES ($userId, $categoryId, $sum, '$comment')";
@@ -79,12 +86,12 @@ function fetchData($link, string $sql): array {
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
-function getUserExpenses($link, string $email): array { //все расходы пользователя
+function getUserExpenses($link, int $userId): array { //все расходы пользователя
     $sql =    "SELECT h.created_at, h.amount,  h.comment, c.name as category
                 FROM history AS h
                 JOIN users AS u ON h.user_id = u.id
                 JOIN categories AS c ON h.category_id = c.id
-                WHERE u.email = '$email'
+                WHERE u.id = $userId
                 ORDER BY h.created_at";
 
     return fetchData($link, $sql);

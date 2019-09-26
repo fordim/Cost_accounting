@@ -42,7 +42,7 @@ if ($_POST['sendFormSignUp'] ?? ''){
         ]
     ));
 } elseif ($_POST['sendFormCabinet'] ?? '') {
-    processFormAddExpense($link, $_POST['sum'], $_POST['comment'], $_POST['categoryId'], $_SESSION['username']);
+    processFormAddExpense($link, $_POST['sum'], $_POST['comment'], $_POST['categoryId'], $_SESSION['user']['id']);
     die (renderTemplate('layout.php',
         [
             'title' => 'checkNewCosts',
@@ -72,7 +72,7 @@ switch ($currentPage) {
         ));
 }
 
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['user'])) {
     switch ($currentPage){
         case 'signIn':
             die (renderTemplate('layout.php',
@@ -92,7 +92,7 @@ if (!isset($_SESSION['username'])) {
                 ]
             ));
         default:
-            echo $_SESSION['username'];
+            echo $_SESSION['user']['email'];
             echo 'Доступ закрыт 403';
     }
 } else {
@@ -121,7 +121,7 @@ if (!isset($_SESSION['username'])) {
                     'content' => renderTemplate(
                         'itemHistory.php',
                         [
-                            'expenses' => getUserExpenses($link, $_SESSION['username'])
+                            'expenses' => getUserExpenses($link, $_SESSION['user']['id'])
                         ]
                     ),
                 ]
