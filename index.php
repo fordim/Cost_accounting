@@ -6,10 +6,10 @@
 //Нет циклов и foreach
 
 error_reporting(E_ALL);
-ini_set('display_errors', 1); // в инит вынести
+ini_set('display_errors', 1);
 
 require_once('inc/functions.php');
-require_once 'init.php'; // подключаем скрипт
+require_once 'init.php';
 
 if ($_POST['sendFormSignUp'] ?? ''){
     processFormSignUp($link, $_POST['name'], $_POST['email'], $_POST['password']);
