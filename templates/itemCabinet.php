@@ -21,7 +21,7 @@
                 <option value="<?= $category['id']; ?>"><?= $category['name']; ?></option>
                 <?php endforeach; ?>
             </select></p>
-        <p><input class="subButton" name="sendFormCabinet" type="submit" value="Отправить"></p>
+        <p><input class="subButton" name="sendFormCabinet" type="submit" value="Добавить"></p>
     </form>
 </main>
 <footer>

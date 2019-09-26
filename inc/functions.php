@@ -102,11 +102,32 @@ function formatDateTime(DateTime $dateTime): string {
 }
 
 function getAllCategories($link): array {
-    $sql = "SELECT id, name FROM categories";
+    $sql = "SELECT id, name FROM categories ORDER BY id";
     return fetchData($link, $sql);
 }
 
-function getCategories($link): array {
-    $sql = "SELECT id, name FROM categories ORDER BY id";
-    return fetchData($link,$sql);
+function processFormAddCategory($link, string $newCategory){
+    $newCategory = requestVerification($link, $newCategory);
+
+    $sql =   "INSERT INTO categories(name)
+                VALUES ('$newCategory')";
+
+    insertData($link, $sql);
+}
+
+function processFormChangeCategory($link, int $categoryId, string $newCategory){
+    $newCategory = requestVerification($link, $newCategory);
+
+    $sql = "UPDATE categories
+            SET name = '$newCategory'
+            WHERE id = $categoryId";
+
+    insertData($link, $sql);
+}
+
+function processFormDeleteCategory($link, int $categoryId){
+    $sql = "DELETE FROM categories
+            WHERE id = $categoryId";
+
+    insertData($link, $sql);
 }

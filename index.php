@@ -57,6 +57,12 @@ if ($_POST['sendFormSignUp'] ?? ''){
             ),
         ]
     ));
+} elseif ($_POST['addNewCategory'] ?? '') {
+    processFormAddCategory($link, $_POST['categoryName']);
+} elseif ($_POST['changeExistCategory'] ?? '') {
+    processFormChangeCategory($link, $_POST['categoryId'], $_POST['categoryName']);
+} elseif ($_POST['deleteExistCategory'] ?? '') {
+    processFormDeleteCategory($link, $_POST['categoryId']);
 }
 
 $currentPage = $_GET['page'] ?? 'main';
@@ -119,7 +125,7 @@ if (!isset($_SESSION['user'])) {
                     'content' => renderTemplate(
                         'itemCategory.php',
                         [
-                            'categories' => getCategories($link)
+                            'categories' => getAllCategories($link)
                         ]
                     ),
                 ]
