@@ -34,11 +34,12 @@ header > a:hover {
 }
 
 .headerImage{
-    background-image:url(../img/historyImg.jpg);
+    background-image:url(../img/categoryImg.jpg);
     background-position: center;
     background-repeat: no-repeat;
-    width:337px;
-    height:78px;
+    width:350px;
+    height:102px;
+    padding:10px;
     margin:0 auto;
 }
 
@@ -46,24 +47,6 @@ main{
     font-family:comic Sans Ms;
     width:750px;
     margin:10px auto;
-}
-
-.mainText{
-    margin:0;
-    text-align: center;
-    color:darkblue;
-}
-
-.inputBlock{
-    margin:10px auto;
-    width: 200px;
-}
-
-.inputDate{
-    font-family:comic Sans Ms;
-    width:200px;
-    text-align:center;
-    font-size:16px;
 }
 
 tr > td{
@@ -78,20 +61,12 @@ tr > .commentLine{
     width:750px;
 }
 
-.dataСolumn{
-    width:100px;
-}
-
-.sumСolumn{
-    width:100px;
-}
-
-.commentСolumn{
-    width:400px;
+.idСolumn{
+    width:50px;
 }
 
 .categoryСolumn{
-    width:150px;
+    width:300px;
 }
 
 footer {

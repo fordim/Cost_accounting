@@ -1,5 +1,6 @@
 <header>
     <a class="returnBack" href="index.php"></a>
+    <a class="categoryPage" href="?page=category"></a>
     <a class="historyPage" href="?page=history"></a>
     <a class="logout" href="templates/logout.php"></a>
     <div class="headerImage"></div>

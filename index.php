@@ -111,6 +111,19 @@ if (!isset($_SESSION['user'])) {
                     ),
                 ]
             ));
+        case 'category':
+            die (renderTemplate('layout.php',
+                [
+                    'title' => 'Category',
+                    'cssStyle' => 'css/category.css',
+                    'content' => renderTemplate(
+                        'itemCategory.php',
+                        [
+                            'expenses' => getUserExpenses($link, $_SESSION['user']['id'])
+                        ]
+                    ),
+                ]
+            ));
         case 'history':
             die (renderTemplate(
                 'layout.php',
