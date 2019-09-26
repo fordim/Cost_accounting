@@ -20,49 +20,65 @@ function renderTemplate(string $name, array $data = []): string
     return $result;
 }
 
+function processFormSignIn($link, string $email, string $password){
+    $email = requestVerification($link, $email);
+    $sql = "SELECT * FROM users AS u WHERE u.email = '$email'";
+
+    $users = fetchData($link, $sql);
+    if (count($users) === 1){
+        $user = $users[0];
+        $password_hash = $user['password_hash'];
+        if (password_verify($password, $password_hash)){
+            $_SESSION['user'] = [
+                'id' => (int)$user['id'],
+                'email' => $user['email']
+            ];
+            return;
+        }
+    }
+    die ("Пользователя не существует в базе или введен не верный логин/пароль. </br>Повторите попытку.");
+}
+
+function insertData($link, string $sql): int {
+    $result = mysqli_query($link, $sql) or die ("Ошибка, при попытке сделать запись в БД </br>" . mysqli_error($link));
+    return mysqli_insert_id($link);
+}
+
+function requestVerification($link, $a){
+    return htmlentities(mysqli_real_escape_string($link, $a));
+}
+
 function processFormSignUp($link, string $name, string $email, string $passwordUser){
+    $name = requestVerification($link, $name);
+    $email = requestVerification($link, $email);
+    $passwordUser = requestVerification($link, $passwordUser);
     $passwordHash = password_hash($passwordUser, PASSWORD_DEFAULT);
 
-
-    $query =   "INSERT INTO users (email, name, password_hash)
+    $sql =   "INSERT INTO users (email, name, password_hash)
                 VALUES ('$email', '$name', '$passwordHash')";
 
-    $result = mysqli_query($link, $query) or die("Ошибка, не удалось заренистрировать пользователя </br>" . mysqli_error($link));
+    insertData($link, $sql);
+    $user = findUserByEmail($link, $email);
+    $_SESSION['user'] = [
+        'id' => (int)$user['id'],
+        'email' => $user['email']
+    ];
 }
 
-function processFormSignIn(string $email, string $password){
-    session_start(); // убрать
-    $adminLogin = 'test@mail.ru';
-    $adminPassword = 'test123';
-    $adminName = 'Admin';
-    $adminPasswordHash = password_hash($adminPassword, PASSWORD_DEFAULT);
-
-    if ($adminLogin === $email && password_verify($password, $adminPasswordHash)) {
-        $_SESSION['username'] = $email;
-        echo "<header class='headerText'><h1>Аутентификация</h1><h2>Welcome, $adminName</h2><h2>Вход успешно выполнен</h2></header>";
-        echo "<main class='mainButton'><a href='../?page=cabinet'>Ок</a></main>";
-    } else {
-        echo "<header class='headerText'><h1>Аутентификация</h1><h2>Ошибка</h2><h2>Указанный пользователь не зарегистрирован</h2></header>";
-        echo "<main class='mainButton'><a href='../?page=signIn'>Ок</a></main>";
-    }
+function findUserByEmail($link, $email){
+    $sql = "SELECT id FROM users WHERE users.email = '$email'";
+    $users = fetchData($link, $sql);
+    return count($users) === 1 ? (int)$users[0]['id'] : null;
 }
 
-function processFormAddExpense($link, float $sum, string $comment, int $categoryId){
+function processFormAddExpense($link, float $sum, string $comment, int $categoryId, $userId){
+    $sum = requestVerification($link, $sum);
+    $comment = requestVerification($link, $comment);
 
+    $sql =   "INSERT INTO history(user_id, category_id, amount, comment)
+                VALUES ($userId, $categoryId, $sum, '$comment')";
 
-        $sum = htmlentities(mysqli_real_escape_string($link, $sum));
-        $comment = htmlentities(mysqli_real_escape_string($link, $comment));
-        $categoryId = htmlentities(mysqli_real_escape_string($link, $categoryId));
-
-        $query =   "INSERT INTO history(user_id, category_id, amount, comment)
-                    VALUES (6, $categoryId, $sum, '$comment')";
-
-        $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
-        if($result)
-        {
-            echo "<header class='headerText'><h1>Данные успешно добавлены.</h1><h2>Sum: $sum</h2><h2>Comment: $comment</h2><h2>Category: $categoryId</h2></header>";
-            echo "<main class='mainButton'><a href='?page=cabinet'>Ок</a></main>";
-        }
+    insertData($link, $sql);
 }
 
 function fetchData($link, string $sql): array {
@@ -71,18 +87,22 @@ function fetchData($link, string $sql): array {
 }
 
 function getUserExpenses($link, int $userId): array { //все расходы пользователя
-
-    $query =    "SELECT h.created_at, h.amount,  h.comment, c.name as category
+    $sql =    "SELECT h.created_at, h.amount,  h.comment, c.name as category
                 FROM history AS h
                 JOIN users AS u ON h.user_id = u.id
                 JOIN categories AS c ON h.category_id = c.id
-                WHERE h.user_id = $userId
+                WHERE u.id = $userId
                 ORDER BY h.created_at";
 
-    return fetchData($link, $query);
+    return fetchData($link, $sql);
 }
 
 function formatDateTime(DateTime $dateTime): string {
     return $dateTime->format('Y-m-d');
+}
+
+function getAllCategories($link): array {
+    $sql = "SELECT id, name FROM categories";
+    return fetchData($link, $sql);
 }
 

@@ -6,6 +6,10 @@
 <main>
     <h1 class="mainText">История расходов</h1>
     <div class="inputBlock">
+<!--        <form>-->
+<!--        <input type="hidden" id="dateFrom" />-->
+<!--        <input type="hidden" id="dateTo" />-->
+<!--        </form>-->
         <input class="inputDate" type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
     </div>
     <table class="mainTable" border="2px">
@@ -15,7 +19,6 @@
             <th class="commentСolumn">Комментарий</th>
             <th class="categoryСolumn">Категория</th>
         </tr>
-<!--        --><?//=var_dump($expenses) ?>
         <?php foreach ($expenses as $expense): ?>
             <tr>
                 <td><?= $expense['created_at']; ?></td>

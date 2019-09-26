@@ -4,23 +4,46 @@ body{
 
 header{
     font-family:comic Sans Ms;
-    color:darkblue;
-}
-
-.headerText{
     text-align: center;
-    font-family:comic Sans Ms;
     color:darkblue;
 }
 
-.headerText > h2{
+main{
+    color:darkblue;
+    font-size:22px;
+}
+
+h2{
+    margin:0;
+}
+main > h3 {
+    text-align: center;
+}
+.userData{
+    margin: 0 auto;
+    width: 500px;
+    text-align: left;
+}
+
+.userData > p{
     margin:0;
 }
 
+.buttonsCosts{
+    margin: 0 auto;
+    width: 500px;
+}
+
+.buttonsSignForm{
+    margin: 0 auto;
+    width: 240px;
+}
+
 .mainButton{
-    display: block;
-    width:200px;
-    height:35px;
+    display: inline-block;
+    color: midnightblue;
+    width:240px;
+    height:80px;
     font-family:comic Sans Ms;
     margin:25px auto;
     border: 1px solid black;
@@ -28,6 +51,7 @@ header{
     background: linear-gradient(rgb(211,211,211), rgb(220, 225, 226));
     font-size:26px;
     text-align:center;
+    text-decoration: none;
 }
 
 .mainButton:hover {
@@ -35,7 +59,3 @@ header{
     cursor: pointer;
 }
 
-.mainButton > a{
-    text-decoration: none;
-    color: midnightblue;
-}

@@ -13,11 +13,50 @@ require_once 'init.php'; // подключаем скрипт
 
 if ($_POST['sendFormSignUp'] ?? ''){
     processFormSignUp($link, $_POST['name'], $_POST['email'], $_POST['password']);
-    die ('Вы успешно зарегистрировались');
+    die (renderTemplate('layout.php',
+        [
+            'title' => 'checkSignUp',
+            'cssStyle' => 'css/check.css',
+            'content' => renderTemplate(
+                'checkSignUp.php',
+                [
+                    'userName' => $_POST['name'],
+                    'userEmail' => $_POST['email'],
+                    'userPassword' => $_POST['password']
+                ]
+            ),
+        ]
+    ));
 } elseif ($_POST['senFormSignIn'] ?? ''){
-    processFormSignIn($_POST['email'], $_POST['password']);
+    processFormSignIn($link, $_POST['email'], $_POST['password']);
+    die (renderTemplate('layout.php',
+        [
+            'title' => 'checkSignIn',
+            'cssStyle' => 'css/check.css',
+            'content' => renderTemplate(
+                'checkSignIn.php',
+                [
+                    'userName' => $_POST['email']
+                ]
+            ),
+        ]
+    ));
 } elseif ($_POST['sendFormCabinet'] ?? '') {
-    processFormAddExpense($link, $_POST['sum'], $_POST['comment'], $_POST['categoryId']);
+    processFormAddExpense($link, $_POST['sum'], $_POST['comment'], $_POST['categoryId'], $_SESSION['user']['id']);
+    die (renderTemplate('layout.php',
+        [
+            'title' => 'checkNewCosts',
+            'cssStyle' => 'css/check.css',
+            'content' => renderTemplate(
+                'checkNewCosts.php',
+                [
+                    'userSum' => $_POST['sum'],
+                    'userCategory' => $_POST['categoryId'],
+                    'userComment' => $_POST['comment']
+                ]
+            ),
+        ]
+    ));
 }
 
 $currentPage = $_GET['page'] ?? 'main';
@@ -31,27 +70,9 @@ switch ($currentPage) {
                 'content' => renderTemplate('itemMain.php'),
             ]
         ));
-    case 'checkLogin':
-        die (renderTemplate('layout.php',
-            [
-                'title' => 'checkLogin',
-                'cssStyle' => 'css/checkLogIn.css',
-                'content' => '',
-            ]
-        ));
-    case 'acceptForm':
-        die (renderTemplate('layout.php',
-            [
-                'title' => 'acceptForm',
-                'cssStyle' => 'css/checkLogIn.css',
-                'content' => '',
-            ]
-        ));
 }
 
-session_start(); // в инит вынести (и убрать везде)
-
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['user'])) {
     switch ($currentPage){
         case 'signIn':
             die (renderTemplate('layout.php',
@@ -71,7 +92,7 @@ if (!isset($_SESSION['username'])) {
                 ]
             ));
         default:
-            echo $_SESSION['username'];
+            echo $_SESSION['user']['email'];
             echo 'Доступ закрыт 403';
     }
 } else {
@@ -82,7 +103,12 @@ if (!isset($_SESSION['username'])) {
                     'title' => 'Cabinet',
                     'cssStyle' => 'css/cabinet.css',
                     'jsStyle' => 'js/cabinet.js',
-                    'content' => renderTemplate('itemCabinet.php'),
+                    'content' => renderTemplate(
+                        'itemCabinet.php',
+                        [
+                            'categories' => getAllCategories($link)
+                        ]
+                    ),
                 ]
             ));
         case 'history':
@@ -95,7 +121,7 @@ if (!isset($_SESSION['username'])) {
                     'content' => renderTemplate(
                         'itemHistory.php',
                         [
-                            'expenses' => getUserExpenses($link, 6)
+                            'expenses' => getUserExpenses($link, $_SESSION['user']['id'])
                         ]
                     ),
                 ]
