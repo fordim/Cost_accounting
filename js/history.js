@@ -1,10 +1,14 @@
 var onPageLoaded = function() {
 
         $('input[name="daterange"]').daterangepicker({
-            opens: 'center'
+            opens: 'center',
+            locale: {
+                format: 'YYYY-MM-DD'
+            }
         }, function(start, end, label) {
-            //обратится к скрытым элементам по id и записать в них значения (value = start) и потом во вторую
-            //для формы событие сделать id, и сделать сабмит что-бы она была $POST
+            document.getElementById('dateFrom').value = start.format('YYYY-MM-DD');
+            document.getElementById('dateTo').value = end.format('YYYY-MM-DD');
+            document.getElementById('formDatePicker').submit();
             console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
         });
 };

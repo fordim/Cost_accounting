@@ -6,11 +6,12 @@
 <main>
     <h1 class="mainText">История расходов</h1>
     <div class="inputBlock">
-<!--        <form>-->
-<!--        <input type="hidden" id="dateFrom" />-->
-<!--        <input type="hidden" id="dateTo" />-->
-<!--        </form>-->
-        <input class="inputDate" type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+        <h4 class="mainText">Выберите дату:</h4>
+        <form class="formDatePicker" name="formDatePicker" id="formDatePicker" method="POST">
+            <input class="inputDate" type="text" name="daterange" value="<?= $dateFrom ?> - <?= $dateTo ?>" />
+            <input type="hidden" id="dateFrom" name="dateFrom" value="value"/>
+            <input type="hidden" id="dateTo" name="dateTo" value="value"/>
+        </form>
     </div>
     <table class="mainTable" border="2px">
         <tr>

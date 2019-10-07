@@ -86,20 +86,20 @@ function fetchData($link, string $sql): array {
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
-function getUserExpenses($link, int $userId): array { //все расходы пользователя
+function getUserExpenses($link, int $userId, string $dateFrom, string $dateTo): array {
     $sql =    "SELECT h.created_at, h.amount,  h.comment, c.name as category
                 FROM history AS h
                 JOIN users AS u ON h.user_id = u.id
                 JOIN categories AS c ON h.category_id = c.id
-                WHERE u.id = $userId
+                WHERE u.id = $userId AND DATE(h.created_at) BETWEEN '$dateFrom' AND '$dateTo'
                 ORDER BY h.created_at";
 
     return fetchData($link, $sql);
 }
 
-function formatDateTime(DateTime $dateTime): string {
-    return $dateTime->format('Y-m-d');
-}
+//function formatDateTime(DateTime $dateTime): string {
+//    return $dateTime->format('Y-m-d');
+//}
 
 function getAllCategories($link): array {
     $sql = "SELECT id, name FROM categories ORDER BY id";
