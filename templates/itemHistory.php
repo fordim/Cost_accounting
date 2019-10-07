@@ -29,6 +29,9 @@
             </tr>
         <?php endforeach; ?>
     </table>
+    <form class="formDownloadAllHistory" name="formDownloadAllHistory" method="POST">
+        <input class="subButton" name="downloadAllHistory" type="submit" value="Скачать всю историю, CSV">
+    </form>
 </main>
 <footer>
     <p>Made by Fordim</p>

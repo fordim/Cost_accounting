@@ -27,7 +27,7 @@ if ($_POST['sendFormSignUp'] ?? ''){
             ),
         ]
     ));
-} elseif ($_POST['senFormSignIn'] ?? ''){
+} elseif ($_POST['sendFormSignIn'] ?? ''){
     processFormSignIn($link, $_POST['email'], $_POST['password']);
     die (renderTemplate('layout.php',
         [
@@ -63,6 +63,8 @@ if ($_POST['sendFormSignUp'] ?? ''){
     processFormChangeCategory($link, $_POST['categoryId'], $_POST['categoryName']);
 } elseif ($_POST['deleteExistCategory'] ?? '') {
     processFormDeleteCategory($link, $_POST['categoryId']);
+} elseif ($_POST['downloadAllHistory'] ?? '') {
+    downloadAllHistory($link, $_SESSION['user']['id']);
 }
 
 $currentPage = $_GET['page'] ?? 'main';
