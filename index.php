@@ -6,10 +6,10 @@
 //Нет циклов и foreach
 
 error_reporting(E_ALL);
-ini_set('display_errors', 1); // в инит вынести
+ini_set('display_errors', 1);
 
 require_once('inc/functions.php');
-require_once 'init.php'; // подключаем скрипт
+require_once 'init.php';
 
 if ($_POST['sendFormSignUp'] ?? ''){
     processFormSignUp($link, $_POST['name'], $_POST['email'], $_POST['password']);
@@ -57,6 +57,12 @@ if ($_POST['sendFormSignUp'] ?? ''){
             ),
         ]
     ));
+} elseif ($_POST['addNewCategory'] ?? '') {
+    processFormAddCategory($link, $_POST['categoryName']);
+} elseif ($_POST['changeExistCategory'] ?? '') {
+    processFormChangeCategory($link, $_POST['categoryId'], $_POST['categoryName']);
+} elseif ($_POST['deleteExistCategory'] ?? '') {
+    processFormDeleteCategory($link, $_POST['categoryId']);
 }
 
 $currentPage = $_GET['page'] ?? 'main';
@@ -105,6 +111,19 @@ if (!isset($_SESSION['user'])) {
                     'jsStyle' => 'js/cabinet.js',
                     'content' => renderTemplate(
                         'itemCabinet.php',
+                        [
+                            'categories' => getAllCategories($link)
+                        ]
+                    ),
+                ]
+            ));
+        case 'category':
+            die (renderTemplate('layout.php',
+                [
+                    'title' => 'Category',
+                    'cssStyle' => 'css/category.css',
+                    'content' => renderTemplate(
+                        'itemCategory.php',
                         [
                             'categories' => getAllCategories($link)
                         ]

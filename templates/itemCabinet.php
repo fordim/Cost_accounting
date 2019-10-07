@@ -1,5 +1,6 @@
 <header>
     <a class="returnBack" href="index.php"></a>
+    <a class="categoryPage" href="?page=category"></a>
     <a class="historyPage" href="?page=history"></a>
     <a class="logout" href="templates/logout.php"></a>
     <div class="headerImage"></div>
@@ -20,7 +21,7 @@
                 <option value="<?= $category['id']; ?>"><?= $category['name']; ?></option>
                 <?php endforeach; ?>
             </select></p>
-        <p><input class="subButton" name="sendFormCabinet" type="submit" value="Отправить"></p>
+        <p><input class="subButton" name="sendFormCabinet" type="submit" value="Добавить"></p>
     </form>
 </main>
 <footer>
