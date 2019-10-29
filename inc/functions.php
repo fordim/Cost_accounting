@@ -153,7 +153,7 @@ function processFormDeleteCategory($link, int $categoryId){
 
 function downloadAllHistory($link, int $userId){
     $arrayForCSV = getUserExpensesAll($link, $userId);
-    //add arrayUnShift, добавить шапку в таблицу
+    array_unshift($arrayForCSV, ["Created_at", "Amount", "Comment", "Category"]);
     create_csv_file($arrayForCSV);
     file_force_download('temp/test.csv');
 }
