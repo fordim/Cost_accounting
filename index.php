@@ -142,9 +142,9 @@ if (!isset($_SESSION['user'])) {
                     'content' => renderTemplate(
                         'itemHistory.php',
                         [
-                            'dateFrom' => $_POST['dateFrom'] ?? '2019-08-01',
-                            'dateTo' => $_POST['dateTo'] ?? '2019-09-01',
-                            'expenses' => getUserExpenses($link, $_SESSION['user']['id'], ($_POST['dateFrom'] ?? '2019-08-01'), ($_POST['dateTo'] ?? '2019-09-01'))
+                            'dateFrom' => $_POST['dateFrom'] ?? getPreviousMonth() ,
+                            'dateTo' => $_POST['dateTo'] ?? getActualTime(),
+                            'expenses' => getUserExpenses($link, $_SESSION['user']['id'], ($_POST['dateFrom'] ?? getPreviousMonth()), ($_POST['dateTo'] ?? getActualTime()))
                         ]
                     ),
                 ]

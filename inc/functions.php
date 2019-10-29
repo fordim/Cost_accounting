@@ -86,12 +86,31 @@ function fetchData($link, string $sql): array {
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
+function getActualTime(){
+    return $actualMonth = date('Y-m-d');
+}
+
+function getPreviousMonth(){
+    return $previousMonth = date('Y-m-d', strtotime("last Month"));
+}
+
 function getUserExpenses($link, int $userId, string $dateFrom, string $dateTo): array {
     $sql =    "SELECT h.created_at, h.amount,  h.comment, c.name as category
                 FROM history AS h
                 JOIN users AS u ON h.user_id = u.id
                 JOIN categories AS c ON h.category_id = c.id
                 WHERE u.id = $userId AND DATE(h.created_at) BETWEEN '$dateFrom' AND '$dateTo'
+                ORDER BY h.created_at";
+
+    return fetchData($link, $sql);
+}
+
+function getUserExpensesAll($link, int $userId) : array {
+    $sql =    "SELECT h.created_at, h.amount,  h.comment, c.name as category
+                FROM history AS h
+                JOIN users AS u ON h.user_id = u.id
+                JOIN categories AS c ON h.category_id = c.id
+                WHERE u.id = $userId
                 ORDER BY h.created_at";
 
     return fetchData($link, $sql);
@@ -133,13 +152,14 @@ function processFormDeleteCategory($link, int $categoryId){
 }
 
 function downloadAllHistory($link, int $userId){
-    $create_data = getUserExpenses($link, $userId, '2019-01-01', '2022-01-01');
-    create_csv_file($create_data);
+    $arrayForCSV = getUserExpensesAll($link, $userId);
+    //add arrayUnShift, добавить шапку в таблицу
+    create_csv_file($arrayForCSV);
     file_force_download('temp/test.csv');
 }
 
-function create_csv_file($create_data, $file = 'temp/test.csv', $col_delimiter = ';', $row_delimiter = "\r\n"){
-    if( ! is_array($create_data))
+function create_csv_file(array $arrayForCSV, $file = 'temp/test.csv', string $col_delimiter = ';', string $row_delimiter = "\r\n"){
+    if( ! is_array($arrayForCSV))
         return false;
 
     if($file && ! is_dir(dirname($file)))
@@ -147,7 +167,7 @@ function create_csv_file($create_data, $file = 'temp/test.csv', $col_delimiter =
 
     $CSV_str = '';
 
-    foreach($create_data as $row ){
+    foreach($arrayForCSV as $row ){
         $cols = array();
 
         foreach($row as $col_val){
