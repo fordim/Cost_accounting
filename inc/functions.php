@@ -116,10 +116,6 @@ function getUserExpensesAll($link, int $userId) : array {
     return fetchData($link, $sql);
 }
 
-//function formatDateTime(DateTime $dateTime): string {
-//    return $dateTime->format('Y-m-d');
-//}
-
 function getAllCategories($link): array {
     $sql = "SELECT id, name FROM categories ORDER BY id";
     return fetchData($link, $sql);
@@ -154,66 +150,27 @@ function processFormDeleteCategory($link, int $categoryId){
 function downloadAllHistory($link, int $userId){
     $arrayForCSV = getUserExpensesAll($link, $userId);
     array_unshift($arrayForCSV, ["Created_at", "Amount", "Comment", "Category"]);
-    create_csv_file($arrayForCSV);
-    file_force_download('temp/test.csv');
+    createAndDownloadCSV($arrayForCSV);
 }
 
-//function create_csv_file(array $arrayForCSV, $file = 'temp/test.csv', string $col_delimiter = ';', string $row_delimiter = "\r\n"){
-//    if( ! is_array($arrayForCSV))
-//        return false;
-//
-//    if($file && ! is_dir(dirname($file)))
-//        return false;
-//
-//    $CSV_str = '';
-//
-//    foreach($arrayForCSV as $row ){
-//        $cols = array();
-//
-//        foreach($row as $col_val){
-//            // строки должны быть в кавычках ""
-//            // кавычки " внутри строк нужно предварить такой же кавычкой "
-//            if( $col_val && preg_match('/[",;\r\n]/', $col_val) ){
-//                // поправим перенос строки
-//                if( $row_delimiter === "\r\n" ){
-//                    $col_val = str_replace( "\r\n", '\n', $col_val );
-//                    $col_val = str_replace( "\r", '', $col_val );
-//                }
-//                elseif( $row_delimiter === "\n" ){
-//                    $col_val = str_replace( "\n", '\r', $col_val );
-//                    $col_val = str_replace( "\r\r", '\r', $col_val );
-//                }
-//                $col_val = str_replace( '"', '""', $col_val ); // предваряем "
-//                $col_val = '"'. $col_val .'"'; // обрамляем в "
-//            }
-//            $cols[] = $col_val; // добавляем колонку в данные
-//        }
-//        $CSV_str .= implode( $col_delimiter, $cols ) . $row_delimiter; // добавляем строку в данные
-//    }
-//    $CSV_str = rtrim( $CSV_str, $row_delimiter );
-//    // задаем кодировку windows-1251 для строки
-//    if( $file ){
-//        $CSV_str = iconv( "UTF-8", "cp1251",  $CSV_str );
-//        // создаем csv файл и записываем в него строку
-//        $done = file_put_contents( $file, $CSV_str );
-//
-//        return $done ? $CSV_str : false;
-//    }
-//    return $CSV_str;
-//}
+function createAndDownloadCSV($arrayForCSV) {
+    $tmpFile = tempnam('temp/', 'CSV');
 
-function create_csv_file($arrayForCSV) {
-    $file = fopen('temp/test.csv', 'w');
-
+    $file = fopen($tmpFile, 'w');
     foreach ($arrayForCSV as $fields){
         fputs($file, chr(0xEF) . chr(0xBB) . chr(0xBF)); // BOM (Byte Order Mark) - кодировка, что-бы понимало русский язык.
         fputcsv($file, array_values($fields), ';', ' ');
     }
-
     fclose($file);
+
+    $fileNewFormat = basename($tmpFile, ".tmp").".csv";
+    rename($tmpFile, "temp/$fileNewFormat");
+    $newPathToFile = "temp/$fileNewFormat";
+
+    fileForceDownload($newPathToFile);
 }
 
-function file_force_download($file) {
+function fileForceDownload($file) {
     if (file_exists($file)) {
         if (ob_get_level()) {
             ob_end_clean();
@@ -229,6 +186,7 @@ function file_force_download($file) {
         header('Content-Length: ' . filesize($file));
         // читаем файл и отправляем его пользователю
         readfile($file);
+        unlink($file);
         exit;
     }
 }
