@@ -1,14 +1,11 @@
 <?php
-//Контроллер
-//Обращение к супер глобальным массивам POST GET ...
-//Выводы echo die print
-//Нет HTML
-//Нет циклов и foreach
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 require_once('inc/functions.php');
+require_once('inc/database.php');
+require_once('inc/download.php');
 require_once 'init.php';
 
 if ($_POST['sendFormSignUp'] ?? ''){
@@ -27,7 +24,7 @@ if ($_POST['sendFormSignUp'] ?? ''){
             ),
         ]
     ));
-} elseif ($_POST['senFormSignIn'] ?? ''){
+} elseif ($_POST['sendFormSignIn'] ?? ''){
     processFormSignIn($link, $_POST['email'], $_POST['password']);
     die (renderTemplate('layout.php',
         [
@@ -63,6 +60,8 @@ if ($_POST['sendFormSignUp'] ?? ''){
     processFormChangeCategory($link, $_POST['categoryId'], $_POST['categoryName']);
 } elseif ($_POST['deleteExistCategory'] ?? '') {
     processFormDeleteCategory($link, $_POST['categoryId']);
+} elseif ($_POST['downloadAllHistory'] ?? '') {
+    downloadAllHistory($link, $_SESSION['user']['id']);
 }
 
 $currentPage = $_GET['page'] ?? 'main';
@@ -140,7 +139,9 @@ if (!isset($_SESSION['user'])) {
                     'content' => renderTemplate(
                         'itemHistory.php',
                         [
-                            'expenses' => getUserExpenses($link, $_SESSION['user']['id'])
+                            'dateFrom' => $_POST['dateFrom'] ?? getDateOfLastMonth() ,
+                            'dateTo' => $_POST['dateTo'] ?? getCurrentDate(),
+                            'expenses' => getUserExpenses($link, $_SESSION['user']['id'], ($_POST['dateFrom'] ?? getDateOfLastMonth()), ($_POST['dateTo'] ?? getCurrentDate()))
                         ]
                     ),
                 ]

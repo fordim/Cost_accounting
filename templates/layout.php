@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!-- view внешний вид -->
-<!--Ничего с модели-->
-<!--Только HTML разметка и одиночные переменные -->
-<!--Ещё if and foreach-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
