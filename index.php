@@ -1,14 +1,11 @@
 <?php
-//Контроллер
-//Обращение к супер глобальным массивам POST GET ...
-//Выводы echo die print
-//Нет HTML
-//Нет циклов и foreach
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 require_once('inc/functions.php');
+require_once('inc/database.php');
+require_once('inc/download.php');
 require_once 'init.php';
 
 if ($_POST['sendFormSignUp'] ?? ''){
