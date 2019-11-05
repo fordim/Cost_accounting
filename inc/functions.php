@@ -6,6 +6,8 @@
 //Нет session_start(), глобальные $link
 //require_once 'init.php'; - это нельзя
 
+CONST DATE_FORMAT = 'Y-m-d';
+
 function renderTemplate(string $name, array $data = []): string
 {
     $name = 'templates/' . $name;
@@ -86,15 +88,17 @@ function fetchData($link, string $sql): array {
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
-function getActualTime(){
-    return $actualMonth = date('Y-m-d');
+function getCurrentDate(): string{
+    return date(DATE_FORMAT);
 }
 
-function getPreviousMonth(){
-    return $previousMonth = date('Y-m-d', strtotime("last Month"));
+function getDateOfLastMonth(): string {
+    return date(DATE_FORMAT, strtotime("last Month"));
 }
 
 function getUserExpenses($link, int $userId, string $dateFrom, string $dateTo): array {
+    $dateFrom = requestVerification($link, $dateFrom);
+    $dateTo = requestVerification($link, $dateTo);
     $sql =    "SELECT h.created_at, h.amount,  h.comment, c.name as category
                 FROM history AS h
                 JOIN users AS u ON h.user_id = u.id
@@ -164,14 +168,16 @@ function createAndDownloadCSV($arrayForCSV) {
     fclose($file);
 
     $fileNewFormat = basename($tmpFile, ".tmp").".csv";
-    rename($tmpFile, "temp/$fileNewFormat");
     $newPathToFile = "temp/$fileNewFormat";
+    rename($tmpFile, $newPathToFile);
 
     fileForceDownload($newPathToFile);
 }
 
 function fileForceDownload($file) {
-    if (file_exists($file)) {
+    if (!file_exists($file)){
+        return;
+    } else {
         if (ob_get_level()) {
             ob_end_clean();
         }
