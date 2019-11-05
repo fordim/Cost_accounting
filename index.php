@@ -124,6 +124,19 @@ if (!isset($_SESSION['user'])) {
                     'content' => renderTemplate(
                         'itemCategory.php',
                         [
+                            'categories' => getAllCategories($link),
+                        ]
+                    ),
+                ]
+            ));
+        case 'categoryChange':
+            die (renderTemplate('layout.php',
+                [
+                    'title' => 'Category',
+                    'cssStyle' => 'css/category.css',
+                    'content' => renderTemplate(
+                        'itemCategoryChange.php',
+                        [
                             'categories' => getAllCategories($link)
                         ]
                     ),
