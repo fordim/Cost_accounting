@@ -98,7 +98,6 @@ if (!isset($_SESSION['user'])) {
                 [
                     'title' => 'Cabinet',
                     'nav' => renderTemplate('navbarCabinet.php'),
-                    'jsStyle' => 'js/cabinet.js',
                     'content' => renderTemplate(
                         'itemCabinet.php',
                         [
