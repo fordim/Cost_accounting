@@ -48,7 +48,7 @@ if ($_POST['sendFormSignUp'] ?? ''){
                 'checkNewCosts.php',
                 [
                     'userSum' => $_POST['sum'],
-                    'userCategory' => $_POST['categoryId'],
+                    'userCategory' => getCategoryName($link, $_POST['categoryId']),
                     'userComment' => $_POST['comment']
                 ]
             ),

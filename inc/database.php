@@ -50,6 +50,7 @@ function findUserByEmail($link, $email){
     $users = fetchData($link, $sql);
     return count($users) === 1 ? (int)$users[0]['id'] : null;
 }
+
 function processFormAddExpense($link, float $sum, string $comment, int $categoryId, $userId){
     $sum = requestVerification($link, $sum);
     $comment = requestVerification($link, $comment);
@@ -93,6 +94,7 @@ function getAllCategories($link): array {
     $sql = "SELECT id, name FROM categories ORDER BY id";
     return fetchData($link, $sql);
 }
+
 function processFormAddCategory($link, string $newCategory){
     $newCategory = requestVerification($link, $newCategory);
 
@@ -117,4 +119,10 @@ function processFormDeleteCategory($link, int $categoryId){
             WHERE id = $categoryId";
 
     insertData($link, $sql);
+}
+
+function getCategoryName($link, int $categoryId): array {
+    $sql = "SELECT name FROM categories
+            WHERE categories.id = $categoryId";
+    return fetchData($link, $sql);
 }
