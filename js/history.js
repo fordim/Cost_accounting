@@ -1,6 +1,6 @@
 var onPageLoaded = function() {
 
-        $('input[name="daterange"]').daterangepicker({
+        $('input[name="dateRange"]').daterangepicker({
             opens: 'center',
             locale: {
                 format: 'YYYY-MM-DD'

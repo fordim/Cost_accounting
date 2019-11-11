@@ -1,29 +1,29 @@
-<header>
-    <a class="returnBack" href="index.php"></a>
-    <a class="categoryPage" href="?page=category"></a>
-    <a class="historyPage" href="?page=history"></a>
-    <a class="logout" href="templates/logout.php"></a>
-    <div class="headerImage"></div>
-    <div class="headerText">
+<main class="background-color: bg-white container-fluid">
+    <div class="mainForm text-center">
+        <img src="../img/money.jpg" alt="Sign Up">
         <h1>Внесение расходов</h1>
+        <form name="FormAddExpense" method="POST">
+            <div class="form-group">
+                <label for="addExpenseSum">Сумма:</label>
+                <input type="number" name="sum" class="form-control small" id="addExpenseSum" maxlength="20" aria-describedby="sumHelp" placeholder="Сумма" required>
+                <small id="sumHelp" class="form-text text-muted">Введите сумму расхода (макс. сумма 1 000 000)</small>
+            </div>
+            <div class="form-group">
+                <label for="addExpenseComment">Комментарий</label>
+                <input type="text" name="comment" class="form-control" id="addExpenseComment" maxlength="100" aria-describedby="commentHelp" placeholder="Комментарий" required>
+                <small id="commentHelp" class="form-text text-muted">Введите комментарий по сумме</small>
+            </div>
+            <div class="form-group">
+                <label for="categoryId">Категория</label>
+                <select class="form-control" name="categoryId" required>
+                    <option disabled>Выберите категорию</option>
+                    <?php foreach ($categories as $category): ?>
+                        <option value="<?= $category['id']; ?>"><?= $category['name']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <small id="historyHelp" class="form-text text-muted">Выберите категорию соответствующею сумме</small>
+            </div>
+            <button class="btn btn-outline-success m-3 btn-lg" name="sendFormCabinet" type="submit" value="AddExpense">Добавить</button>
+        </form>
     </div>
-</header>
-<main>
-    <form class="inputFields" name="formCabinet" action="?page=acceptForm" method="POST">
-        <p>Сумма:</p>
-        <input class="inputText" type="number" name="sum" size="50" maxlength="20" required placeholder="Amount">
-        <p>Комментарий:</p>
-        <input class="inputText" id="commentInput" name="comment" type="text" size="50" maxlength="50" required placeholder="Comment">
-        <p>Категория:</p>
-        <p><select name="categoryId" required>
-                <option disabled>Выберите категорию</option>
-                <?php foreach ($categories as $category): ?>
-                <option value="<?= $category['id']; ?>"><?= $category['name']; ?></option>
-                <?php endforeach; ?>
-            </select></p>
-        <p><input class="subButton" name="sendFormCabinet" type="submit" value="Добавить"></p>
-    </form>
 </main>
-<footer>
-    <p>Made by Fordim</p>
-</footer>

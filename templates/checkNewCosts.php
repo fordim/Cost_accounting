@@ -1,14 +1,14 @@
-<header>
-    <h1>Данные успешно добавлены</h1>
-</header>
-<main>
-    <div class="userData">
-        <p>Сумма - <?= $userSum; ?></p>
-        <p>Категория - <?= $userCategory; ?></p>
-        <p>Комментарий - <?= $userComment; ?></p>
-    </div>
-    <div class="buttonsCosts">
-    <a class="mainButton" href="?page=cabinet">Добавить ещё запись</a>
-    <a class="mainButton" href="?page=history">Перейти на страницу  истории</a>
+<main class="background-color: bg-white container-fluid">
+    <div class="text-center mainForm">
+        <h1 class="font-weight-bold">Данные успешно добавлены</h1>
+        <div class="userData">
+            <p class="m-0"><strong>Категория</strong> - <?= $userCategory; ?></p>
+            <p class="m-0"><strong>Сумма</strong> - <?= $userSum; ?></p>
+            <p class="m-0"><strong>Комментарий</strong> - <?= $userComment; ?></p>
+        </div>
+        <div class="row" >
+            <a class="btn btn-outline-dark m-3 col" href="?page=cabinet">Добавить ещё запись</a>
+            <a class="btn btn-outline-dark m-3 col" href="?page=history">Перейти к истории</a>
+        </div>
     </div>
 </main>
