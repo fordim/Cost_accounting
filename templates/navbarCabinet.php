@@ -33,7 +33,9 @@
         </ul>
         <ul class="navbar-nav my-sm-0">
             <li class="nav-item active">
-                <a href="#" class="nav-link">User</a>
+                <?php foreach ($userName as $name): ?>
+                <a href="#" class="nav-link"><?= $name['name']; ?></a>
+                <?php endforeach; ?>
             </li>
             <li class="nav-item active">
                 <a class="btn btn-outline-light my-2 my-sm-0" href="templates/logout.php">Выйти</a>

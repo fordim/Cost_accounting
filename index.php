@@ -13,7 +13,12 @@ if ($_POST['sendFormSignUp'] ?? ''){
     die (renderTemplate('layout.php',
         [
             'title' => 'checkSignUp',
-            'nav' => renderTemplate('navbarCabinet.php'),
+            'nav' => renderTemplate(
+                'navbarCabinet.php',
+                [
+                    'userName' => getUserName($link, $_SESSION['user']['id'])
+                ]
+            ),
             'content' => renderTemplate(
                 'checkSignUp.php',
                 [
@@ -29,7 +34,12 @@ if ($_POST['sendFormSignUp'] ?? ''){
     die (renderTemplate('layout.php',
         [
             'title' => 'checkSignIn',
-            'nav' => renderTemplate('navbarCabinet.php'),
+            'nav' => renderTemplate(
+                'navbarCabinet.php',
+                [
+                    'userName' => getUserName($link, $_SESSION['user']['id'])
+                ]
+            ),
             'content' => renderTemplate(
                 'checkSignIn.php',
                 [
@@ -43,7 +53,12 @@ if ($_POST['sendFormSignUp'] ?? ''){
     die (renderTemplate('layout.php',
         [
             'title' => 'checkNewCosts',
-            'nav' => renderTemplate('navbarCabinet.php'),
+            'nav' => renderTemplate(
+                'navbarCabinet.php',
+                [
+                    'userName' => getUserName($link, $_SESSION['user']['id'])
+                ]
+            ),
             'content' => renderTemplate(
                 'checkNewCosts.php',
                 [
@@ -97,7 +112,12 @@ if (!isset($_SESSION['user'])) {
             die (renderTemplate('layout.php',
                 [
                     'title' => 'Cabinet',
-                    'nav' => renderTemplate('navbarCabinet.php'),
+                    'nav' => renderTemplate(
+                        'navbarCabinet.php',
+                        [
+                            'userName' => getUserName($link, $_SESSION['user']['id'])
+                        ]
+                    ),
                     'content' => renderTemplate(
                         'itemCabinet.php',
                         [
@@ -110,7 +130,12 @@ if (!isset($_SESSION['user'])) {
             die (renderTemplate('layout.php',
                 [
                     'title' => 'Category',
-                    'nav' => renderTemplate('navbarCabinet.php'),
+                    'nav' => renderTemplate(
+                        'navbarCabinet.php',
+                        [
+                            'userName' => getUserName($link, $_SESSION['user']['id'])
+                        ]
+                    ),
                     'content' => renderTemplate(
                         'itemCategory.php',
                         [
@@ -123,7 +148,12 @@ if (!isset($_SESSION['user'])) {
             die (renderTemplate('layout.php',
                 [
                     'title' => 'Category',
-                    'nav' => renderTemplate('navbarCabinet.php'),
+                    'nav' => renderTemplate(
+                        'navbarCabinet.php',
+                        [
+                            'userName' => getUserName($link, $_SESSION['user']['id'])
+                        ]
+                    ),
                     'content' => renderTemplate(
                         'itemCategoryChange.php',
                         [
@@ -137,7 +167,12 @@ if (!isset($_SESSION['user'])) {
                 'layout.php',
                 [
                     'title' => 'History',
-                    'nav' => renderTemplate('navbarCabinet.php'),
+                    'nav' => renderTemplate(
+                        'navbarCabinet.php',
+                        [
+                            'userName' => getUserName($link, $_SESSION['user']['id'])
+                        ]
+                    ),
                     'jsStyle' => 'js/history.js',
                     'content' => renderTemplate(
                         'itemHistory.php',

@@ -126,3 +126,9 @@ function getCategoryName($link, int $categoryId): array {
             WHERE categories.id = $categoryId";
     return fetchData($link, $sql);
 }
+
+function getUserName($link, int $userId): array {
+    $sql = "SELECT name FROM users
+            WHERE users.id = $userId";
+    return fetchData($link, $sql);
+}
