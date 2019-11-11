@@ -121,14 +121,19 @@ function processFormDeleteCategory($link, int $categoryId){
     insertData($link, $sql);
 }
 
+function fetchAssocData($link, string $sql): array {
+    $result = mysqli_query($link, $sql) or die("Ошибка " . mysqli_error($link));
+    return mysqli_fetch_assoc($result);
+}
+
 function getCategoryName($link, int $categoryId): array {
     $sql = "SELECT name FROM categories
             WHERE categories.id = $categoryId";
-    return fetchData($link, $sql);
+    return fetchAssocData($link, $sql);
 }
 
 function getUserName($link, int $userId): array {
     $sql = "SELECT name FROM users
             WHERE users.id = $userId";
-    return fetchData($link, $sql);
+    return fetchAssocData($link, $sql);
 }

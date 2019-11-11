@@ -2,9 +2,7 @@
     <div class="text-center mainForm">
         <h1 class="font-weight-bold">Данные успешно добавлены</h1>
         <div class="userData">
-            <?php foreach ($userCategory as $category): ?>
-                <p class="m-0"><strong>Категория</strong> - <?= $category['name']; ?></p>
-            <?php endforeach; ?>
+            <p class="m-0"><strong>Категория</strong> - <?= $userCategory['name']; ?></p>
             <p class="m-0"><strong>Сумма</strong> - <?= $userSum; ?></p>
             <p class="m-0"><strong>Комментарий</strong> - <?= $userComment; ?></p>
         </div>
