@@ -19,37 +19,15 @@ function processFormSignIn($link, string $email, string $password){
     die ("Пользователя не существует в базе или введен не верный логин/пароль. </br>Повторите попытку.");
 }
 
-function insertData($link, string $sql): int {
-    $result = mysqli_query($link, $sql) or die ("Ошибка, при попытке сделать запись в БД </br>" . mysqli_error($link));
-    return mysqli_insert_id($link);
-}
+
 
 function requestVerification($link, $a){
     return htmlentities(mysqli_real_escape_string($link, $a));
 }
 
-function processFormSignUp($link, string $name, string $email, string $passwordUser){
-    $name = requestVerification($link, $name);
-    $email = requestVerification($link, $email);
-    $passwordUser = requestVerification($link, $passwordUser);
-    $passwordHash = password_hash($passwordUser, PASSWORD_DEFAULT);
 
-    $sql =   "INSERT INTO users (email, name, password_hash)
-                VALUES ('$email', '$name', '$passwordHash')";
 
-    insertData($link, $sql);
-    $user = findUserByEmail($link, $email);
-    $_SESSION['user'] = [
-        'id' => (int)$user['id'],
-        'email' => $user['email']
-    ];
-}
 
-function findUserByEmail($link, $email){
-    $sql = "SELECT id FROM users WHERE users.email = '$email'";
-    $users = fetchData($link, $sql);
-    return count($users) === 1 ? (int)$users[0]['id'] : null;
-}
 
 function processFormAddExpense($link, float $sum, string $comment, int $categoryId, $userId){
     $sum = requestVerification($link, $sum);
@@ -61,10 +39,7 @@ function processFormAddExpense($link, float $sum, string $comment, int $category
     insertData($link, $sql);
 }
 
-function fetchData($link, string $sql): array {
-    $result = mysqli_query($link, $sql) or die("Ошибка " . mysqli_error($link));
-    return mysqli_fetch_all($result, MYSQLI_ASSOC);
-}
+
 
 function getUserExpenses($link, int $userId, string $dateFrom, string $dateTo): array {
     $dateFrom = requestVerification($link, $dateFrom);

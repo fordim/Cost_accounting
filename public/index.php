@@ -3,23 +3,29 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-require_once('inc/functions.php');
-require_once('inc/database.php');
-require_once('inc/download.php');
-require_once 'init.php';
+require_once __DIR__ . '/../vendor/autoload.php';
+
+session_start();
+
+
+use App\Utils;
+use App\Database;
+
+
+//require_once('inc/download.php');
 
 if ($_POST['sendFormSignUp'] ?? ''){
-    processFormSignUp($link, $_POST['name'], $_POST['email'], $_POST['password']);
-    die (renderTemplate('layout.php',
+    Database::getInstance()->processFormSignUp($_POST['name'], $_POST['email'], $_POST['password']);
+    die (Utils::renderTemplate('layout.php',
         [
             'title' => 'checkSignUp',
-            'nav' => renderTemplate(
+            'nav' => Utils::renderTemplate(
                 'navbarCabinet.php',
                 [
-                    'userName' => getUserName($link, $_SESSION['user']['id'])
+                    'userName' => 'TODO'//getUserName($link, $_SESSION['user']['id'])
                 ]
             ),
-            'content' => renderTemplate(
+            'content' => Utils::renderTemplate(
                 'checkSignUp.php',
                 [
                     'userName' => $_POST['name'],
@@ -83,11 +89,11 @@ $currentPage = $_GET['page'] ?? 'main';
 
 switch ($currentPage) {
     case 'main':
-        die (renderTemplate('layout.php',
+        die (Utils::renderTemplate('layout.php',
             [
                 'title' => 'Cost accounting',
-                'nav' => renderTemplate('navbarMain.php'),
-                'content' => renderTemplate('itemMain.php'),
+                'nav' => Utils::renderTemplate('navbarMain.php'),
+                'content' => Utils::renderTemplate('itemMain.php'),
             ]
         ));
 }
@@ -95,12 +101,12 @@ switch ($currentPage) {
 if (!isset($_SESSION['user'])) {
     switch ($currentPage){
         case 'signUp':
-            die (renderTemplate('layout.php',
+            die (Utils::renderTemplate('layout.php',
                 [
                     'title' => 'Sign Up',
-                    'nav' => renderTemplate('navbarMain.php'),
+                    'nav' => Utils::renderTemplate('navbarMain.php'),
                     'jsStyle' => 'js/signUp.js',
-                    'content' => renderTemplate('itemSignUp.php'),
+                    'content' => Utils::renderTemplate('itemSignUp.php'),
                 ]
             ));
         default:
