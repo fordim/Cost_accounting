@@ -1,0 +1,12 @@
+{
+    "name": "fordim/cost_accouning",
+    "description": "Cost Accounting Service",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Dmitry Formos",
+            "email": "dvformos@gmail.com"
+        }
+    ],
+    "require": {}
+}
