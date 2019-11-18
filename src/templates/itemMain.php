@@ -9,7 +9,7 @@
                 <div class="carousel-caption d-flex h-75 align-items-top justify-content-center">
                     <h1 class="font-weight-bold">Cost accounting</h1>
                 </div>
-                <img src="../img/accountingMainOne.jpg" alt="First slide" class="d-block w-100">
+                <img src="../../public/img/accountingMainOne.jpg" alt="First slide" class="d-block w-100">
                 <div class="carousel-caption d-flex align-items-center justify-content-center">
                     <strong>Уоррен-Баффет: Каждый сэкономленный доллар - это заработанный доллар</strong>
                 </div>
@@ -18,7 +18,7 @@
                 <div class="carousel-caption d-flex h-75 align-items-top justify-content-center">
                     <h1 class="font-weight-bold">Cost accounting</h1>
                 </div>
-                <img src="../img/accountingMainTwo.jpg" alt="Third slide" class="d-block w-100">
+                <img src="../../public/img/accountingMainTwo.jpg" alt="Third slide" class="d-block w-100">
                 <div class="carousel-caption d-flex align-items-center justify-content-center">
                     <strong>Теодор Герцль: Нельзя рассуждать о бюджете, не зная приблизительно цифры его доходов и расходов</strong>
                 </div>
@@ -38,7 +38,7 @@
     <div class="footer-copyright py-1 btn-github">
         Made by Fordim
         <a href="https://github.com/fordim">
-            <img src="../img/GitHubIcon.svg" alt="GitHub Icon" width="25" height="25">
+            <img src="../../public/img/GitHubIcon.svg" alt="GitHub Icon" width="25" height="25">
         </a>
     </div>
 </footer>

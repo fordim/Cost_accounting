@@ -1,6 +1,6 @@
 <main class="background-color: bg-white container-fluid">
     <div class="mainForm text-center">
-        <img src="../img/money.jpg" alt="Sign Up">
+        <img src="../../public/img/money.jpg" alt="Sign Up">
         <h1>Внесение расходов</h1>
         <form name="FormAddExpense" method="POST">
             <div class="form-group">

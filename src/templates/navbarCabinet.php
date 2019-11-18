@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark navbar-expand-md bg-dark sticky-top container-fluid">
     <a href="#" class="navbar-brand">
-        <img src="../img/user.svg" alt="ava" width="50" height="50">
+        <img src="../../public/img/user.svg" alt="ava" width="50" height="50">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -36,7 +36,7 @@
                 <a href="#" class="nav-link"><?= $userName['name']; ?></a>
             </li>
             <li class="nav-item active">
-                <a class="btn btn-outline-light my-2 my-sm-0" href="templates/logout.php">Выйти</a>
+                <a class="btn btn-outline-light my-2 my-sm-0" href="../../src/templates/logout.php">Выйти</a>
             </li>
         </ul>
     </div>
