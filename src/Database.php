@@ -44,19 +44,23 @@ final class Database
 
     private function insertData(string $sql): int
     {
-        $result = mysqli_query($this->link, $sql) or die ('Ошибка, при попытке сделать запись в БД' . mysqli_error($this->link));
+        $result = mysqli_query($this->link, $sql) or die ('Ошибка, при попытке сделать запись в БД ' . mysqli_error($this->link));
         return mysqli_insert_id($this->link);
-    }
-
-    private function findUserByEmail($email){
-        $sql = "SELECT id FROM users WHERE users.email = '$email'";
-        $users = $this->fetchData($sql);
-        return count($users) === 1 ? (int)$users[0]['id'] : null;
     }
 
     private function fetchData(string $sql): array {
         $result = mysqli_query($this->link, $sql) or die('Ошибка ' . mysqli_error($this->link));
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+
+    public function fetchAssocData(string $sql): array {
+        $result = mysqli_query($this->link, $sql) or die("Ошибка " . mysqli_error($this->link));
+        return mysqli_fetch_assoc($result);
+    }
+
+    public function findUserByEmail(string $email){
+        $sql = "SELECT * FROM users WHERE users.email = '$email'";
+        return $this->fetchData($sql);
     }
 
     public function processFormSignUp(string $name, string $email, string $passwordUser)
@@ -70,37 +74,19 @@ final class Database
                 VALUES ('$email', '$name', '$passwordHash')";
 
         $this->insertData($sql);
-        $user = $this->findUserByEmail($email);
-
-        // вынести из модуля Database в index.php (пока)
-        $_SESSION['user'] = [
-            'id' => (int)$user['id'],
-            'email' => $user['email']
-        ];
     }
 
     public function processFormSignIn(string $email, string $password){
         $email = $this->requestVerification($email);
-        $sql = "SELECT * FROM users AS u WHERE u.email = '$email'";
-
-        $users = $this->fetchData($sql);
+        $users = $this->findUserByEmail($email);
         if (count($users) === 1){
             $user = $users[0];
             $password_hash = $user['password_hash'];
             if (password_verify($password, $password_hash)){
-                $_SESSION['user'] = [
-                    'id' => (int)$user['id'],
-                    'email' => $user['email']
-                ];
                 return;
             }
         }
         die ('Пользователя не существует в базе или введен не верный логин/пароль. Повторите попытку.');
-    }
-
-    public function fetchAssocData(string $sql): array {
-        $result = mysqli_query($this->link, $sql) or die("Ошибка " . mysqli_error($this->link));
-        return mysqli_fetch_assoc($result);
     }
 
     public function getUserName(int $userId): array {
@@ -174,11 +160,10 @@ final class Database
         $this->insertData($sql);
     }
 
-    function getCategoryName(int $categoryId): array {
+    public function getCategoryName(int $categoryId): array {
         $sql = "SELECT name FROM categories
             WHERE categories.id = $categoryId";
 
         return $this->fetchAssocData($sql);
     }
-
 }

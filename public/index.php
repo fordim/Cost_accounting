@@ -12,6 +12,10 @@ use App\Database;
 
 if ($_POST['sendFormSignUp'] ?? ''){
     Database::getInstance()->processFormSignUp($_POST['name'], $_POST['email'], $_POST['password']);
+    $_SESSION['user'] = [
+        'id' => Database::getInstance()->findUserByEmail($_POST['email'])[0]['id'],
+        'email' => $_POST['email']
+    ];
     die (Utils::renderTemplate('layout.php',
         [
             'title' => 'checkSignUp',
@@ -33,6 +37,10 @@ if ($_POST['sendFormSignUp'] ?? ''){
     ));
 } elseif ($_POST['sendFormSignIn'] ?? ''){
     Database::getInstance()->processFormSignIn($_POST['email'], $_POST['password']);
+    $_SESSION['user'] = [
+        'id' => Database::getInstance()->findUserByEmail($_POST['email'])[0]['id'],
+        'email' => $_POST['email']
+    ];
     die (Utils::renderTemplate('layout.php',
         [
             'title' => 'checkSignIn',
