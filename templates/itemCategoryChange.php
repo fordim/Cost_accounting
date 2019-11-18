@@ -1,27 +1,26 @@
-<header>
-    <a class="returnBack" href="?page=cabinet"></a>
-    <a class="logout" href="templates/logout.php"></a>
-    <div class="headerImage"></div>
-</header>
-<main>
-    <table class="mainTable" border="2px">
-        <tr>
-            <th class="idСolumn">Id</th>
-            <th class="categoryСolumn">Категория</th>
-            <th>Изменить / Удалить</th>
-        </tr>
-        <?php foreach ($categories as $category): ?>
-        <form class="inputFields" name="formCabinet" action="?page=categoryChange" method="POST">
+<main class="background-color: bg-white container-fluid text-center">
+    <h1 class="p-3 font-weight-bold">Категории (редактирование)</h1>
+    <table class="table table-bordered">
+        <thead class="thead-light">
             <tr>
-                <td>
-                    <input type=hidden class="inputText" id="categoryId" name="categoryId" required" value="<?= $category['id']; ?>"><?= $category['id']; ?>
+                <th scope="col">Id</th>
+                <th scope="col">Категория</th>
+                <th scope="col">Изменить / Удалить</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($categories as $category): ?>
+        <form name="formCabinet" action="?page=categoryChange" method="POST">
+            <tr>
+                <td class="w-25">
+                    <input type=hidden class="form-control" id="categoryId" name="categoryId" required" value="<?= $category['id']; ?>"><?= $category['id']; ?>
                 </td>
-                <td>
-                    <input class="inputText" id="categoryName" name="categoryName" type="text" size="50" maxlength="50" required value="<?= $category['name']; ?>">
+                <td class="w-50">
+                    <input type="text" class="form-control" id="categoryName" name="categoryName" maxlength="50" required value="<?= $category['name']; ?>">
                 </td>
-                <td>
-                    <input class="subButton" name="changeExistCategory" type="submit" value="Изменить">
-                    <input class="subButton" name="deleteExistCategory" type="submit" value="Удалить">
+                <td class="w-25">
+                    <input class="btn btn-outline-secondary" name="changeExistCategory" type="submit" value="Изменить">
+                    <input class="btn btn-outline-secondary" name="deleteExistCategory" type="submit" value="Удалить">
                 </td>
             </tr>
         </form>
@@ -30,20 +29,14 @@
             <tr>
                 <td></td>
                 <td>
-                    <input class="inputAddCategory" id="categoryName" name="categoryName" type="text" size="50" maxlength="50" required placeholder="Укажите название новой категории">
+                    <input type="text" class="form-control" id="categoryName" name="categoryName" maxlength="50" required placeholder="Укажите название новой категории">
                 </td>
                 <td>
-                    <input class="subButton" name="addNewCategory" type="submit" value="Добавить">
+                    <input class="btn btn-outline-secondary" name="addNewCategory" type="submit" value="Добавить">
                 </td>
             </tr>
         </form>
+        </tbody>
     </table>
-    <div class="mainForm">
-        <form class="inputFields" name="formMode" action="?page=category" method="POST">
-            <p><input class="subButton" name="changeCategoryMode" type="submit" value="Перейти в обычный режим"></p>
-        </form>
-    </div>
+    <a href="?page=category" class="btn btn-secondary mb-3">Перейти в обычный режим</a>
 </main>
-<footer>
-    <p>Made by Fordim</p>
-</footer>

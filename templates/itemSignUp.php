@@ -1,21 +1,31 @@
-<header>
-    <a class="returnBack" href="index.php"></a>
-    <div class="headerImage"></div>
-    <div class="headerText">
-        <h1>Регистрация</h1>
+<main class="background-color: bg-white container-fluid text-center">
+    <div class="mainForm">
+        <img src="../img/registration.jpg" alt="Sign Up">
+        <form name="formSignUp" method="POST">
+            <div class="form-group">
+                <label for="signUnInputName">Имя</label>
+                <input type="text" name="name" class="form-control small" id="signUnInputName" maxlength="20" aria-describedby="nameHelp" placeholder="Имя" required>
+                <small id="nameHelp" class="form-text text-muted">Введите ваше имя</small>
+            </div>
+            <div class="form-group">
+                <label for="signUnInputEmail">Электронная почта</label>
+                <input type="email" name="email" class="form-control" id="signUnInputEmail" maxlength="50" aria-describedby="signUpEmailHelp" placeholder="Почта" required>
+                <small id="signUpEmailHelp" class="form-text text-muted">Введите ваш адрес электронной почты</small>
+            </div>
+            <div class="form-group">
+                <label for="signUpInputPass">Пароль</label>
+                <input type="password" name="password" class="form-control " id="signUpInputPass" aria-describedby="signUpPassHelp" placeholder="Пароль" required>
+                <small id="signUpPassHelp" class="form-text text-muted">Введите ваш пароль</small>
+            </div>
+            <button class="btn btn-primary m-3" name="sendFormSignUp" type="submit" value="SignUp">Зарегистрироваться</button>
+        </form>
     </div>
-</header>
-<main>
-    <form class="inputFields" name="formSignUp" method="POST">
-        <p>Ваше Имя:</p>
-        <input class="inputText" id="nameInput" name="name" type="text" size="50" maxlength="20" required placeholder="Name">
-        <p>Электронная почта:</p>
-        <input class="inputText" type="email" name="email" size="50" maxlength="50" required placeholder="E-Mail">
-        <p>Пароль:</p>
-        <input class="inputText" type="password" name="password" size="50" maxlength="30" required placeholder="Password">
-        <input class="subButton" id="subButton" name="sendFormSignUp" type="submit" value="Зарегистрироватся">
-    </form>
 </main>
-<footer>
-    <p>Made by Fordim</p>
+<footer class="page-footerfont-small bg-secondary container-fluid text-center">
+    <div class="footer-copyright py-1 btn-github">
+        Made by Fordim
+        <a href="https://github.com/fordim">
+            <img src="../img/GitHubIcon.svg" alt="GitHub Icon" width="25" height="25">
+        </a>
+    </div>
 </footer>

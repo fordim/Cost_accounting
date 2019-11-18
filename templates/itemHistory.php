@@ -1,43 +1,34 @@
-<header>
-    <a class="returnBack" href="?page=cabinet"></a>
-    <a class="logout" href="templates/logout.php"></a>
-    <div class="headerImage"></div>
-</header>
-<main>
-    <h1 class="mainText">История расходов</h1>
-    <div class="inputBlock">
-        <h4 class="mainText">Выберите дату:</h4>
-        <form class="formDatePicker" name="formDatePicker" id="formDatePicker" method="POST">
-            <input class="inputDate" type="text" name="daterange" value="<?= $dateFrom ?> - <?= $dateTo ?>" />
+<main class="background-color: bg-white container-fluid text-center">
+    <h1>История расходов</h1>
+    <h5>Выберите дату:</h5>
+    <div class="formDatePicker">
+        <form name="formDatePicker" id="formDatePicker" method="POST">
+            <input class="form-control text-center" id="dateRange" type="text" name="dateRange" value="<?= $dateFrom ?> - <?= $dateTo ?>"/>
             <input type="hidden" id="dateFrom" name="dateFrom" value="value"/>
             <input type="hidden" id="dateTo" name="dateTo" value="value"/>
         </form>
     </div>
-    <table class="mainTable" border="2px">
-        <tr>
-            <th class="dataСolumn">Дата</th>
-            <th class="sumСolumn">Сумма</th>
-            <th class="commentСolumn">Комментарий</th>
-            <th class="categoryСolumn">Категория</th>
-        </tr>
-        <?php foreach ($expenses as $expense): ?>
+    <table class="table table-bordered">
+        <thead class="thead-light">
             <tr>
-                <td><?= $expense['created_at']; ?></td>
-                <td><?= $expense['amount']; ?></td>
-                <td class="commentLine"><?= $expense['comment']; ?></td>
-                <td><?= $expense['category']; ?></td>
+                <th scope="col">Дата</th>
+                <th scope="col">Сумма</th>
+                <th scope="col">Комментарий</th>
+                <th scope="col">Категория</th>
             </tr>
-        <?php endforeach; ?>
+        </thead>
+        <tbody>
+            <?php foreach ($expenses as $expense): ?>
+                <tr>
+                    <td class="w-25"><?= $expense['created_at']; ?></td>
+                    <td class="w-25"><?= $expense['amount']; ?></td>
+                    <td class="w-25"><?= $expense['comment']; ?></td>
+                    <td class="w-25"><?= $expense['category']; ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
     </table>
-    <form class="formDownloadAllHistory" name="formDownloadAllHistory" method="POST">
-        <input class="subButton" name="downloadAllHistory" type="submit" value="Скачать всю историю, CSV">
+    <form name="formDownloadAllHistory" method="POST">
+        <button class="btn btn-secondary mb-3" name="downloadAllHistory" type="submit" value="DownloadAllHistory">Скачать всю историю, CSV</button>
     </form>
 </main>
-<footer>
-    <p>Made by Fordim</p>
-</footer>
-<div class="script">
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-</div>

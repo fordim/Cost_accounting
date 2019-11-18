@@ -1,27 +1,20 @@
-<header>
-    <a class="returnBack" href="?page=cabinet"></a>
-    <a class="logout" href="templates/logout.php"></a>
-    <div class="headerImage"></div>
-</header>
-<main>
-    <table class="mainTable" border="2px">
-        <tr>
-            <th class="idСolumn">Id</th>
-            <th class="categoryСolumn">Категория</th>
-        </tr>
+<main class="background-color: bg-white container-fluid text-center">
+    <h1 class="p-3 font-weight-bold">Категории</h1>
+    <table class="table table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Категория</th>
+            </tr>
+        </thead>
+        <tbody>
         <?php foreach ($categories as $category): ?>
             <tr>
-                <td><?= $category['id']; ?></td>
-                <td><?= $category['name']; ?></td>
+                <td class="w-25"><?= $category['id']; ?></td>
+                <td class="w-75"><?= $category['name']; ?></td>
             </tr>
         <?php endforeach; ?>
+        </tbody>
     </table>
-    <div class="mainForm">
-        <form class="inputFields" name="formMode" action="?page=categoryChange" method="POST">
-            <p><input class="subButton" name="changeCategoryMode" type="submit" value="Перейти в режим редактирования"></p>
-        </form>
-    </div>
+    <a href="?page=categoryChange" class="btn btn-secondary mb-3">Перейти в режим редактирования</a>
 </main>
-<footer>
-    <p>Made by Fordim</p>
-</footer>

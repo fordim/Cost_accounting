@@ -1,0 +1,26 @@
+body {
+    background-image:url(../img/background.png);
+}
+
+.container-fluid {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 1200px;
+}
+
+.mainForm{
+    max-width:500px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.formDatePicker{
+    max-width:220px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 10px;
+}
+
+.dropdown-menu > a:hover{
+    background-color: grey;
+}

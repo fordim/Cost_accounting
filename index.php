@@ -13,7 +13,12 @@ if ($_POST['sendFormSignUp'] ?? ''){
     die (renderTemplate('layout.php',
         [
             'title' => 'checkSignUp',
-            'cssStyle' => 'css/check.css',
+            'nav' => renderTemplate(
+                'navbarCabinet.php',
+                [
+                    'userName' => getUserName($link, $_SESSION['user']['id'])
+                ]
+            ),
             'content' => renderTemplate(
                 'checkSignUp.php',
                 [
@@ -29,7 +34,12 @@ if ($_POST['sendFormSignUp'] ?? ''){
     die (renderTemplate('layout.php',
         [
             'title' => 'checkSignIn',
-            'cssStyle' => 'css/check.css',
+            'nav' => renderTemplate(
+                'navbarCabinet.php',
+                [
+                    'userName' => getUserName($link, $_SESSION['user']['id'])
+                ]
+            ),
             'content' => renderTemplate(
                 'checkSignIn.php',
                 [
@@ -43,12 +53,17 @@ if ($_POST['sendFormSignUp'] ?? ''){
     die (renderTemplate('layout.php',
         [
             'title' => 'checkNewCosts',
-            'cssStyle' => 'css/check.css',
+            'nav' => renderTemplate(
+                'navbarCabinet.php',
+                [
+                    'userName' => getUserName($link, $_SESSION['user']['id'])
+                ]
+            ),
             'content' => renderTemplate(
                 'checkNewCosts.php',
                 [
                     'userSum' => $_POST['sum'],
-                    'userCategory' => $_POST['categoryId'],
+                    'userCategory' => getCategoryName($link, $_POST['categoryId']),
                     'userComment' => $_POST['comment']
                 ]
             ),
@@ -71,7 +86,7 @@ switch ($currentPage) {
         die (renderTemplate('layout.php',
             [
                 'title' => 'Cost accounting',
-                'cssStyle' => "css/main.css",
+                'nav' => renderTemplate('navbarMain.php'),
                 'content' => renderTemplate('itemMain.php'),
             ]
         ));
@@ -79,25 +94,16 @@ switch ($currentPage) {
 
 if (!isset($_SESSION['user'])) {
     switch ($currentPage){
-        case 'signIn':
-            die (renderTemplate('layout.php',
-                [
-                    'title' => 'Sign In',
-                    'cssStyle' => 'css/signIn.css',
-                    'content' => renderTemplate('itemSignIn.php'),
-                ]
-            ));
         case 'signUp':
             die (renderTemplate('layout.php',
                 [
                     'title' => 'Sign Up',
-                    'cssStyle' => 'css/signUp.css',
+                    'nav' => renderTemplate('navbarMain.php'),
                     'jsStyle' => 'js/signUp.js',
                     'content' => renderTemplate('itemSignUp.php'),
                 ]
             ));
         default:
-            echo $_SESSION['user']['email'];
             echo 'Доступ закрыт 403';
     }
 } else {
@@ -106,8 +112,12 @@ if (!isset($_SESSION['user'])) {
             die (renderTemplate('layout.php',
                 [
                     'title' => 'Cabinet',
-                    'cssStyle' => 'css/cabinet.css',
-                    'jsStyle' => 'js/cabinet.js',
+                    'nav' => renderTemplate(
+                        'navbarCabinet.php',
+                        [
+                            'userName' => getUserName($link, $_SESSION['user']['id'])
+                        ]
+                    ),
                     'content' => renderTemplate(
                         'itemCabinet.php',
                         [
@@ -120,7 +130,12 @@ if (!isset($_SESSION['user'])) {
             die (renderTemplate('layout.php',
                 [
                     'title' => 'Category',
-                    'cssStyle' => 'css/category.css',
+                    'nav' => renderTemplate(
+                        'navbarCabinet.php',
+                        [
+                            'userName' => getUserName($link, $_SESSION['user']['id'])
+                        ]
+                    ),
                     'content' => renderTemplate(
                         'itemCategory.php',
                         [
@@ -133,7 +148,12 @@ if (!isset($_SESSION['user'])) {
             die (renderTemplate('layout.php',
                 [
                     'title' => 'Category',
-                    'cssStyle' => 'css/category.css',
+                    'nav' => renderTemplate(
+                        'navbarCabinet.php',
+                        [
+                            'userName' => getUserName($link, $_SESSION['user']['id'])
+                        ]
+                    ),
                     'content' => renderTemplate(
                         'itemCategoryChange.php',
                         [
@@ -147,7 +167,12 @@ if (!isset($_SESSION['user'])) {
                 'layout.php',
                 [
                     'title' => 'History',
-                    'cssStyle' => 'css/history.css',
+                    'nav' => renderTemplate(
+                        'navbarCabinet.php',
+                        [
+                            'userName' => getUserName($link, $_SESSION['user']['id'])
+                        ]
+                    ),
                     'jsStyle' => 'js/history.js',
                     'content' => renderTemplate(
                         'itemHistory.php',
@@ -163,5 +188,4 @@ if (!isset($_SESSION['user'])) {
             header("Location: index.php?page=cabinet");
              die();
     }
-
 }
