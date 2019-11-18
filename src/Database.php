@@ -6,8 +6,8 @@ final class Database
 {
     private const HOST = 'localhost';
     private const DATABASE = 'accounting';
-    private const USER = 'accounting';
-    private const PASSWORD = 'accounting';
+    private const USER = 'root';
+    private const PASSWORD = '';
 
     /** @var Database */
     private static $instance = null;
@@ -42,7 +42,6 @@ final class Database
         return htmlentities(mysqli_real_escape_string($this->link, $escapestr));
     }
 
-
     private function insertData(string $sql): int
     {
         $result = mysqli_query($this->link, $sql) or die ('Ошибка, при попытке сделать запись в БД' . mysqli_error($this->link));
@@ -60,12 +59,11 @@ final class Database
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
-
     public function processFormSignUp(string $name, string $email, string $passwordUser)
     {
-        $name = self::requestVerification($name);
-        $email = self::requestVerification($email);
-        $passwordUser = self::requestVerification($passwordUser);
+        $name = $this->requestVerification($name);
+        $email = $this->requestVerification($email);
+        $passwordUser = $this->requestVerification($passwordUser);
         $passwordHash = password_hash($passwordUser, PASSWORD_DEFAULT);
 
         $sql = "INSERT INTO users (email, name, password_hash)
@@ -80,4 +78,107 @@ final class Database
             'email' => $user['email']
         ];
     }
+
+    public function processFormSignIn(string $email, string $password){
+        $email = $this->requestVerification($email);
+        $sql = "SELECT * FROM users AS u WHERE u.email = '$email'";
+
+        $users = $this->fetchData($sql);
+        if (count($users) === 1){
+            $user = $users[0];
+            $password_hash = $user['password_hash'];
+            if (password_verify($password, $password_hash)){
+                $_SESSION['user'] = [
+                    'id' => (int)$user['id'],
+                    'email' => $user['email']
+                ];
+                return;
+            }
+        }
+        die ('Пользователя не существует в базе или введен не верный логин/пароль. Повторите попытку.');
+    }
+
+    public function fetchAssocData(string $sql): array {
+        $result = mysqli_query($this->link, $sql) or die("Ошибка " . mysqli_error($this->link));
+        return mysqli_fetch_assoc($result);
+    }
+
+    public function getUserName(int $userId): array {
+        $sql = "SELECT name FROM users
+            WHERE users.id = $userId";
+        return $this->fetchAssocData($sql);
+    }
+
+    public function getAllCategories(): array {
+        $sql = "SELECT id, name FROM categories ORDER BY id";
+        return $this->fetchData($sql);
+    }
+
+    public function getUserExpenses(int $userId, string $dateFrom, string $dateTo): array {
+        $dateFrom = $this->requestVerification($dateFrom);
+        $dateTo = $this->requestVerification($dateTo);
+        $sql =    "SELECT h.created_at, h.amount,  h.comment, c.name as category
+                FROM history AS h
+                JOIN users AS u ON h.user_id = u.id
+                JOIN categories AS c ON h.category_id = c.id
+                WHERE u.id = $userId AND DATE(h.created_at) BETWEEN '$dateFrom' AND '$dateTo'
+                ORDER BY h.created_at";
+
+        return $this->fetchData($sql);
+    }
+
+    public function getUserExpensesAll(int $userId) : array {
+        $sql =    "SELECT h.created_at, h.amount,  h.comment, c.name as category
+                FROM history AS h
+                JOIN users AS u ON h.user_id = u.id
+                JOIN categories AS c ON h.category_id = c.id
+                WHERE u.id = $userId
+                ORDER BY h.created_at";
+
+        return $this->fetchData($sql);
+    }
+
+    public function processFormAddCategory(string $newCategory){
+        $newCategory = $this->requestVerification($newCategory);
+
+        $sql = "INSERT INTO categories(name)
+             VALUES ('$newCategory')";
+
+        $this->insertData($sql);
+    }
+
+    public function processFormChangeCategory(int $categoryId, string $newCategory){
+        $newCategory = $this->requestVerification($newCategory);
+
+        $sql = "UPDATE categories
+            SET name = '$newCategory'
+            WHERE id = $categoryId";
+
+        $this->insertData($sql);
+    }
+
+    public function processFormDeleteCategory(int $categoryId){
+        $sql = "DELETE FROM categories
+            WHERE id = $categoryId";
+
+        $this->insertData($sql);
+    }
+
+    public function processFormAddExpense(float $sum, string $comment, int $categoryId, $userId){
+        $sum = $this->requestVerification($sum);
+        $comment = $this->requestVerification($comment);
+
+        $sql =   "INSERT INTO history(user_id, category_id, amount, comment)
+                VALUES ($userId, $categoryId, $sum, '$comment')";
+
+        $this->insertData($sql);
+    }
+
+    function getCategoryName(int $categoryId): array {
+        $sql = "SELECT name FROM categories
+            WHERE categories.id = $categoryId";
+
+        return $this->fetchAssocData($sql);
+    }
+
 }

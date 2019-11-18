@@ -7,12 +7,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 session_start();
 
-
 use App\Utils;
 use App\Database;
-
-
-//require_once('inc/download.php');
 
 if ($_POST['sendFormSignUp'] ?? ''){
     Database::getInstance()->processFormSignUp($_POST['name'], $_POST['email'], $_POST['password']);
@@ -22,7 +18,7 @@ if ($_POST['sendFormSignUp'] ?? ''){
             'nav' => Utils::renderTemplate(
                 'navbarCabinet.php',
                 [
-                    'userName' => 'TODO'//getUserName($link, $_SESSION['user']['id'])
+                    'userName' => Database::getInstance()->getUserName($_SESSION['user']['id'])
                 ]
             ),
             'content' => Utils::renderTemplate(
@@ -36,17 +32,17 @@ if ($_POST['sendFormSignUp'] ?? ''){
         ]
     ));
 } elseif ($_POST['sendFormSignIn'] ?? ''){
-    processFormSignIn($link, $_POST['email'], $_POST['password']);
-    die (renderTemplate('layout.php',
+    Database::getInstance()->processFormSignIn($_POST['email'], $_POST['password']);
+    die (Utils::renderTemplate('layout.php',
         [
             'title' => 'checkSignIn',
-            'nav' => renderTemplate(
+            'nav' => Utils::renderTemplate(
                 'navbarCabinet.php',
                 [
-                    'userName' => getUserName($link, $_SESSION['user']['id'])
+                    'userName' => Database::getInstance()->getUserName($_SESSION['user']['id'])
                 ]
             ),
-            'content' => renderTemplate(
+            'content' => Utils::renderTemplate(
                 'checkSignIn.php',
                 [
                     'userName' => $_POST['email']
@@ -55,34 +51,34 @@ if ($_POST['sendFormSignUp'] ?? ''){
         ]
     ));
 } elseif ($_POST['sendFormCabinet'] ?? '') {
-    processFormAddExpense($link, $_POST['sum'], $_POST['comment'], $_POST['categoryId'], $_SESSION['user']['id']);
-    die (renderTemplate('layout.php',
+    Database::getInstance()->processFormAddExpense($_POST['sum'], $_POST['comment'], $_POST['categoryId'], $_SESSION['user']['id']);
+    die (Utils::renderTemplate('layout.php',
         [
             'title' => 'checkNewCosts',
-            'nav' => renderTemplate(
+            'nav' => Utils::renderTemplate(
                 'navbarCabinet.php',
                 [
-                    'userName' => getUserName($link, $_SESSION['user']['id'])
+                    'userName' => Database::getInstance()->getUserName($_SESSION['user']['id'])
                 ]
             ),
-            'content' => renderTemplate(
+            'content' => Utils::renderTemplate(
                 'checkNewCosts.php',
                 [
                     'userSum' => $_POST['sum'],
-                    'userCategory' => getCategoryName($link, $_POST['categoryId']),
+                    'userCategory' => Database::getInstance()->getCategoryName($_POST['categoryId']),
                     'userComment' => $_POST['comment']
                 ]
             ),
         ]
     ));
 } elseif ($_POST['addNewCategory'] ?? '') {
-    processFormAddCategory($link, $_POST['categoryName']);
+    Database::getInstance()->processFormAddCategory($_POST['categoryName']);
 } elseif ($_POST['changeExistCategory'] ?? '') {
-    processFormChangeCategory($link, $_POST['categoryId'], $_POST['categoryName']);
+    Database::getInstance()->processFormChangeCategory($_POST['categoryId'], $_POST['categoryName']);
 } elseif ($_POST['deleteExistCategory'] ?? '') {
-    processFormDeleteCategory($link, $_POST['categoryId']);
+    Database::getInstance()->processFormDeleteCategory($_POST['categoryId']);
 } elseif ($_POST['downloadAllHistory'] ?? '') {
-    downloadAllHistory($link, $_SESSION['user']['id']);
+    Utils::downloadAllHistory($_SESSION['user']['id']);
 }
 
 $currentPage = $_GET['page'] ?? 'main';
@@ -115,77 +111,77 @@ if (!isset($_SESSION['user'])) {
 } else {
     switch ($currentPage){
         case 'cabinet':
-            die (renderTemplate('layout.php',
+            die (Utils::renderTemplate('layout.php',
                 [
                     'title' => 'Cabinet',
-                    'nav' => renderTemplate(
+                    'nav' => Utils::renderTemplate(
                         'navbarCabinet.php',
                         [
-                            'userName' => getUserName($link, $_SESSION['user']['id'])
+                            'userName' => Database::getInstance()->getUserName($_SESSION['user']['id'])
                         ]
                     ),
-                    'content' => renderTemplate(
+                    'content' => Utils::renderTemplate(
                         'itemCabinet.php',
                         [
-                            'categories' => getAllCategories($link)
+                            'categories' => Database::getInstance()->getAllCategories()
                         ]
                     ),
                 ]
             ));
         case 'category':
-            die (renderTemplate('layout.php',
+            die (Utils::renderTemplate('layout.php',
                 [
                     'title' => 'Category',
-                    'nav' => renderTemplate(
+                    'nav' => Utils::renderTemplate(
                         'navbarCabinet.php',
                         [
-                            'userName' => getUserName($link, $_SESSION['user']['id'])
+                            'userName' => Database::getInstance()->getUserName($_SESSION['user']['id'])
                         ]
                     ),
-                    'content' => renderTemplate(
+                    'content' => Utils::renderTemplate(
                         'itemCategory.php',
                         [
-                            'categories' => getAllCategories($link),
+                            'categories' => Database::getInstance()->getAllCategories()
                         ]
                     ),
                 ]
             ));
         case 'categoryChange':
-            die (renderTemplate('layout.php',
+            die (Utils::renderTemplate('layout.php',
                 [
                     'title' => 'Category',
-                    'nav' => renderTemplate(
+                    'nav' => Utils::renderTemplate(
                         'navbarCabinet.php',
                         [
-                            'userName' => getUserName($link, $_SESSION['user']['id'])
+                            'userName' => Database::getInstance()->getUserName($_SESSION['user']['id'])
                         ]
                     ),
-                    'content' => renderTemplate(
+                    'content' => Utils::renderTemplate(
                         'itemCategoryChange.php',
                         [
-                            'categories' => getAllCategories($link)
+                            'categories' => Database::getInstance()->getAllCategories()
                         ]
                     ),
                 ]
             ));
         case 'history':
-            die (renderTemplate(
+            die (Utils::renderTemplate(
                 'layout.php',
                 [
                     'title' => 'History',
-                    'nav' => renderTemplate(
+                    'nav' => Utils::renderTemplate(
                         'navbarCabinet.php',
                         [
-                            'userName' => getUserName($link, $_SESSION['user']['id'])
+                            'userName' => Database::getInstance()->getUserName($_SESSION['user']['id'])
                         ]
                     ),
                     'jsStyle' => 'js/history.js',
-                    'content' => renderTemplate(
+                    'content' => Utils::renderTemplate(
                         'itemHistory.php',
                         [
-                            'dateFrom' => $_POST['dateFrom'] ?? getDateOfLastMonth() ,
-                            'dateTo' => $_POST['dateTo'] ?? getCurrentDate(),
-                            'expenses' => getUserExpenses($link, $_SESSION['user']['id'], ($_POST['dateFrom'] ?? getDateOfLastMonth()), ($_POST['dateTo'] ?? getCurrentDate()))
+                            'dateFrom' => $_POST['dateFrom'] ?? Utils::getDateOfLastMonth() ,
+                            'dateTo' => $_POST['dateTo'] ?? Utils::getCurrentDate(),
+                            'expenses' => Database::getInstance()->getUserExpenses($_SESSION['user']['id'], ($_POST['dateFrom'] ?? Utils::getDateOfLastMonth()), ($_POST['dateTo'] ?? Utils::getCurrentDate()))
                         ]
                     ),
                 ]

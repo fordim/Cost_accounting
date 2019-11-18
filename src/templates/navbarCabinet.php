@@ -36,7 +36,7 @@
                 <a href="#" class="nav-link"><?= $userName['name']; ?></a>
             </li>
             <li class="nav-item active">
-                <a class="btn btn-outline-light my-2 my-sm-0" href="templates/logout.php">Выйти</a>
+                <a class="btn btn-outline-light my-2 my-sm-0" href="../../src/templates/logout.php">Выйти</a>
             </li>
         </ul>
     </div>
