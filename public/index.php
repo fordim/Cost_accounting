@@ -22,6 +22,9 @@ use App\Database;
 use App\Settings;
 use App\Session;
 
+// TODO
+use App\Operations;
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -120,6 +123,7 @@ $app->post(Settings::ROUTE_CATEGORY_CHANGE, function (Request $request, Response
     Database::getInstance()->processFormChangeCategory($categoryId, $categoryName);
     return Utils::redirect(new Psr7Response(), Settings::ROUTE_CATEGORY_CHANGE);
 });
+use App\Operations;
 
 $app->post(Settings::ROUTE_CATEGORY_DELETE, function (Request $request, Response $response){
     $categoryId = $request->getParsedBody()['categoryId'];
@@ -138,3 +142,17 @@ $app->get(Settings::ROUTE_LOGOUT, function (Request $request, Response $response
 });
 
 $app->run();
+
+//case 'cashing_out':
+//            die (Utils::renderTemplate('layout.php',
+//                [
+//                    'title' => 'Cashing out',
+//                    'nav' => Utils::renderTemplate(
+//                        'navbarCabinet.php',
+//                        [
+//                            'userName' => Database::getInstance()->getUserName($_SESSION['user']['id'])
+//                        ]
+//                    ),
+//                    'content' => Utils::renderTemplate('cashingOut.php'),
+//                ]
+//            ));
