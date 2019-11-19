@@ -205,6 +205,7 @@ if (!isset($_SESSION['user'])) {
                             'userName' => Database::getInstance()->getUserName($_SESSION['user']['id'])
                         ]
                     ),
+                    'jsStyle' => 'js/cashingOut.js',
                     'content' => Utils::renderTemplate('cashingOut.php'),
                 ]
             ));
