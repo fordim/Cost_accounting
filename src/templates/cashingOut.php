@@ -16,19 +16,28 @@
                 <label for="AddCashingOutMyPurse">Ваш кошелек:</label>
                 <select class="form-control" name="myPurse" required>
                     <option disabled>Выберите ваш кошелек</option>
-                    <option value="sber">4111 1111 1111 1111</option>
-                    <option value="alfa">4222 2222 2222 2222</option>
-                    <option value="tinkoff">4333 3333 3333 3333</option>
+                    <option value="sber">СберБанк - 4111 1111 1111 1111</option>
+                    <option value="alfa">АльфаБанк - 2222 2222 2222</option>
+                    <option value="tinkoff">Тинькофф - 4333 3333 3333 3333</option>
                 </select>
                 <small id="PurseHelp" class="form-text text-muted">Выберите ваш кошелек на который переведут деньги</small>
             </div>
             <div class="form-group">
                 <label for="AddCashingOutPercent">Процент прибыли:</label>
-                <select class="form-control" name="percent" required>
-                    <option disabled>Выберите процент</option>
-                    <option value=2 >2</option>
-                    <option value=2,5 >2,5</option>
-                </select>
+                <div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="percentZero" value=2,5 name="percent">
+                        <label class="form-check-label" for="percentZero">0</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="percentTwo" name="percent" value=2 checked>
+                        <label class="form-check-label" for="percentTwo">2</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="percentTwoFive" value=2,5 name="percent">
+                        <label class="form-check-label" for="percentTwoFive">2,5</label>
+                    </div>
+                </div>
                 <small id="PercentHelp" class="form-text text-muted">Выберите какой процент прибыли</small>
             </div>
             <button class="btn btn-outline-success m-3 btn-lg" name="sendCashingOut" type="submit" value="CashingOut">Добавить</button>
