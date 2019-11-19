@@ -33,3 +33,18 @@ CREATE TABLE history
     FOREIGN KEY (user_id)  REFERENCES users (id) ON DELETE RESTRICT ON UPDATE RESTRICT,
     FOREIGN KEY (category_id)  REFERENCES categories (id)
 );
+
+CREATE TABLE history_cashing
+(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    amount FLOAT NOT NULL,
+    card VARCHAR(50) NOT NULL,
+    percent FLOAT NOT NULL,
+    profit FLOAT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NULL DEFAULT NULL,
+    deleted_at DATETIME NULL DEFAULT NULL,
+    FOREIGN KEY (user_id)  REFERENCES users (id) ON DELETE RESTRICT ON UPDATE RESTRICT
+);

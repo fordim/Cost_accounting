@@ -88,6 +88,28 @@ if ($_POST['sendFormSignUp'] ?? ''){
     Database::getInstance()->processFormDeleteCategory($_POST['categoryId']);
 } elseif ($_POST['downloadAllHistory'] ?? '') {
     Utils::downloadAllHistory($_SESSION['user']['id']);
+} elseif ($_POST['sendCashing'] ?? '') {
+    Operations::getInstance()->processFormAddCashing($_POST['name'], $_POST['sum'], $_POST['card'], $_POST['percent'], $_SESSION['user']['id']);
+    die (Utils::renderTemplate('layout.php',
+        [
+            'title' => 'checkNewCashing',
+            'nav' => Utils::renderTemplate(
+                'navbarCabinet.php',
+                [
+                    'userName' => Database::getInstance()->getUserName($_SESSION['user']['id'])
+                ]
+            ),
+            'content' => Utils::renderTemplate(
+                'checkNewCashing.php',
+                [
+                    'userName' => $_POST['name'],
+                    'userSum' => $_POST['sum'],
+                    'userCard' => $_POST['card'],
+                    'userPercent' => $_POST['percent']
+                ]
+            ),
+        ]
+    ));
 }
 
 $currentPage = $_GET['page'] ?? 'main';
@@ -195,7 +217,7 @@ if (!isset($_SESSION['user'])) {
                     ),
                 ]
             ));
-        case 'cashing_out':
+        case 'cashing':
             die (Utils::renderTemplate('layout.php',
                 [
                     'title' => 'Cashing out',
@@ -205,8 +227,8 @@ if (!isset($_SESSION['user'])) {
                             'userName' => Database::getInstance()->getUserName($_SESSION['user']['id'])
                         ]
                     ),
-                    'jsStyle' => 'js/cashingOut.js',
-                    'content' => Utils::renderTemplate('cashingOut.php'),
+                    'jsStyle' => 'js/cashing.js',
+                    'content' => Utils::renderTemplate('itemCashing.php'),
                 ]
             ));
         default:
