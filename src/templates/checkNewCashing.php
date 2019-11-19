@@ -9,7 +9,7 @@
         </div>
         <div class="row" >
             <a class="btn btn-outline-dark m-3 col" href="?page=cashing">Добавить ещё запись</a>
-            <a class="btn btn-outline-dark m-3 col" href="?page=history">Перейти к истории</a>
+            <a class="btn btn-outline-dark m-3 col" href="?page=cashingHistory">Перейти к истории</a>
         </div>
     </div>
 </main>
