@@ -20,6 +20,7 @@
                 <a href="<?= $mainRoute; ?>" class="nav-link">Главная</a>
             </li>
             <li class="nav-item active">
+<!--                <a href="?page=cabinet" class="nav-link">Внесение расходов</a>-->
                 <a href="<?= $cabinetRoute; ?>" class="nav-link">Личный кабинет</a>
             </li>
             <li class="nav-item active">

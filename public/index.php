@@ -19,7 +19,7 @@ if ($_POST['sendFormSignUp'] ?? ''){
     ];
     die (Utils::renderTemplate('layout.php',
         [
-            'title' => 'checkSignUp',
+            'title' => 'Регистрация',
             'nav' => Utils::renderTemplate(
                 'navbarCabinet.php',
                 [
@@ -44,7 +44,7 @@ if ($_POST['sendFormSignUp'] ?? ''){
     ];
     die (Utils::renderTemplate('layout.php',
         [
-            'title' => 'checkSignIn',
+            'title' => 'Аутентификация',
             'nav' => Utils::renderTemplate(
                 'navbarCabinet.php',
                 [
@@ -63,7 +63,7 @@ if ($_POST['sendFormSignUp'] ?? ''){
     Database::getInstance()->processFormAddExpense($_POST['sum'], $_POST['comment'], $_POST['categoryId'], $_SESSION['user']['id']);
     die (Utils::renderTemplate('layout.php',
         [
-            'title' => 'checkNewCosts',
+            'title' => 'Внесение расходов',
             'nav' => Utils::renderTemplate(
                 'navbarCabinet.php',
                 [
@@ -92,7 +92,7 @@ if ($_POST['sendFormSignUp'] ?? ''){
     Operations::getInstance()->processFormAddCashing($_POST['name'], $_POST['sum'], $_POST['card'], $_POST['percent'], $_SESSION['user']['id']);
     die (Utils::renderTemplate('layout.php',
         [
-            'title' => 'checkNewCashing',
+            'title' => 'Обналичивание',
             'nav' => Utils::renderTemplate(
                 'navbarCabinet.php',
                 [
@@ -130,7 +130,7 @@ if (!isset($_SESSION['user'])) {
         case 'signUp':
             die (Utils::renderTemplate('layout.php',
                 [
-                    'title' => 'Sign Up',
+                    'title' => 'Регистрация',
                     'nav' => Utils::renderTemplate('navbarMain.php'),
                     'jsStyle' => 'js/signUp.js',
                     'content' => Utils::renderTemplate('itemSignUp.php'),
@@ -144,7 +144,7 @@ if (!isset($_SESSION['user'])) {
         case 'cabinet':
             die (Utils::renderTemplate('layout.php',
                 [
-                    'title' => 'Cabinet',
+                    'title' => 'Внесение расходов',
                     'nav' => Utils::renderTemplate(
                         'navbarCabinet.php',
                         [
@@ -162,7 +162,7 @@ if (!isset($_SESSION['user'])) {
         case 'category':
             die (Utils::renderTemplate('layout.php',
                 [
-                    'title' => 'Category',
+                    'title' => 'Категории',
                     'nav' => Utils::renderTemplate(
                         'navbarCabinet.php',
                         [
@@ -180,7 +180,7 @@ if (!isset($_SESSION['user'])) {
         case 'categoryChange':
             die (Utils::renderTemplate('layout.php',
                 [
-                    'title' => 'Category',
+                    'title' => 'Категории',
                     'nav' => Utils::renderTemplate(
                         'navbarCabinet.php',
                         [
@@ -199,7 +199,7 @@ if (!isset($_SESSION['user'])) {
             die (Utils::renderTemplate(
                 'layout.php',
                 [
-                    'title' => 'History',
+                    'title' => 'История',
                     'nav' => Utils::renderTemplate(
                         'navbarCabinet.php',
                         [
@@ -220,7 +220,7 @@ if (!isset($_SESSION['user'])) {
         case 'cashing':
             die (Utils::renderTemplate('layout.php',
                 [
-                    'title' => 'Cashing out',
+                    'title' => 'Обналичивание',
                     'nav' => Utils::renderTemplate(
                         'navbarCabinet.php',
                         [
@@ -234,7 +234,7 @@ if (!isset($_SESSION['user'])) {
         case 'cashingHistory':
             die (Utils::renderTemplate('layout.php',
                 [
-                    'title' => 'Cashing History',
+                    'title' => 'История обналичивания',
                     'nav' => Utils::renderTemplate(
                         'navbarCabinet.php',
                         [

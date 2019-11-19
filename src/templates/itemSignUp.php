@@ -9,7 +9,7 @@
             <div class="form-group">
                 <label for="signUnInputName">Имя</label>
                 <input type="text" name="name" class="form-control small" id="signUnInputName" maxlength="20" aria-describedby="nameHelp" placeholder="Имя" required>
-                <small id="nameHelp" class="form-text text-muted">Введите ваше имя</small>
+                <small id="nameHelp" class="form-text text-muted">Введите ваше имя (Латиница)</small>
             </div>
             <div class="form-group">
                 <label for="signUnInputEmail">Электронная почта</label>
