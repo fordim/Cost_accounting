@@ -11,7 +11,7 @@
                 <a href="index.php" class="nav-link">Главная</a>
             </li>
             <li class="nav-item active">
-                <a href="?page=cabinet" class="nav-link">Личный кабинет</a>
+                <a href="?page=cabinet" class="nav-link">Внесение расходов</a>
             </li>
             <li class="nav-item active">
                 <a href="?page=history" class="nav-link">История</a>
