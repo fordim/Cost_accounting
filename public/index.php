@@ -9,6 +9,7 @@ session_start();
 
 use App\Utils;
 use App\Database;
+use App\Operations;
 
 if ($_POST['sendFormSignUp'] ?? ''){
     Database::getInstance()->processFormSignUp($_POST['name'], $_POST['email'], $_POST['password']);
@@ -192,6 +193,19 @@ if (!isset($_SESSION['user'])) {
                             'expenses' => Database::getInstance()->getUserExpenses($_SESSION['user']['id'], ($_POST['dateFrom'] ?? Utils::getDateOfLastMonth()), ($_POST['dateTo'] ?? Utils::getCurrentDate()))
                         ]
                     ),
+                ]
+            ));
+        case 'cashing_out':
+            die (Utils::renderTemplate('layout.php',
+                [
+                    'title' => 'Cashing out',
+                    'nav' => Utils::renderTemplate(
+                        'navbarCabinet.php',
+                        [
+                            'userName' => Database::getInstance()->getUserName($_SESSION['user']['id'])
+                        ]
+                    ),
+                    'content' => Utils::renderTemplate('cashingOut.php'),
                 ]
             ));
         default:
