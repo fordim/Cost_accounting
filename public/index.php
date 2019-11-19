@@ -231,6 +231,28 @@ if (!isset($_SESSION['user'])) {
                     'content' => Utils::renderTemplate('itemCashing.php'),
                 ]
             ));
+        case 'cashingHistory':
+            die (Utils::renderTemplate('layout.php',
+                [
+                    'title' => 'Cashing History',
+                    'nav' => Utils::renderTemplate(
+                        'navbarCabinet.php',
+                        [
+                            'userName' => Database::getInstance()->getUserName($_SESSION['user']['id'])
+                        ]
+                    ),
+                    'jsStyle' => 'js/history.js',
+                    'content' => Utils::renderTemplate(
+                        'itemCashingHistory.php',
+                        [
+                            'dateFrom' => $_POST['dateFrom'] ?? Utils::getDateOfLastMonth() ,
+                            'dateTo' => $_POST['dateTo'] ?? Utils::getCurrentDate(),
+                            'cashingOut' => Operations::getInstance()->getUserCashingHistory($_SESSION['user']['id'], ($_POST['dateFrom'] ?? Utils::getDateOfLastMonth()), ($_POST['dateTo'] ?? Utils::getCurrentDate())),
+                            'allProfit' => Operations::getInstance()->getSummaryOfCashingHistory($_SESSION['user']['id'], ($_POST['dateFrom'] ?? Utils::getDateOfLastMonth()), ($_POST['dateTo'] ?? Utils::getCurrentDate()))
+                        ]
+                    ),
+                ]
+            ));
         default:
             header("Location: index.php?page=cabinet");
              die();

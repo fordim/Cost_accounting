@@ -37,6 +37,11 @@ final class Operations
         return self::$instance;
     }
 
+    private function fetchData(string $sql): array {
+        $result = mysqli_query($this->link, $sql) or die('Ошибка ' . mysqli_error($this->link));
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+
     private function requestVerification(string $escapestr): string
     {
         return htmlentities(mysqli_real_escape_string($this->link, $escapestr));
@@ -57,5 +62,34 @@ final class Operations
                 VALUE ($userId, '$name', $sum, '$card', $percent, $profit)";
 
         $this->insertData($sql);
+    }
+
+    public function getUserCashingHistory(int $userId, string $dateFrom, string $dateTo){
+        $dateFrom = $this->requestVerification($dateFrom);
+        $dateTo = $this->requestVerification($dateTo);
+        $sql = "SELECT hc.created_at, hc.name, hc.amount, hc.card, hc.percent, hc.profit
+                FROM history_cashing as hc
+                JOIN users AS u ON hc.user_id = u.id
+                WHERE u.id = $userId AND DATE(hc.created_at) BETWEEN '$dateFrom' AND '$dateTo'
+                ORDER BY hc.created_at";
+
+        return $this->fetchData($sql);
+    }
+
+    public function getSummaryOfCashingHistory(int $userId, string $dateFrom, string $dateTo){
+        $dateFrom = $this->requestVerification($dateFrom);
+        $dateTo = $this->requestVerification($dateTo);
+        $sql = "SELECT hc.profit
+                FROM history_cashing as hc
+                JOIN users AS u ON hc.user_id = u.id
+                WHERE u.id = $userId AND DATE(hc.created_at) BETWEEN '$dateFrom' AND '$dateTo'";
+
+        $arProfit = $this->fetchData($sql);
+        $allProfit = 0;
+        for($i = 0; $i <= count($arProfit) - 1; $i++){
+            $allProfit += $arProfit[$i]['profit'];
+        }
+
+        return $allProfit;
     }
 }

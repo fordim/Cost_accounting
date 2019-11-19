@@ -34,7 +34,7 @@
                 </a>
                 <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item text-white" href="?page=cashing">Обналичивание</a>
-                    <a class="dropdown-item text-white" href="#">История обналичивания</a>
+                    <a class="dropdown-item text-white" href="?page=cashingHistory">История обналичивания</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-white" href="#">Операции</a>
                     <a class="dropdown-item text-white" href="#">История операций</a>
