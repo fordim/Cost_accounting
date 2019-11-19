@@ -248,7 +248,8 @@ if (!isset($_SESSION['user'])) {
                             'dateFrom' => $_POST['dateFrom'] ?? Utils::getDateOfLastMonth() ,
                             'dateTo' => $_POST['dateTo'] ?? Utils::getCurrentDate(),
                             'cashingOut' => Operations::getInstance()->getUserCashingHistory($_SESSION['user']['id'], ($_POST['dateFrom'] ?? Utils::getDateOfLastMonth()), ($_POST['dateTo'] ?? Utils::getCurrentDate())),
-                            'allProfit' => Operations::getInstance()->getSummaryOfCashingHistory($_SESSION['user']['id'], ($_POST['dateFrom'] ?? Utils::getDateOfLastMonth()), ($_POST['dateTo'] ?? Utils::getCurrentDate()))
+                            'allProfit' => Operations::getInstance()->getSummaryOfCashingProfit($_SESSION['user']['id'], ($_POST['dateFrom'] ?? Utils::getDateOfLastMonth()), ($_POST['dateTo'] ?? Utils::getCurrentDate())),
+                            'allAmount' => Operations::getInstance()->getSummaryOfCashingAmount($_SESSION['user']['id'], ($_POST['dateFrom'] ?? Utils::getDateOfLastMonth()), ($_POST['dateTo'] ?? Utils::getCurrentDate()))
                         ]
                     ),
                 ]

@@ -8,7 +8,7 @@
             <input type="hidden" id="dateTo" name="dateTo" value="value"/>
         </form>
     </div>
-    <h5 class="mb-3">Итого: <?= $allProfit?> руб.</h5>
+    <h5 class="mb-3">Итого: Сумма = <?= $allAmount?> руб. Прибыль = <?= $allProfit?> руб.</h5>
     <table class="table table-bordered">
         <thead class="thead-light">
         <tr>

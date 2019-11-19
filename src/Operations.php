@@ -76,7 +76,7 @@ final class Operations
         return $this->fetchData($sql);
     }
 
-    public function getSummaryOfCashingHistory(int $userId, string $dateFrom, string $dateTo){
+    public function getSummaryOfCashingProfit(int $userId, string $dateFrom, string $dateTo){
         $dateFrom = $this->requestVerification($dateFrom);
         $dateTo = $this->requestVerification($dateTo);
         $sql = "SELECT hc.profit
@@ -91,5 +91,22 @@ final class Operations
         }
 
         return $allProfit;
+    }
+
+    public function getSummaryOfCashingAmount(int $userId, string $dateFrom, string $dateTo){
+        $dateFrom = $this->requestVerification($dateFrom);
+        $dateTo = $this->requestVerification($dateTo);
+        $sql = "SELECT hc.amount
+                FROM history_cashing as hc
+                JOIN users AS u ON hc.user_id = u.id
+                WHERE u.id = $userId AND DATE(hc.created_at) BETWEEN '$dateFrom' AND '$dateTo'";
+
+        $arAmount = $this->fetchData($sql);
+        $allAmount = 0;
+        for($i = 0; $i <= count($arAmount) - 1; $i++){
+            $allAmount += $arAmount[$i]['amount'];
+        }
+
+        return $allAmount;
     }
 }
