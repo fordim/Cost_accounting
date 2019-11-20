@@ -245,11 +245,11 @@ if (!isset($_SESSION['user'])) {
                     'content' => Utils::renderTemplate(
                         'itemCashingHistory.php',
                         [
-                            'dateFrom' => $_POST['dateFrom'] ?? Utils::getDateOfLastMonth() ,
+                            'dateFrom' => $_POST['dateFrom'] ?? Utils::getFirstDateOfThisMonth() ,
                             'dateTo' => $_POST['dateTo'] ?? Utils::getCurrentDate(),
-                            'cashingOut' => Operations::getInstance()->getUserCashingHistory($_SESSION['user']['id'], ($_POST['dateFrom'] ?? Utils::getDateOfLastMonth()), ($_POST['dateTo'] ?? Utils::getCurrentDate())),
-                            'allProfit' => Operations::getInstance()->getSummaryOfCashingProfit($_SESSION['user']['id'], ($_POST['dateFrom'] ?? Utils::getDateOfLastMonth()), ($_POST['dateTo'] ?? Utils::getCurrentDate())),
-                            'allAmount' => Operations::getInstance()->getSummaryOfCashingAmount($_SESSION['user']['id'], ($_POST['dateFrom'] ?? Utils::getDateOfLastMonth()), ($_POST['dateTo'] ?? Utils::getCurrentDate()))
+                            'cashingOut' => Operations::getInstance()->getUserCashingHistory($_SESSION['user']['id'], ($_POST['dateFrom'] ?? Utils::getFirstDateOfThisMonth()), ($_POST['dateTo'] ?? Utils::getCurrentDate())),
+                            'allProfit' => Operations::getInstance()->getSummaryOfCashingProfit($_SESSION['user']['id'], ($_POST['dateFrom'] ?? Utils::getFirstDateOfThisMonth()), ($_POST['dateTo'] ?? Utils::getCurrentDate())),
+                            'allAmount' => Operations::getInstance()->getSummaryOfCashingAmount($_SESSION['user']['id'], ($_POST['dateFrom'] ?? Utils::getFirstDateOfThisMonth()), ($_POST['dateTo'] ?? Utils::getCurrentDate()))
                         ]
                     ),
                 ]
