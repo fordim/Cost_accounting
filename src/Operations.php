@@ -109,4 +109,18 @@ final class Operations
 
         return $allAmount;
     }
+
+    public function processFormAddOperation(string $month, float $sum, float $profit, float $deposit, float $expenseFlat, float $expensePetrol, int $userId){
+        $sum = $this->requestVerification($sum);
+        $deposit = $this->requestVerification($deposit);
+        $expenseFlat = $this->requestVerification($expenseFlat);
+        $expensePetrol = $this->requestVerification($expensePetrol);
+
+        $expense = $expenseFlat + $expensePetrol;
+
+        $sql = "INSERT INTO history_operations(user_id, month, teor_sum, profit, deposit, expense)
+                VALUE ($userId, '$month', $sum, $profit, $deposit, $expense)";
+
+        $this->insertData($sql);
+    }
 }

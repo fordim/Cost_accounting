@@ -55,6 +55,7 @@ CREATE TABLE history_operations
     user_id INT NOT NULL,
     month TIMESTAMP NOT NULL,
     teor_sum  FLOAT NOT NULL,
+    profit FLOAT NOT NULL,
     deposit FLOAT NOT NULL,
     expense FLOAT NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,

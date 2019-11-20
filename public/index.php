@@ -110,6 +110,30 @@ if ($_POST['sendFormSignUp'] ?? ''){
             ),
         ]
     ));
+} elseif ($_POST['sendOperation'] ?? '') {
+    Operations::getInstance()->processFormAddOperation($_POST['month'], $_POST['sum'], $_POST['profit'], $_POST['deposit'], $_POST['expenseFlat'], $_POST['expensePetrol'], $_SESSION['user']['id']);
+    die (Utils::renderTemplate('layout.php',
+        [
+            'title' => 'Операции',
+            'nav' => Utils::renderTemplate(
+                'navbarCabinet.php',
+                [
+                    'userName' => Database::getInstance()->getUserName($_SESSION['user']['id'])
+                ]
+            ),
+            'content' => Utils::renderTemplate(
+                'checkNewOperation.php',
+                [
+                    'userMonth' => $_POST['month'],
+                    'userSum' => $_POST['sum'],
+                    'userProfit' => $_POST['profit'],
+                    'userDeposit' => $_POST['deposit'],
+                    'expenseFlat' => $_POST['expenseFlat'],
+                    'expensePetrol' => $_POST['expensePetrol']
+                ]
+            ),
+        ]
+    ));
 }
 
 $currentPage = $_GET['page'] ?? 'main';
