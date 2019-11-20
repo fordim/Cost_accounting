@@ -38,7 +38,7 @@
                     <a class="dropdown-item text-white" href="?page=cashingHistory">История обналичивания</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-white" href="?page=operations">Операции</a>
-                    <a class="dropdown-item text-white" href="#">История операций</a>
+                    <a class="dropdown-item text-white" href="?page=operationsHistory">История операций</a>
                 </div>
         </ul>
         <ul class="navbar-nav my-sm-0">
