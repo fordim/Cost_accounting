@@ -123,4 +123,14 @@ final class Operations
 
         $this->insertData($sql);
     }
+
+    public function getUserOperationsHistory(int $userId){
+        $sql = "SELECT ho.month, ho.teor_sum, ho.profit, ho.deposit
+                FROM history_operations as ho
+                JOIN users AS u ON ho.user_id = u.id
+                WHERE u.id = $userId
+                ORDER BY ho.month";
+
+        return $this->fetchData($sql);
+    }
 }

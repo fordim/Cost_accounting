@@ -297,6 +297,24 @@ if (!isset($_SESSION['user'])) {
                     ),
                 ]
             ));
+        case 'operationsHistory':
+            die (Utils::renderTemplate('layout.php',
+                [
+                    'title' => 'История операций',
+                    'nav' => Utils::renderTemplate(
+                        'navbarCabinet.php',
+                        [
+                            'userName' => Database::getInstance()->getUserName($_SESSION['user']['id'])
+                        ]
+                    ),
+                    'content' => Utils::renderTemplate(
+                        'itemOperationsHistory.php',
+                        [
+                            'operations' => Operations::getInstance()->getUserOperationsHistory($_SESSION['user']['id'])
+                        ]
+                    ),
+                ]
+            ));
         default:
             header("Location: index.php?page=cabinet");
              die();
