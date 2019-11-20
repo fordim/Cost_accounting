@@ -245,11 +245,30 @@ if (!isset($_SESSION['user'])) {
                     'content' => Utils::renderTemplate(
                         'itemCashingHistory.php',
                         [
-                            'dateFrom' => $_POST['dateFrom'] ?? Utils::getFirstDateOfThisMonth() ,
+                            'dateFrom' => $_POST['dateFrom'] ?? Utils::getFirstDateOfThisMonth(),
                             'dateTo' => $_POST['dateTo'] ?? Utils::getCurrentDate(),
                             'cashingOut' => Operations::getInstance()->getUserCashingHistory($_SESSION['user']['id'], ($_POST['dateFrom'] ?? Utils::getFirstDateOfThisMonth()), ($_POST['dateTo'] ?? Utils::getCurrentDate())),
                             'allProfit' => Operations::getInstance()->getSummaryOfCashingProfit($_SESSION['user']['id'], ($_POST['dateFrom'] ?? Utils::getFirstDateOfThisMonth()), ($_POST['dateTo'] ?? Utils::getCurrentDate())),
                             'allAmount' => Operations::getInstance()->getSummaryOfCashingAmount($_SESSION['user']['id'], ($_POST['dateFrom'] ?? Utils::getFirstDateOfThisMonth()), ($_POST['dateTo'] ?? Utils::getCurrentDate()))
+                        ]
+                    ),
+                ]
+            ));
+        case 'operations':
+            die (Utils::renderTemplate('layout.php',
+                [
+                    'title' => 'Операции',
+                    'nav' => Utils::renderTemplate(
+                        'navbarCabinet.php',
+                        [
+                            'userName' => Database::getInstance()->getUserName($_SESSION['user']['id'])
+                        ]
+                    ),
+                    'content' => Utils::renderTemplate(
+                        'itemOperations.php',
+                        [
+                            'thisMonth' => Utils::getFirstDateOfThisMonth(),
+                            'lastMonthProfit' => Operations::getInstance()->getSummaryOfCashingProfit($_SESSION['user']['id'], Utils::getFirstDateOfLastMonth(), Utils::getLastDateOfLastMonth()),
                         ]
                     ),
                 ]
