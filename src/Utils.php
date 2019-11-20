@@ -35,6 +35,16 @@ final class Utils
         return date(self::DATE_FORMAT, strtotime("first day of this month"));
     }
 
+    public static function getFirstDateOfLastMonth(): string
+    {
+        return date(self::DATE_FORMAT, strtotime("first day of last month"));
+    }
+
+    public static function getLastDateOfLastMonth(): string
+    {
+        return date(self::DATE_FORMAT, strtotime("last day of last month"));
+    }
+
     public static function downloadAllHistory(int $userId){
         $arrayForCSV = Database::getInstance()->getUserExpensesAll($userId);
         array_unshift($arrayForCSV, ["Created_at", "Amount", "Comment", "Category"]);
