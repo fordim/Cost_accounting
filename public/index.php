@@ -5,6 +5,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 use App\Utils;
 use App\Database;
+use App\Settings;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -15,17 +16,58 @@ session_start();
 $app = AppFactory::create();
 
 
+
+
+$app->post(Settings::ROUTE_SIGN_IN, function (Request $request, Response $response) {
+    $email = $request->getParsedBody()['email'];
+    $password = $request->getParsedBody()['password'];
+
+    Database::getInstance()->processFormSignIn($email, $password);
+
+    $_SESSION['user'] = [
+        'id' => Database::getInstance()->findUserByEmail($email)[0]['id'],
+        'email' => $email
+    ];
+
+    $content = Utils::renderTemplate('layout.php',
+        [
+            'title' => 'checkSignIn',
+            'nav' => Utils::renderTemplate(
+                'navbarCabinet.php',
+                [
+                    'userName' => Database::getInstance()->getUserName($_SESSION['user']['id'])
+                ]
+            ),
+            'content' => Utils::renderTemplate(
+                'checkSignIn.php',
+                [
+                    'userName' => $email,
+                ]
+            ),
+        ]
+    );
+
+    $response->getBody()->write($content);
+    return $response;
+});
+
 $app->get('/', function (Request $request, Response $response) {
     $content = Utils::renderTemplate('layout.php',
         [
             'title' => 'Cost accounting',
-            'nav' => Utils::renderTemplate('navbarMain.php'),
+            'nav' => Utils::renderTemplate(
+                'navbarMain.php',
+                [
+                    'signInRoute' => Settings::ROUTE_SIGN_IN,
+                ]
+            ),
             'content' => Utils::renderTemplate('itemMain.php'),
         ]
     );
     $response->getBody()->write($content);
     return $response;
 });
+
 
 
 $app->run();

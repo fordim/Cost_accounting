@@ -1,3 +1,7 @@
+<?php
+    /** @var $signInRoute */
+?>
+
 <nav class="navbar navbar-dark navbar-expand-md bg-dark sticky-top container-fluid">
     <a href="index.php" class="navbar-brand">
         <img src="../../public/img/Superman-Logo.png" alt="logo" width="50" height="50">
@@ -28,7 +32,7 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <form name="formSignIn" method="POST">
+                    <form name="formSignIn" action="<?= $signInRoute; ?>" method="POST">
                         <div class="form-group">
                             <label for="signInInputEmail">Электронная почта</label>
                             <input type="email" name="email" class="form-control" id="signInInputEmail" aria-describedby="signInEmailHelp" placeholder="Почта" required>
