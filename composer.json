@@ -13,5 +13,7 @@
             "App\\": "src/"
         }
     },
-    "require": {}
+    "require": {
+        "slim/slim": "4.3"
+    }
 }
