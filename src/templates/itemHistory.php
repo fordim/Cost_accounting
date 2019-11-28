@@ -1,8 +1,16 @@
+<?php
+    /** @var $dateFrom */
+    /** @var $dateTo */
+    /** @var $expenses */
+    /** @var $dataPickerRoute */
+    /** @var $downloadAllHistoryRoute */
+?>
+
 <main class="background-color: bg-white container-fluid text-center">
     <h1>История расходов</h1>
     <h5>Выберите дату:</h5>
     <div class="formDatePicker">
-        <form name="formDatePicker" id="formDatePicker" method="POST">
+        <form name="formDatePicker" action="<?= $dataPickerRoute; ?>" id="formDatePicker" method="POST">
             <input class="form-control text-center" id="dateRange" type="text" name="dateRange" value="<?= $dateFrom ?> - <?= $dateTo ?>"/>
             <input type="hidden" id="dateFrom" name="dateFrom" value="value"/>
             <input type="hidden" id="dateTo" name="dateTo" value="value"/>
@@ -28,7 +36,7 @@
             <?php endforeach; ?>
         </tbody>
     </table>
-    <form name="formDownloadAllHistory" method="POST">
+    <form name="formDownloadAllHistory" action="<?= $downloadAllHistoryRoute; ?>"  method="POST">
         <button class="btn btn-secondary mb-3" name="downloadAllHistory" type="submit" value="DownloadAllHistory">Скачать всю историю, CSV</button>
     </form>
 </main>
