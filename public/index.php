@@ -15,9 +15,6 @@ session_start();
 
 $app = AppFactory::create();
 
-
-
-
 $app->post(Settings::ROUTE_SIGN_IN, function (Request $request, Response $response) {
     $email = $request->getParsedBody()['email'];
     $password = $request->getParsedBody()['password'];
@@ -35,6 +32,10 @@ $app->post(Settings::ROUTE_SIGN_IN, function (Request $request, Response $respon
             'nav' => Utils::renderTemplate(
                 'navbarCabinet.php',
                 [
+                    'mainRoute' => Settings::ROUTE_MAIN_PAGE,
+                    'cabinetRoute' => Settings::ROUTE_CABINET,
+                    'historyRoute' => Settings::ROUTE_HISTORY,
+                    'categoryRoute' => Settings::ROUTE_CATEGORY,
                     'userName' => Database::getInstance()->getUserName($_SESSION['user']['id'])
                 ]
             ),
@@ -42,6 +43,7 @@ $app->post(Settings::ROUTE_SIGN_IN, function (Request $request, Response $respon
                 'checkSignIn.php',
                 [
                     'userName' => $email,
+                    'cabinetRoute' => Settings::ROUTE_CABINET
                 ]
             ),
         ]
@@ -51,27 +53,201 @@ $app->post(Settings::ROUTE_SIGN_IN, function (Request $request, Response $respon
     return $response;
 });
 
-$app->get('/', function (Request $request, Response $response) {
+$app->post(Settings::ROUTE_NEW_COSTS, function (Request $request, Response $response) {
+    $sum = $request->getParsedBody()['sum'];
+    $comment = $request->getParsedBody()['comment'];
+    $categoryId = $request->getParsedBody()['categoryId'];
+    $userId = $_SESSION['user']['id'];
+
+    Database::getInstance()->processFormAddExpense($sum, $comment, $categoryId, $userId);
+
+    $content = Utils::renderTemplate('layout.php',
+        [
+            'title' => 'checkNewCosts',
+            'nav' => Utils::renderTemplate(
+                'navbarCabinet.php',
+                [
+                    'mainRoute' => Settings::ROUTE_MAIN_PAGE,
+                    'cabinetRoute' => Settings::ROUTE_CABINET,
+                    'historyRoute' => Settings::ROUTE_HISTORY,
+                    'categoryRoute' => Settings::ROUTE_CATEGORY,
+                    'userName' => Database::getInstance()->getUserName($_SESSION['user']['id'])
+                ]
+            ),
+            'content' => Utils::renderTemplate(
+                'checkNewCosts.php',
+                [
+                    'newCostRoute' => Settings::ROUTE_NEW_COSTS,
+                    'userSum' => $sum,
+                    'userCategory' => Database::getInstance()->getCategoryName($categoryId),
+                    'userComment' => $comment,
+                    'cabinetRoute' => Settings::ROUTE_CABINET,
+                    'historyRoute' => Settings::ROUTE_HISTORY
+                ]
+            ),
+        ]
+    );
+
+    $response->getBody()->write($content);
+    return $response;
+});
+
+$app->post(Settings::ROUTE_SIGN_UP, function (Request $request, Response $response){
+    $name = $request->getParsedBody()['name'];
+    $email = $request->getParsedBody()['email'];
+    $password = $request->getParsedBody()['password'];
+
+    Database::getInstance()->processFormSignUp($name, $email, $password);
+
+    $_SESSION['user'] = [
+        'id' => Database::getInstance()->findUserByEmail($email)[0]['id'],
+        'email' => $email
+    ];
+
+    $content = Utils::renderTemplate('layout.php',
+        [
+            'title' => 'checkSignUp',
+            'nav' => Utils::renderTemplate(
+                'navbarCabinet.php',
+                [
+                    'mainRoute' => Settings::ROUTE_MAIN_PAGE,
+                    'cabinetRoute' => Settings::ROUTE_CABINET,
+                    'historyRoute' => Settings::ROUTE_HISTORY,
+                    'categoryRoute' => Settings::ROUTE_CATEGORY,
+                    'userName' => Database::getInstance()->getUserName($_SESSION['user']['id'])
+                ]
+            ),
+            'content' => Utils::renderTemplate(
+                'checkSignUp.php',
+                [
+                    'userName' => $name,
+                    'userEmail' => $email,
+                    'userPassword' => $password,
+                    'cabinetRoute' => Settings::ROUTE_CABINET
+                ]
+            ),
+        ]
+    );
+
+    $response->getBody()->write($content);
+    return $response;
+});
+
+$app->get(Settings::ROUTE_MAIN_PAGE, function (Request $request, Response $response) {
     $content = Utils::renderTemplate('layout.php',
         [
             'title' => 'Cost accounting',
             'nav' => Utils::renderTemplate(
                 'navbarMain.php',
                 [
-                    'signInRoute' => Settings::ROUTE_SIGN_IN,
+                    'mainRoute' => Settings::ROUTE_MAIN_PAGE,
+                    'signUpPageRoute' => Settings::ROUTE_SIGN_UP_PAGE,
+                    'signInRoute' => Settings::ROUTE_SIGN_IN
                 ]
             ),
             'content' => Utils::renderTemplate('itemMain.php'),
+        ]
+    );
+
+    $response->getBody()->write($content);
+    return $response;
+});
+
+$app->get(Settings::ROUTE_SIGN_UP_PAGE, function (Request $request, Response $response){
+   $content = Utils::renderTemplate('layout.php',
+       [
+           'title' => 'Sign Up',
+           'nav' => Utils::renderTemplate('navbarMain.php',
+               [
+                   'mainRoute' => Settings::ROUTE_MAIN_PAGE,
+                   'signUpPageRoute' => Settings::ROUTE_SIGN_UP_PAGE,
+                   'signInRoute' => Settings::ROUTE_SIGN_IN
+               ]
+           ),
+           'jsStyle' => 'js/signUp.js',
+           'content' => Utils::renderTemplate('itemSignUp.php',
+               [
+                   'signUpRoute' => Settings::ROUTE_SIGN_UP
+               ]
+           ),
+       ]
+   );
+    $response->getBody()->write($content);
+    return $response;
+});
+
+$app->get(Settings::ROUTE_CABINET, function (Request $request, Response $response){
+    $content = Utils::renderTemplate('layout.php',
+        [
+            'title' => 'Cabinet',
+            'nav' => Utils::renderTemplate('navbarCabinet.php',
+                [
+                    'mainRoute' => Settings::ROUTE_MAIN_PAGE,
+                    'cabinetRoute' => Settings::ROUTE_CABINET,
+                    'historyRoute' => Settings::ROUTE_HISTORY,
+                    'categoryRoute' => Settings::ROUTE_CATEGORY,
+                    'userName' => Database::getInstance()->getUserName($_SESSION['user']['id'])
+                ]
+            ),
+            'content' => Utils::renderTemplate('itemCabinet.php',
+                [
+                    'categories' => Database::getInstance()->getAllCategories()
+                ]
+            ),
         ]
     );
     $response->getBody()->write($content);
     return $response;
 });
 
+//$app->get(Settings::ROUTE_HISTORY, function (Request $request, Response $response){
+//    $content = Utils::renderTemplate('layout.php',
+//        [
+//            'title' => 'Cabinet',
+//            'nav' => Utils::renderTemplate('navbarCabinet.php',
+//                [
+//                    'mainRoute' => Settings::ROUTE_MAIN_PAGE,
+//                    'cabinetRoute' => Settings::ROUTE_CABINET,
+//                    'historyRoute' => Settings::ROUTE_HISTORY,
+//                    'categoryRoute' => Settings::ROUTE_CATEGORY,
+//                    'userName' => Database::getInstance()->getUserName($_SESSION['user']['id'])
+//                ]
+//            ),
+//            'content' => Utils::renderTemplate('itemCabinet.php',
+//                [
+//                    'categories' => Database::getInstance()->getAllCategories()
+//                ]
+//            ),
+//        ]
+//    );
+//    $response->getBody()->write($content);
+//    return $response;
+//});
+//
+//$app->run();
 
-
-$app->run();
-
+//case 'history':
+//            die (Utils::renderTemplate(
+//                'layout.php',
+//                [
+//                    'title' => 'History',
+//                    'nav' => Utils::renderTemplate(
+//                        'navbarCabinet.php',
+//                        [
+//                            'userName' => Database::getInstance()->getUserName($_SESSION['user']['id'])
+//                        ]
+//                    ),
+//                    'jsStyle' => 'js/history.js',
+//                    'content' => Utils::renderTemplate(
+//                        'itemHistory.php',
+//                        [
+//                            'dateFrom' => $_POST['dateFrom'] ?? Utils::getDateOfLastMonth() ,
+//                            'dateTo' => $_POST['dateTo'] ?? Utils::getCurrentDate(),
+//                            'expenses' => Database::getInstance()->getUserExpenses($_SESSION['user']['id'], ($_POST['dateFrom'] ?? Utils::getDateOfLastMonth()), ($_POST['dateTo'] ?? Utils::getCurrentDate()))
+//                        ]
+//                    ),
+//                ]
+//            ));
 
 //if ($_POST['sendFormSignUp'] ?? ''){
 //    Database::getInstance()->processFormSignUp($_POST['name'], $_POST['email'], $_POST['password']);

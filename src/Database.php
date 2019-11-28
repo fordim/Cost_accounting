@@ -6,8 +6,8 @@ final class Database
 {
     private const HOST = 'localhost';
     private const DATABASE = 'accounting';
-    private const USER = 'accounting';
-    private const PASSWORD = 'accounting';
+    private const USER = 'root';
+    private const PASSWORD = '';
 
     /** @var Database */
     private static $instance = null;

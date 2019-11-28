@@ -1,10 +1,12 @@
 <?php
+    /** @var $mainRoute */
+    /** @var $signUpPageRoute */
     /** @var $signInRoute */
 ?>
 
 <nav class="navbar navbar-dark navbar-expand-md bg-dark sticky-top container-fluid">
-    <a href="index.php" class="navbar-brand">
-        <img src="../../public/img/Superman-Logo.png" alt="logo" width="50" height="50">
+    <a href="<?= $mainRoute; ?>" class="navbar-brand">
+        <img src="img/Superman-Logo.png" alt="logo" width="50" height="50">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -12,7 +14,7 @@
     <div class="collapse navbar-collapse" id="navbarContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a href="?page=signUp" class="nav-link">Регистрация</a>
+                <a href="<?= $signUpPageRoute; ?>" class="nav-link">Регистрация</a>
             </li>
             <li class="nav-item active">
                 <a href="#" class="nav-link disabled">О нас</a>
@@ -45,7 +47,7 @@
                         </div>
                         <button type="submit" name="sendFormSignIn" class="btn btn-primary" value="SignIn">Войти</button>
                         <small id="regHelp" class="form-text text-muted">Если у вас нет учетной записи, пройдите
-                            <a href="?page=signUp" class="link">регистрацию</a>
+                            <a href="<?= $signUpPageRoute; ?>" class="link">регистрацию</a>
                         </small>
                     </form>
                 </div>
