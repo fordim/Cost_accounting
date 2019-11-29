@@ -16,6 +16,6 @@ final class Settings
     const ROUTE_CHANGE_CATEGORY = '/change_category';
     const ROUTE_DELETE_CATEGORY = '/delete_category';
     const ROUTE_NEW_COSTS = '/new_costs';
-    const ROUTE_DATA_PICKER = '/history_with_data';
+    const ROUTE_DATA_PICKER = self::ROUTE_HISTORY;
     const ROUTE_DOWNLOAD_ALL_HISTORY = '/download_all-history';
 }
