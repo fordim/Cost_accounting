@@ -3,23 +3,22 @@
 
 namespace App\Controller;
 
-use App\Utils;
-use App\Settings;
 use App\Database;
+use App\Session;
+use App\Utils;
 
-class CabinetController
+class OperationHistoryController
 {
     public static function getContent(): string
     {
         return Utils::renderTemplate('layout.php',
             [
-                'title' => 'Внесение расходов',
+                'title' => 'История операций',
                 'jsStyle' => '',
                 'nav' => NavbarController::renderNavBarCabinet(),
-                'content' => Utils::renderTemplate('itemCabinet.php',
+                'content' => Utils::renderTemplate('itemOperationsHistory.php',
                     [
-                        'newCostRoute' => Settings::ROUTE_NEW_COSTS,
-                        'categories' => Database::getInstance()->getAllCategories()
+                        'operations' => Database::getInstance()->getUserOperationsHistory(Session::getInstance()->getUserId())
                     ]
                 ),
             ]

@@ -32,6 +32,21 @@ final class Utils
         return date(self::DATE_FORMAT, strtotime("last Month"));
     }
 
+    public static function getFirstDateOfThisMonth(): string
+    {
+        return date(self::DATE_FORMAT, strtotime("first day of this month"));
+    }
+
+    public static function getFirstDateOfLastMonth(): string
+    {
+        return date(self::DATE_FORMAT, strtotime("first day of last month"));
+    }
+
+    public static function getLastDateOfLastMonth(): string
+    {
+        return date(self::DATE_FORMAT, strtotime("last day of last month"));
+    }
+
     public static function downloadAllHistory(int $userId){
         $arrayForCSV = Database::getInstance()->getUserExpensesAll($userId);
         array_unshift($arrayForCSV, ["Created_at", "Amount", "Comment", "Category"]);
@@ -76,33 +91,6 @@ final class Utils
             unlink($file);
             exit;
         }
-    }
-
-    public static function renderNavBarCabinet(): string
-    {
-        return Utils::renderTemplate(
-            'navbarCabinet.php',
-            [
-                'mainRoute' => Settings::ROUTE_ROOT,
-                'cabinetRoute' => Settings::ROUTE_CABINET,
-                'historyRoute' => Settings::ROUTE_HISTORY,
-                'categoryRoute' => Settings::ROUTE_CATEGORY,
-                'userName' => Database::getInstance()->getUserName(Session::getInstance()->getUserId()),
-                'logoutRoute' => Settings::ROUTE_LOGOUT
-            ]
-        );
-    }
-
-    public static function renderNavBarMain(): string
-    {
-        return Utils::renderTemplate(
-            'navbarMain.php',
-            [
-                'mainRoute' => Settings::ROUTE_ROOT,
-                'signUpPageRoute' => Settings::ROUTE_SIGN_UP,
-                'signInRoute' => Settings::ROUTE_SIGN_IN
-            ]
-        );
     }
 
     public static function redirect(Response $response, string $url): Response

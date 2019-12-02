@@ -13,9 +13,9 @@ class CategoryController
     {
         return Utils::renderTemplate('layout.php',
             [
-                'title' => 'Category',
+                'title' => 'Категории',
                 'jsStyle' => '',
-                'nav' => Utils::renderNavBarCabinet(),
+                'nav' => NavbarController::renderNavBarCabinet(),
                 'content' => Utils::renderTemplate('itemCategory.php',
                     [
                         'categories' => Database::getInstance()->getAllCategories(),
@@ -30,9 +30,9 @@ class CategoryController
     {
         return Utils::renderTemplate('layout.php',
             [
-                'title' => 'Category',
+                'title' => 'Категории',
                 'jsStyle' => '',
-                'nav' => Utils::renderNavBarCabinet(),
+                'nav' => NavbarController::renderNavBarCabinet(),
                 'content' => Utils::renderTemplate('itemCategoryChange.php',
                     [
                         'addNewCategoryRoute' => Settings::ROUTE_CATEGORY_ADD_NEW,

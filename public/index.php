@@ -8,6 +8,10 @@ use App\Controller\CabinetController;
 use App\Controller\HistoryController;
 use App\Controller\CategoryController;
 use App\Controller\CheckPageController;
+use App\Controller\CashingController;
+use App\Controller\CashingHistoryController;
+use App\Controller\OperationController;
+use App\Controller\OperationHistoryController;
 
 use App\Middleware\GoToHomeIfLoggedIn;
 use App\Middleware\GoToMainIfGuest;
@@ -37,32 +41,56 @@ $app->get(Settings::ROUTE_ROOT, function (Request $request, Response $response) 
     return $response;
 });
 
-$app->get(Settings::ROUTE_SIGN_UP, function (Request $request, Response $response){
+$app->get(Settings::ROUTE_SIGN_UP, function (Request $request, Response $response) {
     $content = SignUpController::getContent();
     $response->getBody()->write($content);
     return $response;
 })->add(new GoToHomeIfLoggedIn());
 
-$app->get(Settings::ROUTE_CABINET, function (Request $request, Response $response){
+$app->get(Settings::ROUTE_CABINET, function (Request $request, Response $response) {
     $content = CabinetController::getContent();
     $response->getBody()->write($content);
     return $response;
 })->add(new GoToMainIfGuest());
 
-$app->get(Settings::ROUTE_CATEGORY, function (Request $request, Response $response){
+$app->get(Settings::ROUTE_CATEGORY, function (Request $request, Response $response) {
     $content = CategoryController::getContentCategory();
     $response->getBody()->write($content);
     return $response;
 })->add(new GoToMainIfGuest());
 
-$app->get(Settings::ROUTE_CATEGORY_CHANGE, function (Request $request, Response $response){
+$app->get(Settings::ROUTE_CATEGORY_CHANGE, function (Request $request, Response $response) {
     $content = CategoryController::getContentCategoryChange();
     $response->getBody()->write($content);
     return $response;
 })->add(new GoToMainIfGuest());
 
-$app->get(Settings::ROUTE_HISTORY, function (Request $request, Response $response){
+$app->get(Settings::ROUTE_HISTORY, function (Request $request, Response $response) {
     $content = HistoryController::getContent(Utils::getDateOfLastMonth(), Utils::getCurrentDate());
+    $response->getBody()->write($content);
+    return $response;
+})->add(new GoToMainIfGuest());
+
+$app->get(Settings::ROUTE_CASHING, function (Request $request, Response $response) {
+    $content = CashingController::getContent();
+    $response->getBody()->write($content);
+    return $response;
+})->add(new GoToMainIfGuest());
+
+$app->get(Settings::ROUTE_CASHING_HISTORY, function (Request $request, Response $response) {
+    $content = CashingHistoryController::getContent(Utils::getFirstDateOfThisMonth(), Utils::getCurrentDate());
+    $response->getBody()->write($content);
+    return $response;
+})->add(new GoToMainIfGuest());
+
+$app->get(Settings::ROUTE_OPERATION, function (Request $request, Response $response) {
+    $content = OperationController::getContent();
+    $response->getBody()->write($content);
+    return $response;
+})->add(new GoToMainIfGuest());
+
+$app->get(Settings::ROUTE_OPERATION_HISTORY, function (Request $request, Response $response) {
+    $content = OperationHistoryController::getContent();
     $response->getBody()->write($content);
     return $response;
 })->add(new GoToMainIfGuest());
@@ -108,26 +136,26 @@ $app->post(Settings::ROUTE_HISTORY, function (Request $request, Response $respon
     return $response;
 })->add(new GoToMainIfGuest());
 
-$app->post(Settings::ROUTE_CATEGORY_ADD_NEW, function (Request $request, Response $response){
+$app->post(Settings::ROUTE_CATEGORY_ADD_NEW, function (Request $request, Response $response) {
     $categoryName = $request->getParsedBody()['categoryName'];
     Database::getInstance()->processFormAddCategory($categoryName);
     return Utils::redirect(new Psr7Response(), Settings::ROUTE_CATEGORY_CHANGE);
 });
 
-$app->post(Settings::ROUTE_CATEGORY_CHANGE, function (Request $request, Response $response){
+$app->post(Settings::ROUTE_CATEGORY_CHANGE, function (Request $request, Response $response) {
     $categoryId = $request->getParsedBody()['categoryId'];
     $categoryName = $request->getParsedBody()['categoryName'];
     Database::getInstance()->processFormChangeCategory($categoryId, $categoryName);
     return Utils::redirect(new Psr7Response(), Settings::ROUTE_CATEGORY_CHANGE);
 });
 
-$app->post(Settings::ROUTE_CATEGORY_DELETE, function (Request $request, Response $response){
+$app->post(Settings::ROUTE_CATEGORY_DELETE, function (Request $request, Response $response) {
     $categoryId = $request->getParsedBody()['categoryId'];
     Database::getInstance()->processFormDeleteCategory($categoryId);
     return Utils::redirect(new Psr7Response(), Settings::ROUTE_CATEGORY_CHANGE);
 });
 
-$app->post(Settings::ROUTE_DOWNLOAD_ALL_HISTORY, function (Request $request, Response $response){
+$app->post(Settings::ROUTE_DOWNLOAD_ALL_HISTORY, function (Request $request, Response $response) {
     Utils::downloadAllHistory($_SESSION['user']['id']);
     return Utils::redirect(new Psr7Response(), Settings::ROUTE_HISTORY);
 });
@@ -135,6 +163,40 @@ $app->post(Settings::ROUTE_DOWNLOAD_ALL_HISTORY, function (Request $request, Res
 $app->get(Settings::ROUTE_LOGOUT, function (Request $request, Response $response) {
     Session::getInstance()->logout();
     return Utils::redirect(new Psr7Response(), Settings::ROUTE_ROOT);
+});
+
+$app->post(Settings::ROUTE_CASHING_HISTORY, function (Request $request, Response $response) {
+    $dateFrom = $request->getParsedBody()['dateFrom'];
+    $dateTo = $request->getParsedBody()['dateTo'];
+    $content = CashingHistoryController::getContent($dateFrom, $dateTo);
+    $response->getBody()->write($content);
+    return $response;
+})->add(new GoToMainIfGuest());
+
+$app->post(Settings::ROUTE_CASHING, function (Request $request, Response $response) {
+    $name = $request->getParsedBody()['name'];
+    $sum = $request->getParsedBody()['sum'];
+    $card = $request->getParsedBody()['card'];
+    $percent = $request->getParsedBody()['percent'];
+    $userId = Session::getInstance()->getUserId();
+    Database::getInstance()->processFormAddCashing($name, $sum, $card, $percent, $userId);
+    $content = CheckPageController::getContentCashing($name, $sum, $card, $percent);
+    $response->getBody()->write($content);
+    return $response;
+});
+
+$app->post(Settings::ROUTE_OPERATION, function (Request $request, Response $response) {
+    $month = $request->getParsedBody()['month'];
+    $sum = $request->getParsedBody()['sum'];
+    $profit = $request->getParsedBody()['profit'];
+    $deposit = $request->getParsedBody()['deposit'];
+    $expenseFlat = $request->getParsedBody()['expenseFlat'];
+    $expensePetrol = $request->getParsedBody()['expensePetrol'];
+    $userId = Session::getInstance()->getUserId();
+    Database::getInstance()->processFormAddOperation($month, $sum, $profit, $deposit, $expenseFlat, $expensePetrol, $userId);
+    $content = CheckPageController::getContentOperation($month, $sum, $profit, $deposit, $expenseFlat, $expensePetrol);
+    $response->getBody()->write($content);
+    return $response;
 });
 
 $app->run();
