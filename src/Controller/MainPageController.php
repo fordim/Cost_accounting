@@ -1,7 +1,9 @@
 <?php
 
 
-namespace App;
+namespace App\Controller;
+
+use App\Utils;
 
 class MainPageController
 {

@@ -1,6 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Controller;
+
+use App\Session;
+use App\Utils;
+use App\Settings;
+use App\Database;
 
 final class HistoryController
 {

@@ -1,7 +1,10 @@
 <?php
 
 
-namespace App;
+namespace App\Controller;
+
+use App\Utils;
+use App\Settings;
 
 class SignUpController
 {

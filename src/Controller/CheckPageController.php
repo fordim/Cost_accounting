@@ -1,7 +1,11 @@
 <?php
 
 
-namespace App;
+namespace App\Controller;
+
+use App\Utils;
+use App\Settings;
+use App\Database;
 
 class CheckPageController
 {

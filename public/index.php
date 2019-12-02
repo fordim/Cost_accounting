@@ -2,12 +2,12 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use App\MainPageController;
-use App\SignUpController;
-use App\CabinetController;
-use App\HistoryController;
-use App\CategoryController;
-use App\CheckPageController;
+use App\Controller\MainPageController;
+use App\Controller\SignUpController;
+use App\Controller\CabinetController;
+use App\Controller\HistoryController;
+use App\Controller\CategoryController;
+use App\Controller\CheckPageController;
 
 use App\Middleware\GoToHomeIfLoggedIn;
 use App\Middleware\GoToMainIfGuest;

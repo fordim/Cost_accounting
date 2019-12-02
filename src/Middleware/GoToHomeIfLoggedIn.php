@@ -4,12 +4,12 @@ namespace App\Middleware;
 
 use App\Session;
 use App\Utils;
+use App\Settings;
+
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Psr7\Response;
-
-use App\Settings;
 
 class GoToHomeIfLoggedIn
 {
