@@ -14,6 +14,7 @@ class CabinetController
         return Utils::renderTemplate('layout.php',
             [
                 'title' => 'Cabinet',
+                'jsStyle' => '',
                 'nav' => Utils::renderNavBarCabinet(),
                 'content' => Utils::renderTemplate('itemCabinet.php',
                     [

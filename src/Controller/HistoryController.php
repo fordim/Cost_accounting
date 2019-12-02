@@ -14,8 +14,8 @@ final class HistoryController
         return Utils::renderTemplate('layout.php',
             [
                 'title' => 'History',
-                'nav' => Utils::renderNavBarCabinet(),
                 'jsStyle' => 'js/history.js',
+                'nav' => Utils::renderNavBarCabinet(),
                 'content' => Utils::renderTemplate('itemHistory.php',
                     [
                         'dataPickerRoute' => Settings::ROUTE_HISTORY,

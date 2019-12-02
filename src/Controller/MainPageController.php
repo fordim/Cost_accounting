@@ -12,6 +12,7 @@ class MainPageController
         return Utils::renderTemplate('layout.php',
             [
                 'title' => 'Cost accounting',
+                'jsStyle' => '',
                 'nav' => Utils::renderNavBarMain(),
                 'content' => Utils::renderTemplate('itemMain.php'),
             ]

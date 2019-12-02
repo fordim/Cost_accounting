@@ -14,6 +14,7 @@ class CategoryController
         return Utils::renderTemplate('layout.php',
             [
                 'title' => 'Category',
+                'jsStyle' => '',
                 'nav' => Utils::renderNavBarCabinet(),
                 'content' => Utils::renderTemplate('itemCategory.php',
                     [
@@ -30,6 +31,7 @@ class CategoryController
         return Utils::renderTemplate('layout.php',
             [
                 'title' => 'Category',
+                'jsStyle' => '',
                 'nav' => Utils::renderNavBarCabinet(),
                 'content' => Utils::renderTemplate('itemCategoryChange.php',
                     [

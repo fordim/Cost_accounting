@@ -14,6 +14,7 @@ class CheckPageController
         return Utils::renderTemplate('layout.php',
             [
                 'title' => 'checkSignIn',
+                'jsStyle' => '',
                 'nav' => Utils::renderNavBarCabinet(),
                 'content' => Utils::renderTemplate(
                     'checkSignIn.php',
@@ -31,6 +32,7 @@ class CheckPageController
         return Utils::renderTemplate('layout.php',
             [
                 'title' => 'checkNewCosts',
+                'jsStyle' => '',
                 'nav' => Utils::renderNavBarCabinet(),
                 'content' => Utils::renderTemplate(
                     'checkNewCosts.php',
@@ -51,6 +53,7 @@ class CheckPageController
         return Utils::renderTemplate('layout.php',
             [
                 'title' => 'checkSignUp',
+                'jsStyle' => '',
                 'nav' => Utils::renderNavBarCabinet(),
                 'content' => Utils::renderTemplate(
                     'checkSignUp.php',
