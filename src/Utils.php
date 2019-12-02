@@ -83,7 +83,7 @@ final class Utils
         return Utils::renderTemplate(
             'navbarCabinet.php',
             [
-                'mainRoute' => Settings::ROUTE_MAIN_PAGE,
+                'mainRoute' => Settings::ROUTE_ROOT,
                 'cabinetRoute' => Settings::ROUTE_CABINET,
                 'historyRoute' => Settings::ROUTE_HISTORY,
                 'categoryRoute' => Settings::ROUTE_CATEGORY,
@@ -98,7 +98,7 @@ final class Utils
         return Utils::renderTemplate(
             'navbarMain.php',
             [
-                'mainRoute' => Settings::ROUTE_MAIN_PAGE,
+                'mainRoute' => Settings::ROUTE_ROOT,
                 'signUpPageRoute' => Settings::ROUTE_SIGN_UP,
                 'signInRoute' => Settings::ROUTE_SIGN_IN
             ]

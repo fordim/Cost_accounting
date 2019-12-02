@@ -16,7 +16,7 @@ class GoToMainIfGuest
     public function __invoke(Request $request, RequestHandler $handler): ResponseInterface
     {
         return Session::getInstance()->isGuest()
-            ? Utils::redirect(new Response(), Settings::ROUTE_MAIN_PAGE)
+            ? Utils::redirect(new Response(), Settings::ROUTE_ROOT)
             : $handler->handle($request);
     }
 }

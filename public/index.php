@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
 use App\MainPageController;
 use App\SignUpController;
 use App\CabinetController;
@@ -20,8 +22,6 @@ use App\Database;
 use App\Settings;
 use App\Session;
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -31,7 +31,7 @@ $app = AppFactory::create();
 Session::getInstance();
 
 /** GET */
-$app->get(Settings::ROUTE_MAIN_PAGE, function (Request $request, Response $response) {
+$app->get(Settings::ROUTE_ROOT, function (Request $request, Response $response) {
     $content = MainPageController::getContent();
     $response->getBody()->write($content);
     return $response;
@@ -134,7 +134,7 @@ $app->post(Settings::ROUTE_DOWNLOAD_ALL_HISTORY, function (Request $request, Res
 
 $app->get(Settings::ROUTE_LOGOUT, function (Request $request, Response $response) {
     Session::getInstance()->logout();
-    return Utils::redirect(new Psr7Response(), Settings::ROUTE_MAIN_PAGE);
+    return Utils::redirect(new Psr7Response(), Settings::ROUTE_ROOT);
 });
 
 $app->run();
