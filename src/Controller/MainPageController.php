@@ -13,7 +13,7 @@ class MainPageController
             [
                 'title' => 'Cost accounting',
                 'jsStyle' => '',
-                'nav' => Utils::renderNavBarMain(),
+                'nav' => NavbarController::renderNavBarMain(),
                 'content' => Utils::renderTemplate('itemMain.php'),
             ]
         );

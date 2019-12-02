@@ -1,7 +1,11 @@
+<?php
+    /** @var $newCashingRoute */
+?>
+
 <main class="background-color: bg-white container-fluid">
     <div class="mainForm text-center">
         <h1 class="p-3">Обналичивание денег</h1>
-        <form name="FormAddCashing" method="POST">
+        <form name="FormAddCashing" action="<?= $newCashingRoute; ?>" method="POST">
             <div class="form-group">
                 <label for="AddCashingName">Имя клиента:</label>
                 <input type="text" name="name" class="form-control small" id="AddCashingName" maxlength="30" aria-describedby="NameHelp" placeholder="Имя" required>

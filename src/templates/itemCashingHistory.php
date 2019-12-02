@@ -1,8 +1,17 @@
+<?php
+    /** @var $dateFrom */
+    /** @var $dateTo */
+    /** @var $allAmount */
+    /** @var $allProfit */
+    /** @var $cashingOut */
+    /** @var $dataPickerRoute */
+?>
+
 <main class="background-color: bg-white container-fluid text-center">
     <h1>История обналичивания</h1>
     <h5>Выберите дату:</h5>
     <div class="formDatePicker">
-        <form name="formDatePicker" id="formDatePicker" method="POST">
+        <form name="formDatePicker" action="<?= $dataPickerRoute; ?>" id="formDatePicker" method="POST">
             <input class="form-control text-center" id="dateRange" type="text" name="dateRange" value="<?= $dateFrom ?> - <?= $dateTo ?>"/>
             <input type="hidden" id="dateFrom" name="dateFrom" value="value"/>
             <input type="hidden" id="dateTo" name="dateTo" value="value"/>

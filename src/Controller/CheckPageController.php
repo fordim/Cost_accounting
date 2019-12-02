@@ -13,9 +13,9 @@ class CheckPageController
     {
         return Utils::renderTemplate('layout.php',
             [
-                'title' => 'checkSignIn',
+                'title' => 'Авторизация',
                 'jsStyle' => '',
-                'nav' => Utils::renderNavBarCabinet(),
+                'nav' => NavbarController::renderNavBarCabinet(),
                 'content' => Utils::renderTemplate(
                     'checkSignIn.php',
                     [
@@ -31,9 +31,9 @@ class CheckPageController
     {
         return Utils::renderTemplate('layout.php',
             [
-                'title' => 'checkNewCosts',
+                'title' => 'Внесение расходов',
                 'jsStyle' => '',
-                'nav' => Utils::renderNavBarCabinet(),
+                'nav' => NavbarController::renderNavBarCabinet(),
                 'content' => Utils::renderTemplate(
                     'checkNewCosts.php',
                     [
@@ -52,9 +52,9 @@ class CheckPageController
     {
         return Utils::renderTemplate('layout.php',
             [
-                'title' => 'checkSignUp',
+                'title' => 'Регистрация',
                 'jsStyle' => '',
-                'nav' => Utils::renderNavBarCabinet(),
+                'nav' => NavbarController::renderNavBarCabinet(),
                 'content' => Utils::renderTemplate(
                     'checkSignUp.php',
                     [
@@ -62,6 +62,52 @@ class CheckPageController
                         'userEmail' => $email,
                         'userPassword' => $password,
                         'cabinetRoute' => Settings::ROUTE_CABINET
+                    ]
+                ),
+            ]
+        );
+    }
+
+    public static function getContentCashing(string $name, float $sum, string $card, float $percent): string
+    {
+        return Utils::renderTemplate('layout.php',
+            [
+                'title' => 'Обналичивание',
+                'jsStyle' => '',
+                'nav' => NavbarController::renderNavBarCabinet(),
+                'content' => Utils::renderTemplate(
+                    'checkNewCashing.php',
+                    [
+                        'userName' => $name,
+                        'userSum' => $sum,
+                        'userCard' => $card,
+                        'userPercent' => $percent,
+                        'cashingRoute' => Settings::ROUTE_CASHING,
+                        'cashingHistoryRoute' => Settings::ROUTE_CASHING_HISTORY
+                    ]
+                ),
+            ]
+        );
+    }
+
+    public static function getContentOperation(string $month, float $sum, float $profit, float $deposit, float $expenseFlat, float $expensePetrol): string
+    {
+        return Utils::renderTemplate('layout.php',
+            [
+                'title' => 'Операции',
+                'jsStyle' => '',
+                'nav' => NavbarController::renderNavBarCabinet(),
+                'content' => Utils::renderTemplate(
+                    'checkNewOperation.php',
+                    [
+                        'userMonth' => $month,
+                        'userSum' => $sum,
+                        'userProfit' => $profit,
+                        'userDeposit' => $deposit,
+                        'expenseFlat' => $expenseFlat,
+                        'expensePetrol' => $expensePetrol,
+                        'operationRoute' => Settings::ROUTE_OPERATION,
+                        'operationHistoryRoute' => Settings::ROUTE_OPERATION_HISTORY
                     ]
                 ),
             ]

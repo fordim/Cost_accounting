@@ -1,7 +1,13 @@
+<?php
+    /** @var $thisMonth */
+    /** @var $lastMonthProfit */
+    /** @var $newOperationRoute */
+?>
+
 <main class="background-color: bg-white container-fluid">
     <div class="mainForm text-center">
         <h1 class="p-3">Операции</h1>
-        <form name="FormAddOperation" method="POST">
+        <form name="FormAddOperation" action="<?= $newOperationRoute; ?>" method="POST">
             <div class="row">
                 <div class="form-group col">
                     <label for="OperationMonth">Текущий месяц</label>

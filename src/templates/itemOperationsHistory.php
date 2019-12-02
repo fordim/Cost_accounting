@@ -1,3 +1,7 @@
+<?php
+    /** @var $operations */
+?>
+
 <main class="background-color: bg-white container-fluid text-center">
     <h1>История операций</h1>
     <table class="table table-bordered">

@@ -5,6 +5,10 @@
     /** @var $categoryRoute */
     /** @var $userName */
     /** @var $logoutRoute */
+    /** @var $cashingRoute */
+    /** @var $cashingHistoryRoute */
+    /** @var $operationRoute */
+    /** @var $operationHistoryRoute */
 ?>
 
 <nav class="navbar navbar-dark navbar-expand-md bg-dark sticky-top container-fluid">
@@ -20,9 +24,7 @@
                 <a href="<?= $mainRoute; ?>" class="nav-link">Главная</a>
             </li>
             <li class="nav-item active">
-                <a href="?page=cabinet" class="nav-link">Внесение расходов</a>
-<!--                <a href="?page=cabinet" class="nav-link">Внесение расходов</a>-->
-                <a href="<?= $cabinetRoute; ?>" class="nav-link">Личный кабинет</a>
+                <a href="<?= $cabinetRoute; ?>" class="nav-link">Внесение расходов</a>
             </li>
             <li class="nav-item active">
                 <a href="<?= $historyRoute; ?>" class="nav-link">История</a>
@@ -35,11 +37,11 @@
                     Операции
                 </a>
                 <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item text-white" href="?page=cashing">Обналичивание</a>
-                    <a class="dropdown-item text-white" href="?page=cashingHistory">История обналичивания</a>
+                    <a class="dropdown-item text-white" href="<?= $cashingRoute; ?>">Обналичивание</a>
+                    <a class="dropdown-item text-white" href="<?= $cashingHistoryRoute; ?>">История обналичивания</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item text-white" href="?page=operations">Операции</a>
-                    <a class="dropdown-item text-white" href="?page=operationsHistory">История операций</a>
+                    <a class="dropdown-item text-white" href="<?= $operationRoute; ?>">Операции</a>
+                    <a class="dropdown-item text-white" href="<?= $operationHistoryRoute; ?>">История операций</a>
                 </div>
         </ul>
         <ul class="navbar-nav my-sm-0">

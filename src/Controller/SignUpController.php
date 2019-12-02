@@ -12,9 +12,9 @@ class SignUpController
     {
         return Utils::renderTemplate('layout.php',
             [
-                'title' => 'Sign Up',
+                'title' => 'Регистрация',
                 'jsStyle' => 'js/signUp.js',
-                'nav' => Utils::renderNavBarMain(),
+                'nav' => NavbarController::renderNavBarMain(),
                 'content' => Utils::renderTemplate('itemSignUp.php',
                     [
                         'signUpRoute' => Settings::ROUTE_SIGN_UP
