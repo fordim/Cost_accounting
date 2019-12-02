@@ -1,3 +1,8 @@
+<?php
+    /** @var $categories */
+    /** @var $categoryChangeRoute */
+?>
+
 <main class="background-color: bg-white container-fluid text-center">
     <h1 class="p-3 font-weight-bold">Категории</h1>
     <table class="table table-bordered">
@@ -16,5 +21,5 @@
         <?php endforeach; ?>
         </tbody>
     </table>
-    <a href="?page=categoryChange" class="btn btn-secondary mb-3">Перейти в режим редактирования</a>
+    <a href="<?= $categoryChangeRoute; ?>" class="btn btn-secondary mb-3">Перейти в режим редактирования</a>
 </main>

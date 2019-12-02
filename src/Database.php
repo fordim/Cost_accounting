@@ -21,7 +21,7 @@ final class Database
             self::USER,
             self::PASSWORD,
             self::DATABASE
-        ) or die('Ошибка подключения к MySQL' . mysqli_error($this->link));
+        ) or die('Ошибка подключения к MySQL');
     }
 
     public function __destruct()

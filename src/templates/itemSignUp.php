@@ -1,7 +1,11 @@
+<?php
+    /** @var $signUpRoute */
+?>
+
 <main class="background-color: bg-white container-fluid text-center">
     <div class="mainForm">
-        <img src="../../public/img/registration.jpg" alt="Sign Up">
-        <form name="formSignUp" method="POST">
+        <img src="img/registration.jpg" alt="Sign Up">
+        <form name="formSignUp" action="<?= $signUpRoute; ?>" method="POST">
             <div class="form-group">
                 <label for="signUnInputName">Имя</label>
                 <input type="text" name="name" class="form-control small" id="signUnInputName" maxlength="20" aria-describedby="nameHelp" placeholder="Имя" required>
@@ -25,7 +29,7 @@
     <div class="footer-copyright py-1 btn-github">
         Made by Fordim
         <a href="https://github.com/fordim">
-            <img src="../../public/img/GitHubIcon.svg" alt="GitHub Icon" width="25" height="25">
+            <img src="img/GitHubIcon.svg" alt="GitHub Icon" width="25" height="25">
         </a>
     </div>
 </footer>

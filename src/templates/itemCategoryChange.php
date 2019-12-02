@@ -1,3 +1,11 @@
+<?php
+/** @var $categories */
+/** @var $categoryRoute */
+/** @var $changeCategoryRoute */
+/** @var $deleteCategoryRoute */
+/** @var $addNewCategoryRoute */
+?>
+
 <main class="background-color: bg-white container-fluid text-center">
     <h1 class="p-3 font-weight-bold">Категории (редактирование)</h1>
     <table class="table table-bordered">
@@ -10,7 +18,7 @@
         </thead>
         <tbody>
         <?php foreach ($categories as $category): ?>
-        <form name="formCabinet" action="?page=categoryChange" method="POST">
+        <form name="formCabinet" method="POST">
             <tr>
                 <td class="w-25">
                     <input type=hidden class="form-control" id="categoryId" name="categoryId" required" value="<?= $category['id']; ?>"><?= $category['id']; ?>
@@ -19,13 +27,13 @@
                     <input type="text" class="form-control" id="categoryName" name="categoryName" maxlength="50" required value="<?= $category['name']; ?>">
                 </td>
                 <td class="w-25">
-                    <input class="btn btn-outline-secondary" name="changeExistCategory" type="submit" value="Изменить">
-                    <input class="btn btn-outline-secondary" name="deleteExistCategory" type="submit" value="Удалить">
+                    <input class="btn btn-outline-secondary" formaction="<?= $changeCategoryRoute; ?>" name="changeExistCategory" type="submit" value="Изменить">
+                    <input class="btn btn-outline-secondary" formaction="<?= $deleteCategoryRoute; ?>" name="deleteExistCategory" type="submit" value="Удалить">
                 </td>
             </tr>
         </form>
         <?php endforeach; ?>
-        <form name="formCabinet" action="?page=categoryChange" method="POST">
+        <form name="formCabinet" action="<?= $addNewCategoryRoute; ?>" method="POST">
             <tr>
                 <td></td>
                 <td>
@@ -38,5 +46,5 @@
         </form>
         </tbody>
     </table>
-    <a href="?page=category" class="btn btn-secondary mb-3">Перейти в обычный режим</a>
+    <a href="<?= $categoryRoute; ?>" class="btn btn-secondary mb-3">Перейти в обычный режим</a>
 </main>

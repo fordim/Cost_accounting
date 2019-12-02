@@ -1,8 +1,15 @@
+<?php
+    /** @var $newCostRoute */
+    /** @var $mainRoute */
+    /** @var $signUpPageRoute */
+    /** @var $categories */
+?>
+
 <main class="background-color: bg-white container-fluid">
     <div class="mainForm text-center">
-        <img src="../../public/img/money.jpg" alt="Sign Up">
+        <img src="img/money.jpg" alt="Money">
         <h1>Внесение расходов</h1>
-        <form name="FormAddExpense" method="POST">
+        <form name="FormAddExpense" action="<?= $newCostRoute; ?>" method="POST">
             <div class="form-group">
                 <label for="addExpenseSum">Сумма:</label>
                 <input type="number" name="sum" class="form-control small" id="addExpenseSum" maxlength="20" aria-describedby="sumHelp" placeholder="Сумма" required>

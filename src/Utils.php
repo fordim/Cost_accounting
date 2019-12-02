@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Psr\Http\Message\ResponseInterface as Response;
+
 final class Utils
 {
     private const DATE_FORMAT = 'Y-m-d';
@@ -74,5 +76,39 @@ final class Utils
             unlink($file);
             exit;
         }
+    }
+
+    public static function renderNavBarCabinet(): string
+    {
+        return Utils::renderTemplate(
+            'navbarCabinet.php',
+            [
+                'mainRoute' => Settings::ROUTE_ROOT,
+                'cabinetRoute' => Settings::ROUTE_CABINET,
+                'historyRoute' => Settings::ROUTE_HISTORY,
+                'categoryRoute' => Settings::ROUTE_CATEGORY,
+                'userName' => Database::getInstance()->getUserName(Session::getInstance()->getUserId()),
+                'logoutRoute' => Settings::ROUTE_LOGOUT
+            ]
+        );
+    }
+
+    public static function renderNavBarMain(): string
+    {
+        return Utils::renderTemplate(
+            'navbarMain.php',
+            [
+                'mainRoute' => Settings::ROUTE_ROOT,
+                'signUpPageRoute' => Settings::ROUTE_SIGN_UP,
+                'signInRoute' => Settings::ROUTE_SIGN_IN
+            ]
+        );
+    }
+
+    public static function redirect(Response $response, string $url): Response
+    {
+        return $response
+            ->withHeader('Location', $url)
+            ->withStatus(302);
     }
 }
