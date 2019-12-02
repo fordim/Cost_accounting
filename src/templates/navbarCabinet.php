@@ -4,6 +4,7 @@
     /** @var $historyRoute */
     /** @var $categoryRoute */
     /** @var $userName */
+    /** @var $logoutRoute */
 ?>
 
 <nav class="navbar navbar-dark navbar-expand-md bg-dark sticky-top container-fluid">
@@ -44,7 +45,7 @@
                 <a href="#" class="nav-link"><?= $userName['name']; ?></a>
             </li>
             <li class="nav-item active">
-                <a class="btn btn-outline-light my-2 my-sm-0" href="../../src/templates/logout.php">Выйти</a>
+                <a class="btn btn-outline-light my-2 my-sm-0" href="<?= $logoutRoute; ?>">Выйти</a>
             </li>
         </ul>
     </div>

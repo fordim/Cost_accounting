@@ -78,7 +78,6 @@ final class Utils
         }
     }
 
-
     public static function renderNavBarCabinet(): string
     {
         return Utils::renderTemplate(
@@ -89,6 +88,7 @@ final class Utils
                 'historyRoute' => Settings::ROUTE_HISTORY,
                 'categoryRoute' => Settings::ROUTE_CATEGORY,
                 'userName' => Database::getInstance()->getUserName(Session::getInstance()->getUserId()),
+                'logoutRoute' => Settings::ROUTE_LOGOUT
             ]
         );
     }
@@ -99,12 +99,11 @@ final class Utils
             'navbarMain.php',
             [
                 'mainRoute' => Settings::ROUTE_MAIN_PAGE,
-                'signUpPageRoute' => Settings::ROUTE_SIGN_UP_PAGE,
+                'signUpPageRoute' => Settings::ROUTE_SIGN_UP,
                 'signInRoute' => Settings::ROUTE_SIGN_IN
             ]
         );
     }
-
 
     public static function redirect(Response $response, string $url): Response
     {

@@ -34,4 +34,15 @@ final class Session
     {
         return $_SESSION['user']['id'] ?? null;
     }
+
+    public function signIn($email){
+        $_SESSION['user'] = [
+            'id' => Database::getInstance()->findUserByEmail($email)[0]['id'],
+            'email' => $email
+        ];
+    }
+
+    public function logout(){
+        session_destroy();
+    }
 }

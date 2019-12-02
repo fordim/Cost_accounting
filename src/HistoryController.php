@@ -13,7 +13,7 @@ final class HistoryController
                 'jsStyle' => 'js/history.js',
                 'content' => Utils::renderTemplate('itemHistory.php',
                     [
-                        'dataPickerRoute' => Settings::ROUTE_DATA_PICKER,
+                        'dataPickerRoute' => Settings::ROUTE_HISTORY,
                         'dateFrom' => $dateFrom,
                         'dateTo' => $dateTo,
                         'expenses' => Database::getInstance()->getUserExpenses(
