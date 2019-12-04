@@ -59,7 +59,7 @@ CREATE TABLE history_operations
     deposit DECIMAL(13,2) NOT NULL,
     expense DECIMAL(13,2) NOT NULL,
     teor_sum DECIMAL(13,2) NOT NULL,
-    real_sum DECIMAL(13,2) NOT NULL,
+    real_sum DECIMAL(13,2) NULL DEFAULT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME NULL DEFAULT NULL,
     deleted_at DATETIME NULL DEFAULT NULL,

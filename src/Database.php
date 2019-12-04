@@ -264,6 +264,10 @@ final class Database
                 JOIN users AS u ON ho.user_id = u.id
                 WHERE u.id = $userId AND ho.month = '$FirstDateOfLastMonth'";
 
+        if($this->fetchData($sql) == null){
+            return $ar = array("real_sum"=>"0.00");
+        }
+
         return $this->fetchAssocData($sql);
     }
 }

@@ -20,7 +20,7 @@
                 <div class="form-group col">
                     <label for="OperationSum">Остаток</label>
                     <input type="number" name="balance" step="0.01" class="form-control small text-center" id="OperationSum" maxlength="20" aria-describedby="BalanceHelp" required readonly value="<?= $lastMonthRealSum['real_sum']; ?>">
-                    <small id="SumHelp" class="form-text text-muted">Введите сумму</small>
+                    <small id="SumHelp" class="form-text text-muted">Общая сумма за прошлый месяц</small>
                 </div>
                 <div class="form-group col">
                     <label for="OperationName">Прибыль</label>
