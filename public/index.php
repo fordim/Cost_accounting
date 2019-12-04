@@ -191,10 +191,9 @@ $app->post(Settings::ROUTE_OPERATION, function (Request $request, Response $resp
     $profit = $request->getParsedBody()['profit'];
     $deposit = $request->getParsedBody()['deposit'];
     $expenseFlat = $request->getParsedBody()['expenseFlat'];
-    $expensePetrol = $request->getParsedBody()['expensePetrol'];
     $userId = Session::getInstance()->getUserId();
-    Database::getInstance()->processFormAddOperation($month, $sum, $profit, $deposit, $expenseFlat, $expensePetrol, $userId);
-    $content = CheckPageController::getContentOperation($month, $sum, $profit, $deposit, $expenseFlat, $expensePetrol);
+    Database::getInstance()->processFormAddOperation($month, $sum, $profit, $deposit, $expenseFlat, $userId);
+    $content = CheckPageController::getContentOperation($month, $sum, $profit, $deposit, $expenseFlat);
     $response->getBody()->write($content);
     return $response;
 });

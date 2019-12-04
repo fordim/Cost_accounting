@@ -14,7 +14,7 @@
             <div class="form-group">
                 <label for="AddCashingSum">Сумма перевода:</label>
                 <input type="number" name="sum" step="0.01" class="form-control small" id="AddCashingSum" maxlength="20" aria-describedby="SumHelp" placeholder="Сумма" required>
-                <small id="SumHelp" class="form-text text-muted">Введите сумму (макс. сумма 1 000 000)</small>
+                <small id="SumHelp" class="form-text text-muted">Введите сумму</small>
             </div>
             <div class="form-group">
                 <label for="AddCashingMyCard">Ваш кошелек:</label>

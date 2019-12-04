@@ -234,16 +234,13 @@ final class Database
         $this->insertData($sql);
     }
 
-    public function processFormAddOperation(string $month, float $sum, float $profit, float $deposit, float $expenseFlat, float $expensePetrol, int $userId){
+    public function processFormAddOperation(string $month, float $sum, float $profit, float $deposit, float $expenseFlat, int $userId){
         $sum = $this->requestVerification($sum);
         $deposit = $this->requestVerification($deposit);
         $expenseFlat = $this->requestVerification($expenseFlat);
-        $expensePetrol = $this->requestVerification($expensePetrol);
-
-        $expense = $expenseFlat + $expensePetrol;
 
         $sql = "INSERT INTO history_operations(user_id, month, teor_sum, profit, deposit, expense)
-                VALUE ($userId, '$month', $sum, $profit, $deposit, $expense)";
+                VALUE ($userId, '$month', $sum, $profit, $deposit, $expenseFlat)";
 
         $this->insertData($sql);
     }

@@ -12,8 +12,8 @@
         <form name="FormAddExpense" action="<?= $newCostRoute; ?>" method="POST">
             <div class="form-group">
                 <label for="addExpenseSum">Сумма:</label>
-                <input type="number" name="sum" class="form-control small" id="addExpenseSum" maxlength="20" aria-describedby="sumHelp" placeholder="Сумма" required>
-                <small id="sumHelp" class="form-text text-muted">Введите сумму расхода (макс. сумма 1 000 000)</small>
+                <input type="number" name="sum" class="form-control small" step="0.01" id="addExpenseSum" maxlength="20" aria-describedby="sumHelp" placeholder="Сумма" required>
+                <small id="sumHelp" class="form-text text-muted">Введите сумму расхода</small>
             </div>
             <div class="form-group">
                 <label for="addExpenseComment">Комментарий</label>

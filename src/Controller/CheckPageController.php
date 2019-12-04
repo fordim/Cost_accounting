@@ -90,7 +90,7 @@ class CheckPageController
         );
     }
 
-    public static function getContentOperation(string $month, float $sum, float $profit, float $deposit, float $expenseFlat, float $expensePetrol): string
+    public static function getContentOperation(string $month, float $sum, float $profit, float $deposit, float $expenseFlat): string
     {
         return Utils::renderTemplate('layout.php',
             [
@@ -105,7 +105,6 @@ class CheckPageController
                         'userProfit' => $profit,
                         'userDeposit' => $deposit,
                         'expenseFlat' => $expenseFlat,
-                        'expensePetrol' => $expensePetrol,
                         'operationRoute' => Settings::ROUTE_OPERATION,
                         'operationHistoryRoute' => Settings::ROUTE_OPERATION_HISTORY
                     ]

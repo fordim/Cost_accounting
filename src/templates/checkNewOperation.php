@@ -4,7 +4,6 @@
     /** @var $userProfit */
     /** @var $userDeposit */
     /** @var $expenseFlat */
-    /** @var $expensePetrol */
     /** @var $operationRoute */
     /** @var $operationHistoryRoute */
 ?>
@@ -18,7 +17,6 @@
             <p class="m-0"><strong>Прибыль</strong> - <?= $userProfit; ?></p>
             <p class="m-0"><strong>Вклад</strong> - <?= $userDeposit; ?></p>
             <p class="m-0"><strong>Расходы за квартиру</strong> - <?= $expenseFlat; ?></p>
-            <p class="m-0"><strong>Расходы на бензин</strong> - <?= $expensePetrol; ?></p>
         </div>
         <div class="row" >
             <a class="btn btn-outline-dark m-3 col" href="<?= $operationRoute; ?>">Добавить ещё запись</a>
