@@ -20,4 +20,6 @@ final class Settings
     const ROUTE_CASHING_HISTORY = '/cashing_history';
     const ROUTE_OPERATION = '/operation';
     const ROUTE_OPERATION_HISTORY = '/operation_history';
+    const ROUTE_OPERATION_REAL_SUM_CHANGE = '/operation_real_sum_change';
+    const ROUTE_OPERATION_HISTORY_CHANGE = '/operation_history_change';
 }

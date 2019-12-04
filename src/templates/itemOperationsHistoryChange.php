@@ -1,7 +1,7 @@
 <?php
     /** @var $operations */
     /** @var $changeRealSumRoute */
-    /** @var $operationHistoryChangeRoute */
+    /** @var $operationHistoryRoute */
 ?>
 
 <main class="background-color: bg-white container-fluid text-center">
@@ -16,6 +16,7 @@
             <th scope="col">Расходы</th>
             <th scope="col">Теор. сумма</th>
             <th scope="col">Реал. сумма</th>
+            <th colspan="2" scope="col">Изменить реальную сумму</th>
         </tr>
         </thead>
         <tbody>
@@ -28,9 +29,18 @@
                 <td><?= $operation['expense']; ?></td>
                 <th scope="col"><?= $operation['teor_sum']; ?></th>
                 <th scope="col"><?= $operation['real_sum']; ?></th>
+                <form name="formOperationHistory" method="POST">
+                    <td>
+                        <input type=hidden class="form-control" id="operationId" name="operationId" required" value="<?= $operation['id']; ?>">
+                        <input type="number" name="realSum" step="0.01" class="form-control" maxlength="20" placeholder="Сумма" required>
+                    </td>
+                    <td>
+                        <input class="btn btn-outline-secondary" formaction="<?= $changeRealSumRoute; ?>" name="changeExistCategory" type="submit" value="Изменить">
+                    </td>
+                </form>
             </tr>
         <?php endforeach; ?>
         </tbody>
     </table>
-    <a href="<?= $operationHistoryChangeRoute; ?>" class="btn btn-secondary mb-3">Изменить реальную сумму</a>
+    <a href="<?= $operationHistoryRoute; ?>" class="btn btn-secondary mb-3">Выйти из режима редактирования</a>
 </main>

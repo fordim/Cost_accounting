@@ -1,6 +1,6 @@
 <?php
     /** @var $userMonth */
-    /** @var $userSum */
+    /** @var $userBalance */
     /** @var $userProfit */
     /** @var $userDeposit */
     /** @var $expenseFlat */
@@ -13,7 +13,7 @@
         <h1 class="font-weight-bold">Данные успешно добавлены</h1>
         <div class="userData">
             <p class="m-0"><strong>Месяц</strong> - <?= $userMonth; ?></p>
-            <p class="m-0"><strong>Остаток</strong> - <?= $userSum; ?></p>
+            <p class="m-0"><strong>Остаток</strong> - <?= $userBalance; ?></p>
             <p class="m-0"><strong>Прибыль</strong> - <?= $userProfit; ?></p>
             <p class="m-0"><strong>Вклад</strong> - <?= $userDeposit; ?></p>
             <p class="m-0"><strong>Расходы за квартиру</strong> - <?= $expenseFlat; ?></p>

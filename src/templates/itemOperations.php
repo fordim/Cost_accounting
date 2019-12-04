@@ -2,6 +2,7 @@
     /** @var $thisMonth */
     /** @var $lastMonthProfit */
     /** @var $newOperationRoute */
+    /** @var $lastMonthRealSum */
 ?>
 
 <main class="background-color: bg-white container-fluid">
@@ -18,8 +19,8 @@
             <div class="row">
                 <div class="form-group col">
                     <label for="OperationSum">Остаток</label>
-                    <input type="number" name="sum" step="0.01" class="form-control small" id="OperationSum" maxlength="20" aria-describedby="SumHelp" placeholder="Сумма" required>
-                    <small id="SumHelp" class="form-text text-muted">Введите сумму (макс. сумма 1 000 000)</small>
+                    <input type="number" name="balance" step="0.01" class="form-control small text-center" id="OperationSum" maxlength="20" aria-describedby="BalanceHelp" required readonly value="<?= $lastMonthRealSum['real_sum']; ?>">
+                    <small id="SumHelp" class="form-text text-muted">Введите сумму</small>
                 </div>
                 <div class="form-group col">
                     <label for="OperationName">Прибыль</label>

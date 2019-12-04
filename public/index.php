@@ -90,7 +90,13 @@ $app->get(Settings::ROUTE_OPERATION, function (Request $request, Response $respo
 })->add(new GoToMainIfGuest());
 
 $app->get(Settings::ROUTE_OPERATION_HISTORY, function (Request $request, Response $response) {
-    $content = OperationHistoryController::getContent();
+    $content = OperationHistoryController::getContentOperationHistory();
+    $response->getBody()->write($content);
+    return $response;
+})->add(new GoToMainIfGuest());
+
+$app->get(Settings::ROUTE_OPERATION_HISTORY_CHANGE, function (Request $request, Response $response) {
+    $content = OperationHistoryController::getContentOperationHistoryChange();
     $response->getBody()->write($content);
     return $response;
 })->add(new GoToMainIfGuest());
@@ -187,15 +193,22 @@ $app->post(Settings::ROUTE_CASHING, function (Request $request, Response $respon
 
 $app->post(Settings::ROUTE_OPERATION, function (Request $request, Response $response) {
     $month = $request->getParsedBody()['month'];
-    $sum = $request->getParsedBody()['sum'];
+    $balance = $request->getParsedBody()['balance'];
     $profit = $request->getParsedBody()['profit'];
     $deposit = $request->getParsedBody()['deposit'];
     $expenseFlat = $request->getParsedBody()['expenseFlat'];
     $userId = Session::getInstance()->getUserId();
-    Database::getInstance()->processFormAddOperation($month, $sum, $profit, $deposit, $expenseFlat, $userId);
-    $content = CheckPageController::getContentOperation($month, $sum, $profit, $deposit, $expenseFlat);
+    Database::getInstance()->processFormAddOperation($month, $balance, $profit, $deposit, $expenseFlat, $userId);
+    $content = CheckPageController::getContentOperation($month, $balance, $profit, $deposit, $expenseFlat);
     $response->getBody()->write($content);
     return $response;
+});
+
+$app->post(Settings::ROUTE_OPERATION_REAL_SUM_CHANGE, function (Request $request, Response $response) {
+    $operationId = $request->getParsedBody()['operationId'];
+    $realSum = $request->getParsedBody()['realSum'];
+    Database::getInstance()->processFormChangeRealSum($operationId, $realSum);
+    return Utils::redirect(new Psr7Response(), Settings::ROUTE_OPERATION_HISTORY_CHANGE);
 });
 
 $app->run();

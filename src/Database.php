@@ -214,7 +214,7 @@ final class Database
     }
 
     public function getUserOperationsHistory(int $userId){
-        $sql = "SELECT ho.month, ho.teor_sum, ho.profit, ho.deposit
+        $sql = "SELECT ho.id, ho.month, ho.balance, ho.profit, ho.deposit, ho.expense, ho.teor_sum, ho.real_sum
                 FROM history_operations as ho
                 JOIN users AS u ON ho.user_id = u.id
                 WHERE u.id = $userId
@@ -234,15 +234,36 @@ final class Database
         $this->insertData($sql);
     }
 
-    public function processFormAddOperation(string $month, float $sum, float $profit, float $deposit, float $expenseFlat, int $userId){
-        $sum = $this->requestVerification($sum);
+    public function processFormAddOperation(string $month, float $balance, float $profit, float $deposit, float $expenseFlat, int $userId){
+        $balance = $this->requestVerification($balance);
         $deposit = $this->requestVerification($deposit);
         $expenseFlat = $this->requestVerification($expenseFlat);
+        $teor_sum = $balance + $profit + $deposit - $expenseFlat;
 
-        $sql = "INSERT INTO history_operations(user_id, month, teor_sum, profit, deposit, expense)
-                VALUE ($userId, '$month', $sum, $profit, $deposit, $expenseFlat)";
+        $sql = "INSERT INTO history_operations(user_id, month, balance, profit, deposit, expense, teor_sum)
+                VALUE ($userId, '$month', $balance, $profit, $deposit, $expenseFlat, $teor_sum )";
 
         $this->insertData($sql);
     }
 
+    public function processFormChangeRealSum(int $operationId, float $realSum){
+        $realSum = $this->requestVerification($realSum);
+
+        $sql = "UPDATE history_operations
+                SET real_sum = $realSum
+                WHERE id = $operationId";
+
+        $this->insertData($sql);
+    }
+
+    public function getReadSumFromLastMonth(int $userId){
+        $FirstDateOfLastMonth = Utils::getFirstDateOfLastMonth();
+
+        $sql = "SELECT ho.real_sum
+                FROM history_operations as ho
+                JOIN users AS u ON ho.user_id = u.id
+                WHERE u.id = $userId AND ho.month = '$FirstDateOfLastMonth'";
+
+        return $this->fetchAssocData($sql);
+    }
 }

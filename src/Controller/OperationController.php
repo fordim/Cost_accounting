@@ -21,6 +21,7 @@ class OperationController
                     [
                         'newOperationRoute' => Settings::ROUTE_OPERATION,
                         'thisMonth' => Utils::getFirstDateOfThisMonth(),
+                        'lastMonthRealSum' => Database::getInstance()->getReadSumFromLastMonth(Session::getInstance()->getUserId()),
                         'lastMonthProfit' => Database::getInstance()->getSummaryOfCashingProfit(
                             Session::getInstance()->getUserId(), Utils::getFirstDateOfLastMonth(), Utils::getLastDateOfLastMonth()),
                     ]

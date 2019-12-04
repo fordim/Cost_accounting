@@ -90,7 +90,7 @@ class CheckPageController
         );
     }
 
-    public static function getContentOperation(string $month, float $sum, float $profit, float $deposit, float $expenseFlat): string
+    public static function getContentOperation(string $month, float $balance, float $profit, float $deposit, float $expenseFlat): string
     {
         return Utils::renderTemplate('layout.php',
             [
@@ -101,7 +101,7 @@ class CheckPageController
                     'checkNewOperation.php',
                     [
                         'userMonth' => $month,
-                        'userSum' => $sum,
+                        'userBalance' => $balance,
                         'userProfit' => $profit,
                         'userDeposit' => $deposit,
                         'expenseFlat' => $expenseFlat,
