@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Controller\MainPageController;
+use App\Controller\NavbarController;
 use App\Controller\SignUpController;
 use App\Controller\CabinetController;
 use App\Controller\HistoryController;
@@ -25,9 +26,18 @@ use App\Utils;
 use App\Database;
 use App\Settings;
 use App\Session;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
+$twigLoader = new FilesystemLoader(__DIR__ . '/../src/templates');
+$twig = new Environment($twigLoader, [
+    'cache' => __DIR__ . '/cache',
+]);
+
+
 
 $app = AppFactory::create();
 
@@ -35,8 +45,14 @@ $app = AppFactory::create();
 Session::getInstance();
 
 /** GET */
-$app->get(Settings::ROUTE_ROOT, function (Request $request, Response $response) {
-    $content = MainPageController::getContent();
+$app->get(Settings::ROUTE_ROOT, function (Request $request, Response $response) use ($twig) {
+    $content = $twig->render('itemMain.html.twig', [
+        'title' => 'Cost accounting',
+        'jsStyle' => '',
+        'mainRoute' => Settings::ROUTE_ROOT,
+        'signUpPageRoute' => Settings::ROUTE_SIGN_UP,
+        'signInRoute' => Settings::ROUTE_SIGN_IN,
+    ]);
     $response->getBody()->write($content);
     return $response;
 });

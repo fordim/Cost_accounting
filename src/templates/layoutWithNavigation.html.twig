@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Cost accounting{% endblock %}</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% block jsScripts %}{% endblock %}
+</head>
+<body>
+<div>
+    <nav class="navbar navbar-dark navbar-expand-md bg-dark sticky-top container-fluid">
+        <a href="{{ mainRoute }}" class="navbar-brand">
+            <img src="img/Superman-Logo.png" alt="logo" width="50" height="50">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a href="{{ signUpPageRoute }}" class="nav-link">Регистрация</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="#" class="nav-link disabled">О нас</a>
+                </li>
+            </ul>
+            <button class="btn btn-outline-light my-2 my-sm-0" data-toggle="modal" data-target="#signInModal">Войти
+            </button>
+        </div>
+    </nav>
+    <div class="modal fade" id="signInModal" role="dialog" aria-label="signInModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signInModalLabel">Регистрация</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form name="formSignIn" action="{{ signInRoute }}" method="POST">
+                            <div class="form-group">
+                                <label for="signInInputEmail">Электронная почта</label>
+                                <input type="email" name="email" class="form-control" id="signInInputEmail"
+                                       aria-describedby="signInEmailHelp" placeholder="Почта" required>
+                                <small id="signInEmailHelp" class="form-text text-muted">Введите ваш адрес электронной
+                                    почты
+                                </small>
+                            </div>
+                            <div class="form-group">
+                                <label for="signInInputPass">Пароль</label>
+                                <input type="password" name="password" class="form-control" id="signInInputPass"
+                                       aria-describedby="signInPassHelp" placeholder="Пароль" required>
+                                <small id="signInPassHelp" class="form-text text-muted">Введите ваш пароль</small>
+                            </div>
+                            <button type="submit" name="sendFormSignIn" class="btn btn-primary" value="SignIn">Войти
+                            </button>
+                            <small id="regHelp" class="form-text text-muted">Если у вас нет учетной записи, пройдите
+                                <a href="{{ signUpPageRoute }}" class="link">регистрацию</a>
+                            </small>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block body %}{% endblock %}
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+</html>
