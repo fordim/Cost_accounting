@@ -7,13 +7,13 @@
         <img src="img/registration.jpg" alt="Sign Up">
         <form name="formSignUp" action="<?= $signUpRoute; ?>" method="POST">
             <div class="form-group">
-                <label for="signUnInputName">Имя</label>
-                <input type="text" name="name" class="form-control small" id="signUnInputName" maxlength="20" aria-describedby="nameHelp" placeholder="Имя" required>
+                <label for="signUpInputName">Имя</label>
+                <input type="text" name="name" class="form-control small" id="signUpInputName" maxlength="20" aria-describedby="nameHelp" placeholder="Имя" required>
                 <small id="nameHelp" class="form-text text-muted">Введите ваше имя</small>
             </div>
             <div class="form-group">
-                <label for="signUnInputEmail">Электронная почта</label>
-                <input type="email" name="email" class="form-control" id="signUnInputEmail" maxlength="50" aria-describedby="signUpEmailHelp" placeholder="Почта" required>
+                <label for="signUpInputEmail">Электронная почта</label>
+                <input type="email" name="email" class="form-control" id="signUpInputEmail" maxlength="50" aria-describedby="signUpEmailHelp" placeholder="Почта" required>
                 <small id="signUpEmailHelp" class="form-text text-muted">Введите ваш адрес электронной почты</small>
             </div>
             <div class="form-group">
