@@ -1,4 +1,4 @@
-# Cost_accounting
+# сost-accounting
 
 Как запустить проект локально:
 
